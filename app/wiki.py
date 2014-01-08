@@ -1,6 +1,11 @@
 import os
+from jinja2 import Environment
+import urllib
 import ConfigParser as configparser
 from flask import Flask
+from flask import render_template
+from flask import request
+from flask import redirect
 from flask_mwoauth import MWOAuth
 
 app = Flask(__name__)
@@ -26,6 +31,8 @@ consumer_secret = config.get('keys', 'consumer_secret')
 mwoauth = MWOAuth(consumer_key=consumer_key, consumer_secret=consumer_secret)
 app.register_blueprint(mwoauth.bp)
 
+app.jinja_env.filters['unquote'] = urllib.unquote
+
 
 @app.route("/")
 def index():
@@ -37,24 +44,29 @@ def index():
 
 @app.route("/map")
 def show_map():
+    lat = float(request.args.get('lat', ''))
+    lon = float(request.args.get('lon', ''))
+    title = urllib.quote(request.args.get('title', ''))
+    dim = int(request.args.get('dim', ''))
 
-    token_req = mwoauth.request({'action': 'query',
-                                 'titles': 'Project:Sandbox',
-                                 'prop': 'info',
-                                 'intoken': 'edit'
-                                 })
+    return render_template('wikimap.html',
+                           lat=lat,
+                           lon=lon,
+                           title=title,
+                           dim=dim)
 
-    pageid = token_req['query']['pages'].keys()[0]
 
-    token = token_req['query']['pages'][pageid]['edittoken']
+@app.route("/edit")
+def edit():
+    lat = float(request.args.get('lat', ''))
+    lon = float(request.args.get('lon', ''))
+    title = urllib.quote(request.args.get('title', ''))
+    dim = int(request.args.get('dim', ''))
 
-    test = mwoauth.request({'action': 'edit',
-                            'title': 'Project:Sandbox',
-                            'summary': 'test summary',
-                            'text': 'article content',
-                            'token': token})
-
-    return "Done!"
+    if mwoauth.get_current_user(False) is None:
+        return redirect('../app/login?next=pippo')
+    else:
+        return "Pippo!"
 
 
 @app.route("/test")
@@ -81,6 +93,25 @@ def insert():
 if __name__ == "__main__":
     from werkzeug.wsgi import DispatcherMiddleware
     from flask import redirect
+    from flask import send_from_directory
+
+    app.secret_key = "local secret is secret"
+
+    @app.route('/css/<path:filename>')
+    def serve_css(filename):
+        return send_from_directory('css', filename)
+
+    @app.route('/js/<path:filename>')
+    def serve_js(filename):
+        return send_from_directory('js', filename)
+
+    @app.route('/lib/<path:filename>')
+    def serve_lib(filename):
+        return send_from_directory('lib', filename)
+
+    @app.route('/img/<path:filename>')
+    def serve_img(filename):
+        return send_from_directory('img', filename)
 
     redirect_app = Flask(__name__)
 
