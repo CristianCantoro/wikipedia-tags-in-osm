@@ -1,5 +1,27 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+#
+#  Copyright 2013 Fondazione Bruno Kessler
+#  Author: <consonni@fbk.eu>
+#  This work has been funded by Fondazione Bruno Kessler (Trento, Italy)
+#  within the activities of the Digital Commons Lab
+#
+#  This file is part of wikipedia-tags-in-osm.
+#  wikipedia-tags-in-osm is free software: you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+
+#  wikipedia-tags-in-osm is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+
+#  You should have received a copy of the GNU General Public License
+#  along with wikipedia-tags-in-osm.
+#  If not, see <http://www.gnu.org/licenses/>.
+
 import os
-from jinja2 import Environment
 import urllib
 import ConfigParser as configparser
 from flask import Flask
@@ -7,6 +29,11 @@ from flask import render_template
 from flask import request
 from flask import redirect
 from flask_mwoauth import MWOAuth
+from jinja2 import Environment
+from jinja2 import Markup
+import difflib
+
+from coords import coords_template
 
 app = Flask(__name__)
 
@@ -56,17 +83,98 @@ def show_map():
                            dim=dim)
 
 
-@app.route("/edit")
-def edit():
+def _get_difftable_difflib(token_req, pageid, tmpl):
+        revs = token_req['query']['pages'][pageid]['revisions'][0]
+        old_text = revs['*']
+        new_text = tmpl + '\n\n' + old_text
+
+        dhtml = difflib.HtmlDiff()
+        difftable = Markup(dhtml.make_table(old_text.splitlines(),
+                                            new_text.splitlines()
+                                            )
+                           )
+        return difftable
+
+
+def _get_difftable_mediawiki(token_req, pageid, tmpl):
+        TABLE_WRAP = "<table>\n<tbody>{rows}\n</tbody>\n</table>"
+
+        revs = token_req['query']['pages'][pageid]['revisions'][0]
+        old_text = revs['*']
+        new_text = tmpl + '\n\n' + old_text
+
+        diff_req = mwoauth.request({'action': 'query',
+                                    'titles': 'Project:Sandbox',
+                                    'prop': 'revisions',
+                                    'rvlimit': 1,
+                                    'rvdifftotext': new_text,
+                                    })
+
+        revs = diff_req['query']['pages'][pageid]['revisions'][0]
+        table_rows = revs['diff']['*']
+
+        table_all = TABLE_WRAP.format(rows=table_rows)
+        difftable = Markup(table_all)
+
+        return difftable
+
+
+@app.route("/preview")
+def preview():
     lat = float(request.args.get('lat', ''))
     lon = float(request.args.get('lon', ''))
     title = urllib.quote(request.args.get('title', ''))
     dim = int(request.args.get('dim', ''))
 
+    next_url = 'preview?lat={lat}&lon={lon}&dim={dim}&title={title}'.format(
+        lat=lat,
+        lon=lon,
+        dim=dim,
+        title=title)
+
+    next_url = urllib.quote_plus(next_url)
+
     if mwoauth.get_current_user(False) is None:
-        return redirect('../app/login?next=pippo')
+        return redirect('../app/login?next={next}'.format(next=next_url))
     else:
-        return "Pippo!"
+        token_req = mwoauth.request({'action': 'query',
+                                     'titles': 'Project:Sandbox',
+                                     'prop': 'info|revisions',
+                                     'rvprop': 'timestamp|user'
+                                               '|comment|content',
+                                     'rvlimit': 1,
+                                     'intoken': 'edit'
+                                     })
+
+        pageid = token_req['query']['pages'].keys()[0]
+
+        token = token_req['query']['pages'][pageid]['edittoken']
+
+        tmpl = coords_template(lat=lat,
+                               lon=lon,
+                               dim=dim)
+
+        difftable = _get_difftable_mediawiki(token_req, pageid, tmpl)
+
+        return render_template('preview.html',
+                               difftable=difftable,
+                               title=title
+                               )
+
+
+@app.route("/edit")
+def edit():
+    title = urllib.quote(request.args.get('title', ''))
+
+    if mwoauth.get_current_user(False) is None:
+        return 'Something went wrong, you are not logged in'
+    else:
+        # test = mwoauth.request({'action': 'edit',
+        #                         'title': 'Project:Sandbox',
+        #                         'summary': 'test summary',
+        #                         'text': 'article content',
+        #                         'token': token})
+        return 'Well done!'
 
 
 @app.route("/test")
