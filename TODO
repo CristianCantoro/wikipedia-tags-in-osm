@@ -6,6 +6,7 @@ Cose da fare prima del rilascio (in ordine di importanza decrescente):
 * gestire un po' di casi di errore (es. parametri errati o mancanti nelle url)
 * mettere due parole rispetto alle licenze (!!!)
 * testare pesantemente e con violenza
+* Fare approvare l'applicazione in modo che tutti la possano utilizzare non sarebbe una cattiva idea, a questo punto...
 
 I seguenti sono cambiamenti "cosmetici" e non sono fondamentali:
 * implementare il referrer per tornare al punto corretto della lista
