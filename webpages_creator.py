@@ -29,8 +29,24 @@ from jinja2 import Environment, FileSystemLoader
 
 ### Helpers ############################################################
 class Helpers:
-    def __init__(self, app):
-        self.app = app
+    def progress_strings(self, item, mode):
+        """Calculate tagging progress
+        """
+        number = item.progress[mode]["num"]
+        progressString = item.progress[mode]["string"]
+        if number == 0.0:
+            classe = "done0"
+        elif number == 1.0:
+            classe = "done100"
+        elif number <= 0.25:
+            classe = "done025"
+        elif number <= 0.50:
+            classe = "done050"
+        elif number <= 0.75:
+            classe = "done075"
+        else:
+            classe = "done099"
+        return classe, progressString
 
     def wikipedia_link(self, item):
         text = item.name.replace("_", " ").replace("\"", "&quot;")
@@ -447,6 +463,42 @@ class Creator():
         # non_mapable page
         self.save_file(self.nonMappableHtml, "non_mappable.html")
 
+    def homepage_tab(self, mode):
+        """Return html code of homepage tabs: themes and regions
+        """
+        #Main index table with icons of themes or regions
+        if mode in ("themes", "regions"):
+            if mode == "themes":
+                items = self.app.themes
+            else:
+                items = self.app.regions
+            code = self.main_index(items, mode)
+            #Indexes with categories in each theme or region
+            for itemIdx, item in enumerate(items):
+                #Title
+                linkTop = '<a href="#top">&#8593;</a>'
+                itemImg = '<img src="./img/%s/%s.png" class="item_img">' % (mode, item.name.lower())
+                itemTitle = '%s%s' % (itemImg, item.name.replace("_", " "))
+                if mode == "regions":
+                    itemTitle = '<a href="./subpages/%s.html" title="Visualizza pagina della regione">%s</a>' % (item.name, itemTitle)
+                code += '\n\n    <h3>%s<a id="%s"></a>%s</h3>' % (linkTop, item.name, itemTitle)
+                #index of categories with progress
+                pageType = "home"
+                if itemIdx == 0:
+                    showProgressHeader = True
+                else:
+                    showProgressHeader = False
+                code += '\n%s' % IndexOfCategories(self.app, item, mode, pageType, showProgressHeader).code
+        elif mode == "map":
+            intro = u'<b>Clicca</b> su un articolo per visitarne la pagina o mapparlo/taggarlo tramite il link per JOSM (coordinate da Wikipedia).<br>\
+Se un articolo non è mappabile in OSM, ad es. il luogo in cui si è svolto un evento storico, segnalalo come tale, affinché venga rimosso (vedi "Informazioni e conteggi").'
+            code = '\n    <div id="map_intro">'
+            code += '\n      <p>%s</p>' % intro
+            code += '\n    </div>'
+            code += '\n    <div id="map"></div>'
+            code += '\n   <script type="text/javascript" src="./js/map.js"></script>'
+            code += '\n   <!-- <div class="overlay">Articoli da taggare: <script type="application/x-javascript">document.write(coords.features.length);</script></div> -->'
+        return code
 
     def save_file(self, text, fileName, subdir=None):
 
@@ -475,6 +527,14 @@ class Creator():
         fileOut.write(text)
         fileOut.close()
 
+        # Title. Main category or region name
+        if mode == "themes":
+            progressClass, progressString = self.progress_strings(item, "allMArticles")
+            code += '\n<h2><a id="index"></a>%s (%s)</h2>' % (self.wikipedia_link(item), progressString)
+        else:
+            #mode == "regions"
+            img = '<img src="../img/%s/%s.png" class="item_img">' % (mode, item.name.lower())
+            code += '\n<h2>%s<a id="index"></a>%s</h2>' % (img, item.name.replace("_", " "))
 
 ### Subpage ############################################################
 class ArticlesTable(Helpers):
@@ -485,6 +545,19 @@ class ArticlesTable(Helpers):
         self.content = []
         self.app = app
 
+        # Legenda
+        code += '\n\n<!-- Legenda -->'
+        code += '\n<p><a href="javascript:showHideDiv(\'legenda\');"><img src="../img/info.png" class="infoImg"> Legenda</a></p>'
+        code += '\n<div id="legenda" style="display:none">'
+        code += self.legend_table()
+
+        # Index with articles and subcategories of a category
+        code += '\n\n<!-- Index -->'
+        if mode == "themes" and item.articles != [] and item.titles == []:
+            code += '\n<div class="showHideNonMappable"><a href=\'javascript:showHideNonMappable("%s_index");\' title="Visualizza sottocategorie non mappabili">Mostra non mappabili</a></div>' % item.ident
+        code += '\n%s' % IndexOfCategories(app, item, mode, pageType="sub").code
+
+        # Articles table
         if item.articles != []:
             self.attr  += ' class="data"'
             rows = []
@@ -626,6 +699,9 @@ class CategoryTable(Helpers):
                 nowrap = ""
                 if links != "":
                     nowrap = " NOWRAP"
+                code += "\n    <td%s>%s</td>" % (nowrap, links)
+            code += "\n  </tr>"
+        return code
 
                 #Article tagging status cell
                 cell = {"attr": nowrap, "content": links}

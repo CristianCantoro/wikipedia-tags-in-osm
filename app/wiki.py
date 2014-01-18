@@ -189,6 +189,15 @@ def preview():
                                )
 
 
+def mock_success():
+    result = dict()
+    result['edit'] = dict()
+    result['edit']['result'] = 'Success'
+    result['edit']['newrevid'] = 1
+
+    return result
+
+
 @app.route("/edit", methods=['POST'])
 def edit():
 
@@ -218,9 +227,12 @@ def edit():
         if section != '-1':
             edit_query['section'] = int(section)
 
-        result = mwoauth.request(edit_query)
+        # result = mwoauth.request(edit_query)
 
-        if result['edit']['result'] == 'Success':
+        result = mock_success()
+
+        try:
+            assert(result['edit']['result'] == 'Success')
             link = mwoauth.base_url + '/wiki/' + title
             if 'nochange' in result['edit']:
                 return render_template('nochange.html',
@@ -232,13 +244,22 @@ def edit():
                                        link=link,
                                        title=title,
                                        summary=summary,
-                                       next_url=next_url,
                                        referrer=referrer
                                        )
 
-        else:
-            info = result['error']['info']
-            return render_template('error.html', info=info)
+        except Exception as e:
+            print e
+
+            try:
+                info = result['error']['info']
+            except:
+                info = None
+
+            if info:
+                return render_template('error.html', info=info)
+            else:
+                return render_template('error.html',
+                                       info="Nessuna informazione")
 
 
 @app.route("/edit/test", methods=['POST'])
@@ -270,12 +291,16 @@ def edit_test():
         if section != '-1':
             edit_query['section'] = int(section)
 
-        result = mwoauth.request(edit_query)
+        # result = mwoauth.request(edit_query)
+        result = mock_success()
 
-        if result['edit']['result'] == 'Success':
-            return 'Well done!'
-        else:
-            return 'Oh Noes!'
+        try:
+            assert(result['edit']['result'] == 'Success')
+            message = 'Well done!'
+        except:
+            message = 'Oh Noes!'
+
+        return message
 
 if __name__ == "__main__":
     from werkzeug.wsgi import DispatcherMiddleware

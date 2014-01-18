@@ -17,12 +17,33 @@ var map = L.map('map_canvas', {
 
 var dec_title = decodeURIComponent(title);
 
+var blueIcon = new L.icon({
+    iconUrl: '../app/img/marker-icon-blue.png',
+    iconSize:     [25, 41],
+    shadowSize:   [50, 64],
+    iconAnchor:   [12, 41],
+    shadowAnchor: [4, 62],
+    popupAnchor:  [-50, -33]
+});
+
 var infocontent = "<em>" + dec_title.replace(/_/g, ' ') + "</em>";
 
-L.marker([lat, lon]).addTo(map).bindPopup(infocontent).openPopup();
+var fixed_marker = new L.marker([lat, lon], {icon: blueIcon});
+
+var infopopup = L.popup();
+
+infopopup
+    .setLatLng(fixed_marker.getLatLng())
+    .setContent(infocontent);
+
+map.addLayer(fixed_marker);
+
+fixed_marker
+        .bindPopup(infopopup)
+        .update();
 
 var redIcon = new L.icon({
-    iconUrl: 'img/marker-icon-red.png',
+    iconUrl: '../app/img/marker-icon-red.png',
     iconSize:     [25, 41],
     shadowSize:   [50, 64],
     iconAnchor:   [12, 41],
@@ -59,7 +80,7 @@ draggable_marker.on('dragend', function(e){
 
     popup
         .setLatLng(position)
-        .setContent(msg)
+        .setContent(msg);
     draggable_marker
         .setLatLng(position,{draggable:'true'})
         .bindPopup(popup)
@@ -80,18 +101,37 @@ draggable_marker.on('dragend', function(e){
 
 });
 
-// $( document ).ready(function() {
-//     $( "a#wiki-user-edit" ).click(function(e) {
-//         e.preventDefault();
+$(document).ready(function () {
+    $('#app-popup').hide();
 
-//         $.ajax({
-//             url: "../app/login",
-//             data: data,
-//             success: function(result){
-//                 $("#div1").html(result);
-//             }
-//         });
+    $('.app-popup a.close').click(function () {
+        $('.app-popup').hide();
+    });
 
-//         alert("pippo");
-//     });
-// });
+    $('.wiki_user_edit').click(function (event) {
+        event.preventDefault();
+
+        var params = {
+            lat: lat,
+            lon: lon,
+            dim: dim,
+            title: title
+        };
+
+        $.ajax({
+            url: "../app/preview",
+            data: params,
+            dataType: "html",
+            type: 'GET',
+            success: function (result){
+                alert("Success!");
+                $('#app-popup').show();
+                $('#app-popup-container').html(result);
+                // $("#div1").html(result);
+            },
+            error: function (data) {
+                alert("Error!");
+            }
+        });
+    });
+});

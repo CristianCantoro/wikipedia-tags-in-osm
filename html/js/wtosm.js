@@ -57,45 +57,94 @@ function coords_deg2dms_cp (lat, lon) {
     return dms;
 }
 
+// $(document).ready(function () {
+//     $(".missing_template_alert").click(function (event) {
+//             event.preventDefault();
+
+//             var input = $( this );
+
+//             var lat = input.attr( 'data-lat');
+//             var lon = input.attr( 'data-lon' );
+//             var dim = input.attr( 'data-dim' );
+
+//             var msg =''
+
+//             if( (typeof lat === 'undefined') ||
+//                 (typeof lon === 'undefined') ||
+//                 (typeof dim === 'undefined') ) {
+
+//                 msg = "All'articolo in Wikipedia manca il testo per mostrare le coordinate e la mappa OSM (il template Coord).";
+//                 msg += "\n\nAggiungi in cima alla pagina il seguente codice, completando le coordinate:";
+//                 msg += "\n\n{{coord|lat (gradi decimali)|N|long (gradi decimali)|E|display=title}}";
+//                 msg += "\n\nPuoi copiare le coordinate da JOSM: scaricando l\'oggetto e cliccando nel riquadro in basso a sinistra.";
+//             }
+//             else {
+//                 var res = coords_deg2dms_cp(lat, lon);
+
+//                 msg = "Alla voce in Wikipedia manca il testo per mostrare le coordinate e la mappa OSM (il template Coord)."
+//                 msg += "\n\nAggiungi in cima alla pagina il seguente codice:";
+
+//                 var tmpl_lat = res.lat.d + "|" + res.lat.m + "|" + res.lat.s + "|" + res.lat.cp;
+//                 var tmpl_lon = res.lon.d + "|" + res.lon.m + "|" + res.lon.s + "|" + res.lon.cp;
+
+//                 var tmpl_dim = '';
+
+//                     if ( dim > 0 ) {
+//                         tmpl_dim = "|dim:" + dim;
+//                     }
+
+//                     msg += "\n\n{{coord|" + tmpl_lat + "|" + tmpl_lon + tmpl_dim + "|display=title}}";
+//             }
+
+//             alert(msg);
+//     });
+// });
+
 $(document).ready(function () {
-        $(".missing_template_alert").click(function (event) {
-                event.preventDefault();
+    $('#app-popup').hide();
 
-                var input = $( this );
+    $(".missing_template_alert").click(function (event) {
+        event.preventDefault();
 
-                var lat = input.attr( 'data-lat');
-                var lon = input.attr( 'data-lon' );
-                var dim = input.attr( 'data-dim' );
+        var input = $( this );
 
-                var msg =''
+        var lat = input.attr( 'data-lat');
+        var lon = input.attr( 'data-lon' );
+        var dim = input.attr( 'data-dim' );
+        var title = input.attr( 'data-wikipedia' );
 
-                if( (typeof lat === 'undefined') ||
-                    (typeof lon === 'undefined') ||
-                    (typeof dim === 'undefined') ) {
-
-                    msg = "All'articolo in Wikipedia manca il testo per mostrare le coordinate e la mappa OSM (il template Coord).";
-                    msg += "\n\nAggiungi in cima alla pagina il seguente codice, completando le coordinate:";
-                    msg += "\n\n{{coord|lat (gradi decimali)|N|long (gradi decimali)|E|display=title}}";
-                    msg += "\n\nPuoi copiare le coordinate da JOSM: scaricando l\'oggetto e cliccando nel riquadro in basso a sinistra.";
-                }
-                else {
-                    var res = coords_deg2dms_cp(lat, lon);
-
-                    msg = "Alla voce in Wikipedia manca il testo per mostrare le coordinate e la mappa OSM (il template Coord)."
-                    msg += "\n\nAggiungi in cima alla pagina il seguente codice:";
-
-                    var tmpl_lat = res.lat.d + "|" + res.lat.m + "|" + res.lat.s + "|" + res.lat.cp;
-                    var tmpl_lon = res.lon.d + "|" + res.lon.m + "|" + res.lon.s + "|" + res.lon.cp;
-
-                    var tmpl_dim = '';
-
-                        if ( dim > 0 ) {
-                            tmpl_dim = "|dim:" + dim;
-                        }
-
-                        msg += "\n\n{{coord|" + tmpl_lat + "|" + tmpl_lon + tmpl_dim + "|display=title}}";
-                }
-
-                alert(msg);
+        $('#app-popup a.close').click(function () {
+            $('#app-popup').hide();
         });
+
+        $('#app-popup').show();
+
+        var params = {
+            lat: lat,
+            lon: lon,
+            dim: dim,
+            title: title
+        };
+
+        // Test
+        // params = {
+        //     lat: 41.9227576,
+        //     lon: 12.5187198,
+        //     dim: 0,
+        //     title: "Catacomba_di_Sant'Agnese"
+        // };
+
+        $.ajax({
+            url: "../app/map",
+            data: params,
+            dataType: "html",
+            type: 'GET',
+            success: function (result) { 
+                $('#app-popup-container').html(result);
+            },
+            error: function (data) {
+                alert("Error!");
+            }
+        });
+    });
 });

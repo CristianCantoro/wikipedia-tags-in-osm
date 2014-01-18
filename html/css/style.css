@@ -401,14 +401,60 @@ table.popup tr:nth-child(3) {
     left: 10px;
 }
 
-
-/* non_mappable.html */
-
-.parent {
-    color: grey;
-    font-size: 90%;
+div.app-popup {
+    position:fixed;
+    top:20px;
+    left:20px;
+    right:20px;
+    bottom: 20px;
+    background: #fff;
+    z-index: 100;
+    border-radius: 20px;
+    display: none;
+    overflow-y:auto;
+    box-shadow: rgba(0,0,0,.2) 0 0 0 10px;
 }
 
-table.results td:nth-child(2) {
-    text-align: right;
+div.app-popup a.close {
+    content:"";
+    width:20px;
+    height:20px;
+    position:absolute;
+    right:10px;
+    top:10px;
+    border-radius:10px;
+    z-index: 101;
+    background: #f00;
+}
+
+div.app-popup-container {
+    padding: 5px 50px 50px 50px;
+    background: #ff0;
+    z-index: 102;
+    border-radius: 20px;
+    overflow-y:auto;
+}
+
+img.addWikipediaIcon {
+    width: 25px;
+    height: 25px;
+}
+
+div.container {
+    width: 99%;
+    margin: 10px;
+}
+
+table.diff {
+  width:100%;
+  word-wrap:break-word;
+}
+
+table.diff td {
+ white-space: normal;
+}
+
+textarea {
+    width:100%;
+
 }
