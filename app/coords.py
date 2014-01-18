@@ -44,7 +44,7 @@ def coords_template(lat, lon, dim=None):
     dms = format_dms(coords_deg2dms_cp(lat, lon))
 
     dim_str = ''
-    if dim is not None:
+    if dim and dim > 0:
         dim_str = DIM_STR.format(dim)
 
     return BASE_TEMPLATE.format(lat_d=dms['lat']['d'],
