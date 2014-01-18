@@ -22,18 +22,22 @@
 #  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import re
 import urllib
 import ConfigParser as configparser
 from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
+from flask import session
+from flask import abort
 from flask_mwoauth import MWOAuth
 from jinja2 import Environment
-from jinja2 import Markup
-import difflib
+from urlparse import urlparse
+import binascii
 
-from coords import coords_template
+from diff import get_difftable_difflib
+from templates import find_coords_templates, get_new_text
 
 app = Flask(__name__)
 
@@ -43,9 +47,9 @@ app.config.update(
 )
 
 BASEDIR = os.path.dirname(os.path.realpath(__file__))
-CONFIG_FILENAME = 'keys.cfg'
+CONFIG_FILENAME = 'settings.cfg'
 CONFIG_FILE = os.path.realpath(
-    os.path.join('..', 'wtosm', 'keys.cfg'))
+    os.path.join('..', 'wtosm', CONFIG_FILENAME))
 
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
@@ -55,10 +59,33 @@ config.read(CONFIG_FILE)
 consumer_key = config.get('keys', 'consumer_key')
 consumer_secret = config.get('keys', 'consumer_secret')
 
-mwoauth = MWOAuth(consumer_key=consumer_key, consumer_secret=consumer_secret)
+mwoauth = MWOAuth(base_url='https://it.wikipedia.org/w',
+                  clean_url='https://it.wikipedia.org/wiki',
+                  consumer_key=consumer_key,
+                  consumer_secret=consumer_secret
+                  )
+
 app.register_blueprint(mwoauth.bp)
 
 app.jinja_env.filters['unquote'] = urllib.unquote
+
+templates_file = config.get('app', 'templates_file')
+
+template_coords = []
+
+try:
+    from extract_templates import read
+    template_coords = read(templates_file)
+except:
+    pass
+
+
+def generate_csrf_token():
+    if '_csrf_token' not in session:
+        session['_csrf_token'] = binascii.b2a_hex(os.urandom(24))
+    return session['_csrf_token']
+
+app.jinja_env.globals['csrf_token'] = generate_csrf_token
 
 
 @app.route("/")
@@ -75,48 +102,20 @@ def show_map():
     lon = float(request.args.get('lon', ''))
     title = urllib.quote(request.args.get('title', ''))
     dim = int(request.args.get('dim', ''))
+    referrer = request.args.get('ref', '')
 
     return render_template('wikimap.html',
                            lat=lat,
                            lon=lon,
                            title=title,
-                           dim=dim)
+                           dim=dim,
+                           referrer=referrer)
 
 
-def _get_difftable_difflib(token_req, pageid, tmpl):
-        revs = token_req['query']['pages'][pageid]['revisions'][0]
-        old_text = revs['*']
-        new_text = tmpl + '\n\n' + old_text
-
-        dhtml = difflib.HtmlDiff()
-        difftable = Markup(dhtml.make_table(old_text.splitlines(),
-                                            new_text.splitlines()
-                                            )
-                           )
-        return difftable
-
-
-def _get_difftable_mediawiki(token_req, pageid, tmpl):
-        TABLE_WRAP = "<table>\n<tbody>{rows}\n</tbody>\n</table>"
-
-        revs = token_req['query']['pages'][pageid]['revisions'][0]
-        old_text = revs['*']
-        new_text = tmpl + '\n\n' + old_text
-
-        diff_req = mwoauth.request({'action': 'query',
-                                    'titles': 'Project:Sandbox',
-                                    'prop': 'revisions',
-                                    'rvlimit': 1,
-                                    'rvdifftotext': new_text,
-                                    })
-
-        revs = diff_req['query']['pages'][pageid]['revisions'][0]
-        table_rows = revs['diff']['*']
-
-        table_all = TABLE_WRAP.format(rows=table_rows)
-        difftable = Markup(table_all)
-
-        return difftable
+def get_domain(url):
+    parsed_uri = urlparse(mwoauth.base_url)
+    domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+    return domain
 
 
 @app.route("/preview")
@@ -125,6 +124,7 @@ def preview():
     lon = float(request.args.get('lon', ''))
     title = urllib.quote(request.args.get('title', ''))
     dim = int(request.args.get('dim', ''))
+    referrer = request.args.get('ref', '')
 
     next_url = 'preview?lat={lat}&lon={lon}&dim={dim}&title={title}'.format(
         lat=lat,
@@ -137,8 +137,9 @@ def preview():
     if mwoauth.get_current_user(False) is None:
         return redirect('../app/login?next={next}'.format(next=next_url))
     else:
+        clear_title = urllib.unquote_plus(title).replace('_', ' ')
         token_req = mwoauth.request({'action': 'query',
-                                     'titles': 'Project:Sandbox',
+                                     'titles': clear_title,
                                      'prop': 'info|revisions',
                                      'rvprop': 'timestamp|user'
                                                '|comment|content',
@@ -146,57 +147,135 @@ def preview():
                                      'intoken': 'edit'
                                      })
 
-        pageid = token_req['query']['pages'].keys()[0]
+        try:
+            pageid = token_req['query']['pages'].keys()[0]
+        except KeyError:
+            info = token_req['error']['info']
+            return render_template('error.html', info=info)
+
+        pages = token_req['query']['pages']
+
+        if pageid == '-1':
+            if pages[pageid].get('missing', None) is not None:
+                domain = get_domain(mwoauth.base_url)
+                return render_template('missing.html',
+                                       title=clear_title,
+                                       site=domain)
 
         token = token_req['query']['pages'][pageid]['edittoken']
 
-        tmpl = coords_template(lat=lat,
-                               lon=lon,
-                               dim=dim)
+        revs = token_req['query']['pages'][pageid]['revisions'][0]
 
-        difftable = _get_difftable_mediawiki(token_req, pageid, tmpl)
+        old_text = revs['*']
+
+        template = find_coords_templates(old_text)
+
+        new_text, old_text, section = get_new_text(lat=lat,
+                                                   lon=lon,
+                                                   dim=dim,
+                                                   old_text=old_text,
+                                                   template=template
+                                                   )
+
+        difftable = get_difftable_difflib(old_text, new_text, pageid, section)
 
         return render_template('preview.html',
                                difftable=difftable,
-                               title=title
+                               new_text=new_text,
+                               rows=len(new_text.split('\n')),
+                               title=title,
+                               section=section,
+                               edit_token=token
                                )
 
 
-@app.route("/edit")
+@app.route("/edit", methods=['POST'])
 def edit():
-    title = urllib.quote(request.args.get('title', ''))
+
+    print "This is /edit"
+
+    csrf_token = session.pop('_csrf_token', None)
+    if not csrf_token or csrf_token != request.form.get('_csrf_token'):
+        abort(403)
 
     if mwoauth.get_current_user(False) is None:
         return 'Something went wrong, you are not logged in'
     else:
-        # test = mwoauth.request({'action': 'edit',
-        #                         'title': 'Project:Sandbox',
-        #                         'summary': 'test summary',
-        #                         'text': 'article content',
-        #                         'token': token})
-        return 'Well done!'
+        edit_token = request.form['edit_token']
+        title = request.form['title']
+        new_text = request.form['new_text']
+        summary = '[wtosm] aggiunta coordinate'
+        section = request.form['section']
+        referrer = request.form['referrer']
+
+        edit_query = {'action': 'edit',
+                      'title': title,
+                      'summary': summary,
+                      'text': new_text.encode('utf-8'),
+                      'token': edit_token
+                      }
+
+        if section != '-1':
+            edit_query['section'] = int(section)
+
+        result = mwoauth.request(edit_query)
+
+        if result['edit']['result'] == 'Success':
+            link = mwoauth.base_url + '/wiki/' + title
+            if 'nochange' in result['edit']:
+                return render_template('nochange.html',
+                                       link=link,
+                                       title=title,
+                                       )
+            elif 'newrevid' in result['edit']:
+                return render_template('success.html',
+                                       link=link,
+                                       title=title,
+                                       summary=summary,
+                                       next_url=next_url,
+                                       referrer=referrer
+                                       )
+
+        else:
+            info = result['error']['info']
+            return render_template('error.html', info=info)
 
 
-@app.route("/test")
-def insert():
+@app.route("/edit/test", methods=['POST'])
+def edit_test():
 
-    token_req = mwoauth.request({'action': 'query',
-                                 'titles': 'Project:Sandbox',
-                                 'prop': 'info',
-                                 'intoken': 'edit'
-                                 })
+    print "This is /edit/test"
 
-    pageid = token_req['query']['pages'].keys()[0]
+    csrf_token = session.pop('_csrf_token', None)
+    if not csrf_token or csrf_token != request.form.get('_csrf_token'):
+        abort(403)
 
-    token = token_req['query']['pages'][pageid]['edittoken']
+    if mwoauth.get_current_user(False) is None:
+        return 'Something went wrong, you are not logged in'
+    else:
+        edit_token = request.form['edit_token']
+        title = request.form['title']
+        new_text = request.form['new_text']
+        summary = '[wtosm] aggiunta coordinate'
+        section = request.form['section']
 
-    test = mwoauth.request({'action': 'edit',
-                            'title': 'Project:Sandbox',
-                            'summary': 'test summary',
-                            'text': 'article content',
-                            'token': token})
+        edit_query = {'action': 'edit',
+                      'title': 'Utente:CristianCantoro'
+                               '/Sandbox/wtosm',
+                      'summary': summary,
+                      'text': new_text.encode('utf-8'),
+                      'token': edit_token
+                      }
 
-    return "Done!"
+        if section != '-1':
+            edit_query['section'] = int(section)
+
+        result = mwoauth.request(edit_query)
+
+        if result['edit']['result'] == 'Success':
+            return 'Well done!'
+        else:
+            return 'Oh Noes!'
 
 if __name__ == "__main__":
     from werkzeug.wsgi import DispatcherMiddleware
