@@ -101,15 +101,16 @@ draggable_marker.on('dragend', function(e){
 
 });
 
-$(document).ready(function () {
-    $('#app-popup').hide();
 
-    $('.app-popup a.close').click(function () {
-        $('.app-popup').hide();
+$(function () {
+    $('#app-popup-map').hide();
+
+    $('#app-popup-map a.close').click(function () {
+        $('#app-popup-map').hide();
     });
 
-    $('.wiki_user_edit').click(function (event) {
-        event.preventDefault();
+    $('.wiki_user_edit').click(function (e) {
+        e.preventDefault();
 
         var params = {
             lat: lat,
@@ -123,15 +124,14 @@ $(document).ready(function () {
             data: params,
             dataType: "html",
             type: 'GET',
-            success: function (result){
-                alert("Success!");
-                $('#app-popup').show();
-                $('#app-popup-container').html(result);
-                // $("#div1").html(result);
+            success: function (result) {
+                $('.app-popup').show();
+                $('.app-popup-container').html(result);
             },
             error: function (data) {
                 alert("Error!");
             }
         });
+        return false;
     });
 });

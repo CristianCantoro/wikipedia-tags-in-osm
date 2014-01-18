@@ -101,7 +101,7 @@ function coords_deg2dms_cp (lat, lon) {
 // });
 
 $(document).ready(function () {
-    $('#app-popup').hide();
+    $('#app-popup-main').hide();
 
     $(".missing_template_alert").click(function (event) {
         event.preventDefault();
@@ -113,11 +113,10 @@ $(document).ready(function () {
         var dim = input.attr( 'data-dim' );
         var title = input.attr( 'data-wikipedia' );
 
-        $('#app-popup a.close').click(function () {
-            $('#app-popup').hide();
+        $('#app-popup-main a.close').click(function () {
+            $('#app-popup-main').hide();
         });
 
-        $('#app-popup').show();
 
         var params = {
             lat: lat,
@@ -126,21 +125,14 @@ $(document).ready(function () {
             title: title
         };
 
-        // Test
-        // params = {
-        //     lat: 41.9227576,
-        //     lon: 12.5187198,
-        //     dim: 0,
-        //     title: "Catacomba_di_Sant'Agnese"
-        // };
-
         $.ajax({
             url: "../app/map",
             data: params,
             dataType: "html",
             type: 'GET',
             success: function (result) { 
-                $('#app-popup-container').html(result);
+                $('#app-popup-main').show();
+                $('#app-popup-main-container').html(result);
             },
             error: function (data) {
                 alert("Error!");

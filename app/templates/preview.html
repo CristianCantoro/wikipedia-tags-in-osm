@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Wikipedia-tags-in-OSM</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="../app/css/style.css">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   </head>
 <body>
   <div id="app-popup-preview" class="app-popup">
@@ -28,30 +29,21 @@
   
   <h2>Nuovo testo</h2>
 
-  <section>
-    <div class="container">
-      <form id='save_form' class='inputform' method="post" action="../app/edit">
-          <input name=title type=hidden value="{{ title|unquote }}">
-          <input name=section type=hidden value="{{ section }}">
-          <input name=referrer type=hidden value="{{ referrer }}">
-          <textarea id='search_result' name='new_text' rows={{rows}}  title='new text' type='text'>{{ new_text }}</textarea>
-          <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
-          <input name=edit_token type=hidden value="{{ edit_token }}">
-          <br />
-          <input id='submit' rel='submit' type='submit' value='Salva' />
-          <button id='test' onclick="test_edit()">Test</button>
-      </form>
-    </div>
-  </section>
-
-<!--   <section>
-    <form id='test_form' class='inputform'>
-      <input id='submit2' rel='submit' type='submit' value='Salva Test' />
-      <button id='test2' onclick="test_edit2()">Test</button>
+  <div class="container">
+    <form id='saveform' class='inputform' method="post" action="../app/edit">
+        <input name=title type=hidden value="{{ title|unquote }}">
+        <input name=section type=hidden value="{{ section }}">
+        <input name=referrer type=hidden value="{{ referrer }}">
+        <textarea id='search_result' name='new_text' rows={{rows}}  title='new text' type='text'>{{ new_text }}</textarea>
+        <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+        <input name=edit_token type=hidden value="{{ edit_token }}">
+        <br />
+        <input id='submit_button' type='submit' value='Salva' />
+        <button id='test_button' onclick="test_edit()">Test</button>
     </form>
-  </section> -->
+  </div>
 
   <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="js/app/preview.js" type="text/javascript"></script>
+  <script type="text/javascript" src="../app/js/app/preview.js"></script>
 </body>
 </html>
