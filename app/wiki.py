@@ -51,6 +51,11 @@ CONFIG_FILENAME = 'settings.cfg'
 CONFIG_FILE = os.path.realpath(
     os.path.join('..', 'wtosm', CONFIG_FILENAME))
 
+# development settings
+# CONFIG_FILENAME = 'settings.dev.cfg'
+# CONFIG_FILE = os.path.realpath(
+#    os.path.join('..', 'wtosm', 'dev', CONFIG_FILENAME))
+
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
 
