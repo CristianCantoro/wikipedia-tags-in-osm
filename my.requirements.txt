@@ -7,14 +7,12 @@ argparse==1.2.1
 cssselect==0.9.1
 distribute==0.6.35
 flask-mwoauth==0.1.31
-httplib2==0.8-pywikibot1
 ipython==1.1.0
 itsdangerous==0.23
 lxml==3.2.3
 mwparserfromhell==0.1.1
 oauth2==1.5.211
 pyquery==1.2.4
-pyspatialite==3.0.1-alpha-0
 pysqlite==2.6.3
 requests==2.0.1
 rpdb==0.1.3
