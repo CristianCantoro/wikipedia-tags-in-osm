@@ -88,7 +88,7 @@ class Helpers:
         url = "http://localhost:8111/"
         if mode == "download":
             url += "import?url=http://overpass.osm.rambler.ru/cgi/interpreter?data=" + data
-            title = self.app._("Download the object in JOSM")
+            title = "Scarica in JOSM"
         elif mode == "load_and_zoom":
             left = data[1] - 0.0008
             right = data[1] + 0.0008
@@ -706,26 +706,3 @@ class CategoryTable(Helpers):
                 #Article tagging status cell
                 cell = {"attr": nowrap, "content": links}
                 self.rows[-1].append(cell)
-
-
-class Redirect():
-    """Class to create the index.html to redirect to the preferred language"""
-    def __init__(self, app, locale_langcode):
-        print " - render redirect page to %s" % locale_langcode
-        htmlFile = "redirect.html"
-        self.app = app
-        self.locale_langcode = locale_langcode
-        self.env = Environment(extensions=['jinja2.ext.i18n',
-                                           'jinja2.ext.autoescape'],
-                               loader=FileSystemLoader("templates"),
-                               trim_blocks=True,
-                               lstrip_blocks=True)
-        self.env.install_gettext_translations(self.app.translations)
-        indexTemplate = self.env.get_template(htmlFile)
-        code = indexTemplate.render(lang=locale_langcode)
-        fileOut = open(os.path.join(self.app.HTMLDIR, 'index.html'), "w")
-
-        if isinstance(code, unicode):
-            code = code.encode("utf-8")
-        fileOut.write(code)
-        fileOut.close()
