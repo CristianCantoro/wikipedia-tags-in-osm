@@ -101,6 +101,42 @@ draggable_marker.on('dragend', function(e){
 
 });
 
+function gup(url, name) {
+    name = name.replace(/[[]/,"\[").replace(/[]]/,"\]");
+    var regexS = "[\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( url );
+    if( results == null )
+        return "";
+    else
+        return results[1];
+}
+
+function login() {
+    var win = window.open('../app/login', "Login", 'width=800, height=600');
+    if (window.focus) {
+        win.focus();
+    }
+
+    alert("pluto!");
+
+    var pollTimer = window.setInterval(function() {
+        try {
+            console.log(win.document.URL) 
+            if ( win.document.URL === 'http://wtosmtest.it/app/login/success') { 
+                window.clearInterval(pollTimer);
+                alert("topolino!");
+                win.close();
+                return false;
+            }
+        }
+        catch(e) {
+            console.log("Catch error");
+            console.log(win.document.URL) 
+            console.log(e);
+        }
+    }, 5000);
+}
 
 $(function () {
     $('#app-popup-map').hide();
@@ -119,6 +155,7 @@ $(function () {
             title: title
         };
 
+
         $.ajax({
             url: "../app/preview",
             data: params,
@@ -129,7 +166,7 @@ $(function () {
                 $('.app-popup-container').html(result);
             },
             error: function (data) {
-                alert("Error!");
+                login();
             }
         });
         return false;

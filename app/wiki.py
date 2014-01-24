@@ -47,14 +47,14 @@ app.config.update(
 )
 
 BASEDIR = os.path.dirname(os.path.realpath(__file__))
-CONFIG_FILENAME = 'settings.cfg'
-CONFIG_FILE = os.path.realpath(
-    os.path.join('..', 'wtosm', CONFIG_FILENAME))
+# CONFIG_FILENAME = 'settings.cfg'
+# CONFIG_FILE = os.path.realpath(
+#     os.path.join('..', 'wtosm', CONFIG_FILENAME))
 
 # development settings
-# CONFIG_FILENAME = 'settings.dev.cfg'
-# CONFIG_FILE = os.path.realpath(
-#    os.path.join('..', 'wtosm', 'dev', CONFIG_FILENAME))
+CONFIG_FILENAME = 'settings.dev.cfg'
+CONFIG_FILE = os.path.realpath(
+    os.path.join('..', 'wtosm', 'dev', CONFIG_FILENAME))
 
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
@@ -99,6 +99,14 @@ def index():
     return "logged in as: " + username + "<br />" + \
            "pippo 5<br />" + \
            '<a href="login">login</a> / <a href="logout">logout</a>'
+
+
+@app.route("/login/success")
+def login_success():
+    username = repr(mwoauth.get_current_user(False))
+    return render_template('loginsuccess.html',
+                           username=username
+                           )
 
 
 @app.route("/map")
