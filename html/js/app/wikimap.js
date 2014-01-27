@@ -63,7 +63,9 @@ var data = {
     'title': dec_title,
     'lat': lat,
     'lon': lon,
-    'dim': dim
+    'dim': dim,
+    'ref': referrer,
+    'id': id
 };
 
 draggable_marker.on('dragend', function(e){
@@ -94,48 +96,47 @@ draggable_marker.on('dragend', function(e){
         'title': dec_title,
         'lat': drag_lat,
         'lon': drag_lng,
-        'dim': dim
+        'dim': dim,
+        'ref': referrer,
+        'id': id
     };
 
     $("a#wiki-user-edit").attr("href", "../app/preview?"+$.param(data));
 
 });
 
-function gup(url, name) {
-    name = name.replace(/[[]/,"\[").replace(/[]]/,"\]");
-    var regexS = "[\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
-    var results = regex.exec( url );
-    if( results == null )
-        return "";
-    else
-        return results[1];
-}
-
 function login() {
-    var win = window.open('../app/login', "Login", 'width=800, height=600');
-    if (window.focus) {
-        win.focus();
-    }
+    var r = $.Deferred();
+    var popup_baseurl =  '../app/login?';
+    
+    var params = {'next': '../app/login/success'}
+    var popup_params = $.param(params)
 
-    alert("pluto!");
+    var popup_title = "Login";
+    var popup_window = window.open(popup_baseurl + popup_params, 
+                                   popup_title,
+                                   'width=800, height=600');
+    if (window.focus) {
+        popup_window.focus();
+    }
 
     var pollTimer = window.setInterval(function() {
         try {
-            console.log(win.document.URL) 
-            if ( win.document.URL === 'http://wtosmtest.it/app/login/success') { 
+            console.log(popup_window.document.URL) 
+            if ( popup_window.location.pathname === 
+                    '/app/login/success') {
                 window.clearInterval(pollTimer);
-                alert("topolino!");
-                win.close();
-                return false;
+                popup_window.close();
+                r.resolve()
+                return r;
             }
         }
         catch(e) {
-            console.log("Catch error");
-            console.log(win.document.URL) 
-            console.log(e);
+            if (e instanceof TypeError) {
+                console.log('Waiting for the user to log in');
+            }
         }
-    }, 5000);
+    }, 1500);
 }
 
 $(function () {
@@ -148,27 +149,40 @@ $(function () {
     $('.wiki_user_edit').click(function (e) {
         e.preventDefault();
 
-        var params = {
+        var data = {
             lat: lat,
             lon: lon,
             dim: dim,
-            title: title
+            title: title,
+            referrer: referrer,
+            id: id
         };
 
+        var needs_login = false;
 
-        $.ajax({
-            url: "../app/preview",
-            data: params,
-            dataType: "html",
-            type: 'GET',
-            success: function (result) {
-                $('.app-popup').show();
-                $('.app-popup-container').html(result);
-            },
-            error: function (data) {
-                login();
-            }
-        });
+        var callPreview = function ajaxCall() {
+            $.ajax({
+                url: "../app/preview",
+                data: data,
+                dataType: "html",
+                type: 'GET',
+                async: false,
+                success: function (result) {
+                    $('.app-popup').show();
+                    $('.app-popup-container').html(result);
+                },
+                error: function (jqXHR, textStatus, errorThrown ) {
+                    needs_login = true;
+                }
+            });
+        }
+
+        ajaxCall();
+
+        if ( needs_login ) {
+            login().done(callPreview);
+        }
         return false;
+
     });
 });

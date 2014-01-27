@@ -49,15 +49,10 @@ class Helpers:
         return classe, progressString
 
     def wikipedia_link(self, item):
-        text = item.name.replace("_", " ").replace("\"", "&quot;")
-        if isinstance(item, Article):
-            itemType = self.app._("article")
-        elif isinstance(item, Category):
-            itemType = self.app._("category")
-        title = self.app._("See {0}: {1}").format(itemType, text)
+        text = item.name.replace("_", " ")
+        title = "Vedi %s: %s" % (item.typ.lower(), text.replace("\"", "&quot;"))
         cssClass = ' class="wikipedia_link"'
-        link = self.url_to_link(item.wikipedia_url, title, text, None,
-                                cssClass)
+        link = self.url_to_link(item.wikipediaUrl, title, text, None, cssClass)
         return link
 
     def osm_ids_string_for_overpass(self, osmIds):
@@ -185,8 +180,8 @@ class Helpers:
         url += "&amp;bbox=%s" % self.app.COUNTRYBBOX
         url += "&amp;cat=%s" % urllib.quote_plus(category.name.encode("utf-8"))
         url += "&amp;key=*&amp;value=*&amp;basedeep=10&amp;types=*&amp;request=Submit&amp;iwl=yes"
-        title = self.app._("Search the objects in OSM by name and tag them automatically (WIWOSM add-tags)")
-        img = "{{root}}img/add-tags.png"
+        title = "Cerca oggetti ed aggiungi tag (WIWOSM add-tags)"
+        img = "../img/add-tags.png"
         link = self.url_to_link(url, title, None, img)
         return link
 
@@ -277,7 +272,7 @@ class Helpers:
 
 ### Webpages creator ###################################################
 class Creator():
-    def __init__(self, app, locale_langcode):
+    def __init__(self, app):
         self.app = app
         self.locale_langcode = locale_langcode
         self.env = Environment(extensions=['jinja2.ext.i18n',
@@ -291,29 +286,15 @@ class Creator():
         #can be clicked, to create list of non mappable articles
         #or categories that can be copied into the file ./data/wikipedia/non_mappable
         selectNonMappable = True if app.clickable_cells == "true" else False
-        app.tagsPerUser = sorted(self.app.users.items(), key=lambda x: x[1], reverse=True)
+        self.homepages = []
+        #Create homepage
+        modes = ["themes", "regions"]
+        if app.args.show_link_to_wikipedia_coordinates:
+            modes.append("map")
+        for modeNumber, mode in enumerate(modes):
+            self.homepages.append(Homepage(app, (modeNumber, mode)).code)
 
-        #Create homepages
-        self.stats_table = self.stats_table()
-        self.homepages = {}
-
-        #themes (index)
-        self.render_index_template("index.html", "themes")
-
-        #regions (index_1)
-        if self.app.regions != []:
-            self.render_index_template("index_1.html", "regions")
-
-        #map (index_2)
-        if self.app.args.show_link_to_wikipedia_coordinates:
-            self.render_index_template("index_2.html", "map")
-
-        #help (index_3)
-        self.render_index_template("index_3.html", "help")
-
-        #categories (subpages)
-        helpers = Helpers(app)
-        print " - render categories subpages"
+        #Create categories pages
         for theme in app.themes:
             for category in theme.categories:
                 #articles
@@ -322,63 +303,47 @@ class Creator():
                 for subcategory in category.subcategories:
                     subcategory.categoryTable = CategoryTable(app, subcategory, selectNonMappable)
 
-                categoryTemplate = self.env.get_template('subpage.html')
-                filename = "%s.html" % category.name
-
-                category.html = categoryTemplate.render(app=self.app,
-                                                        selectNonMappable=selectNonMappable,
-                                                        helpers=helpers,
-                                                        mode="themes",
-                                                        root = '../../',
-                                                        path = '/subpages/',
-                                                        filename = filename,
-                                                        item=category)
-                category.html = category.html.replace('{{root}}', '../../')
-                category.html = category.html.replace('{root}', '../../')
-
-        #regions (subpages)
-        if self.app.regions != []:
-            print " - render regions subpages"
-            for region in app.regions:
-                for subcategory in region.subcategories:
-                    subcategory.categoryTable = CategoryTable(app,
-                        subcategory,
-                        selectNonMappable)
-                regionTemplate = self.env.get_template('subpage.html')
-                filename = "%s.html" % region.name
-
-                region.html = regionTemplate.render(app=self.app,
-                                                    selectNonMappable=selectNonMappable,
-                                                    helpers=helpers,
-                                                    mode="regions",
-                                                    root = '../../',
-                                                    path = '/subpages/',
-                                                    filename = filename,
-                                                    item=region)
-
-                region.html = region.html.replace('{{root}}', '../../')
-                region.html = region.html.replace('{root}', '../../')
+        #Create regions pages
+        for region in app.regions:
+            region.html = Subpage(app, "regions", "_1", region, selectNonMappable).code
 
         #Create errors page
-        print " - render errors page"
-        errorsTemplate = self.env.get_template('errors.html')
+        self.errorsHtml = ErrorsPage(app).code
 
-        self.errorsHtml = errorsTemplate.render(app=self.app,
-                                                root = '../',
-                                                path = '/',
-                                                filename = 'errors.html',
-                                                helpers=helpers)
-        self.errorsHtml = self.errorsHtml.replace('{{root}}', '../')
+        #Save all HTML files
+        self.save_html_files()
 
-        #Create non_mappable page
-        print " - render non_mappable page"
-        nonMappableTemplate = self.env.get_template('non_mappable.html')
+    def save_html_files(self):
+        """Save webpages as html files
+        """
+        # homepage
+        for i, homepage in enumerate(self.homepages):
+            filename = "index.html"
+            if i > 0:
+                filename = "index_%d.html" % i
+            self.save_file(self.homepages[i], filename)
+        # categories pages
+        for theme in self.app.themes:
+            for category in theme.categories:
+                categoryFile = os.path.join("subpages", "%s.html" % category.name)
+                category.html = category.html.replace('WTOSMSUBPAGENAME', category.name)
+                self.save_file(category.html, categoryFile)
+        # regions pages
+        for region in self.app.regions:
+            regionFile = os.path.join("subpages", "%s.html" % region.name)
+            region.html = region.html.replace('WTOSMSUBPAGENAME', region.name)
+            self.save_file(region.html, regionFile)
+        # errors page
+        self.save_file(self.errorsHtml, "errors.html")
+        if not self.app.args.nofx:
+            call("firefox html/index.html", shell=True)
 
-        self.nonMappableHtml = nonMappableTemplate.render(app=self.app,
-                                                          root = '../',
-                                                          path = '/',
-                                                          filename = 'non_mappable.html',
-                                                          helpers=helpers)
+    def save_file(self, text, fileName):
+        fileOut = open(os.path.join(self.app.HTMLDIR, fileName), "w")
+        if isinstance(text, unicode):
+            text = text.encode("utf-8")
+        fileOut.write(text)
+        fileOut.close()
 
         #Save all HTML files
         self.save_html_files()
