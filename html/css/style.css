@@ -462,3 +462,11 @@ textarea {
 div#app-popup-main-container {
     background: #7EFF7E;
 }
+
+div#app-popup-map-container {
+    background: #F29FA3;
+}
+
+div#app-popup-preview-container {
+    background: #D7A5D5;
+}

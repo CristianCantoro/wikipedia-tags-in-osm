@@ -3,6 +3,16 @@ function test_edit() {
 }
 
 $(function() {
+    "use strict";
+
+    $('#wikipedia-info').click(function (e) {
+        e.preventDefault();
+        $("#wikipedia-edit-info").slideToggle('slow');
+        return false;
+    });
+
+    $("#wikipedia-edit-info").hide();
+
     $("#saveform").submit(function(e) {
         e.preventDefault();
         
@@ -22,3 +32,4 @@ $(function() {
         return false;
     }); 
 });
+
