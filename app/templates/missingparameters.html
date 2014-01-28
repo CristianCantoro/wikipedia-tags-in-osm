@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Wikipedia-tags-in-OSM</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+<body>
+
+  <h1>W00t!</h1>
+  
+  Non sono stati indicati i parametri necessari per visualizzare questa pagina.
+  
+  Per visualizzare questa pagina è necessario passare i seguenti
+  parametri:
+
+  <ul>
+  <dl>
+    {% for key, value in parameters.iteritems() %}
+      <li><dt>{{ key }}</dt></li>
+      <dd>{{ value }};</dd>
+    {% endfor %}
+  </dl>
+  </ul>
+
+  {% if optional %}
+    È possibile anche specificare i seguenti parametri facoltativi:
+    <ul>
+    <dl>
+      {% for key, value in optional.iteritems() %}
+        <li><dt>{{ key }}</dt></li>
+        <dd>{{ value }};</dd>
+      {% endfor %}
+    </dl>
+    </ul>
+  {% endif %}
+
+  <br /><br />
+
+  (In linea di principio questo non dovrebbe succedere, a meno che tu non ti sia
+  messo a giocare con le url di Wikipedia-tags-in-osm, se così non fosse contatta
+  gli sviluppatori e mandagli qualche dettaglio a proposito di questo errore.)
+
+</body>
+</html>

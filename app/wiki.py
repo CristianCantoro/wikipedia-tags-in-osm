@@ -47,14 +47,14 @@ app.config.update(
 )
 
 BASEDIR = os.path.dirname(os.path.realpath(__file__))
-# CONFIG_FILENAME = 'settings.cfg'
-# CONFIG_FILE = os.path.realpath(
-#     os.path.join('..', 'wtosm', CONFIG_FILENAME))
+CONFIG_FILENAME = 'settings.cfg'
+CONFIG_FILE = os.path.realpath(
+    os.path.join('..', 'wtosm', CONFIG_FILENAME))
 
 # development settings
-CONFIG_FILENAME = 'settings.dev.cfg'
-CONFIG_FILE = os.path.realpath(
-    os.path.join('..', 'wtosm', 'dev', CONFIG_FILENAME))
+# CONFIG_FILENAME = 'settings.dev.cfg'
+# CONFIG_FILE = os.path.realpath(
+#    os.path.join('..', 'wtosm', 'dev', CONFIG_FILENAME))
 
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
@@ -109,20 +109,65 @@ def login_success():
                            )
 
 
+def validate_parameters(args):
+    try:
+        lat = float(args.get('lat', ''))
+        lon = float(args.get('lon', ''))
+    except ValueError:
+        lat = None
+        lon = None
+
+    title = urllib.quote(args.get('title', ''))
+
+    dim = int(args.get('dim', 0))
+    referrer = args.get('ref', '')
+    id_ = args.get('id', '')
+
+    error = 0
+    if not (lat and lon and title):
+        error = 1
+        parameters = {'lat': "La latitudine dell'oggetto",
+                      'lon': "La longitudine dell'oggetto",
+                      'title': "Il titolo della corrispondente voce"
+                               "di Wikipedia"
+                      }
+        optional = {'dim': "La dimensione lineare dell'oggetto"
+                           "ad esempio la sua diagonale nel caso di "
+                           "un'edificio",
+                    'ref': "La pagina referrer che ti ha inviato qui",
+                    'id': "L'id del link che ti ha inviato qui"
+                    }
+    else:
+        parameters = {'lat': lat,
+                      'lon': lon,
+                      'title': title
+                      }
+        optional = {'dim': dim,
+                    'ref': referrer,
+                    'id': id_
+                    }
+
+    return parameters, optional, error
+
+
 @app.route("/map")
 def show_map():
-    lat = float(request.args.get('lat', ''))
-    lon = float(request.args.get('lon', ''))
-    title = urllib.quote(request.args.get('title', ''))
-    dim = int(request.args.get('dim', ''))
-    referrer = request.args.get('ref', '')
+    parameters, optional, error = validate_parameters(request.args)
+
+    if error:
+        return render_template('missingparameters.html',
+                               parameters=parameters,
+                               optional=optional
+                               )
 
     return render_template('wikimap.html',
-                           lat=lat,
-                           lon=lon,
-                           title=title,
-                           dim=dim,
-                           referrer=referrer)
+                           lat=parameters['lat'],
+                           lon=parameters['lon'],
+                           title=urllib.quote_plus(parameters['title']),
+                           dim=optional['dim'],
+                           referrer=urllib.quote_plus(optional['referrer']),
+                           id=optional['id']
+                           )
 
 
 def get_domain(url):
@@ -133,23 +178,38 @@ def get_domain(url):
 
 @app.route("/preview")
 def preview():
-    lat = float(request.args.get('lat', ''))
-    lon = float(request.args.get('lon', ''))
-    title = urllib.quote(request.args.get('title', ''))
-    dim = int(request.args.get('dim', ''))
-    referrer = request.args.get('ref', '')
+    parameters, optional, error = validate_parameters(request.args)
 
-    next_url = 'preview?lat={lat}&lon={lon}&dim={dim}&title={title}'.format(
-        lat=lat,
-        lon=lon,
-        dim=dim,
-        title=title)
+    if error:
+        return render_template('missingparameters.html',
+                               parameters=parameters,
+                               optional=optional
+                               )
+
+    next_url = 'preview?'\
+               'lat={lat}'\
+               '&lon={lon}'\
+               '&title={title}'\
+               '&dim={dim}'
+
+    next_url = next_url.format(lat=parameters['lat'],
+                               lon=parameters['lon'],
+                               title=parameters['title'],
+                               dim=optional['dim']
+                               )
+
+    if optional['ref']:
+        next_url = next_url + '&ref={ref}'.format(ref=optional['ref'])
+
+    if optional['id']:
+        next_url = next_url + '&id={id}'.format(id=optional['id'])
 
     next_url = urllib.quote_plus(next_url)
 
     if mwoauth.get_current_user(False) is None:
         return redirect('../app/login?next={next}'.format(next=next_url))
     else:
+        title = parameters['title']
         clear_title = urllib.unquote_plus(title).replace('_', ' ')
         token_req = mwoauth.request({'action': 'query',
                                      'titles': clear_title,
@@ -183,9 +243,9 @@ def preview():
 
         template = find_coords_templates(old_text)
 
-        new_text, old_text, section = get_new_text(lat=lat,
-                                                   lon=lon,
-                                                   dim=dim,
+        new_text, old_text, section = get_new_text(lat=parameters['lat'],
+                                                   lon=parameters['lon'],
+                                                   dim=optional['dim'],
                                                    old_text=old_text,
                                                    template=template
                                                    )
@@ -343,7 +403,17 @@ if __name__ == "__main__":
     @redirect_app.route('/')
     @redirect_app.route('/app')
     def app_index():
-        return redirect('/app/')
+        oauth_verifier = request.args.get('oauth_verifier')
+        oauth_token = request.args.get('oauth_token')
+        if oauth_verifier and oauth_token:
+            return redirect('http://wtosmtest.it/app/oauth-callback'
+                            '?oauth_verifier={oauth_verifier}'
+                            '&oauth_token={oauth_token}'.format(
+                                oauth_verifier=oauth_verifier,
+                                oauth_token=oauth_token)
+                            )
+        else:
+            return redirect('/app/')
 
     base_app = Flask(__name__)
 

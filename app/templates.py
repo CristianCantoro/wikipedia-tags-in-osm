@@ -26,9 +26,35 @@ from coords import coords_template
 
 HEADING = re.compile(r'==[^=]+==')
 
+COORD = re.compile('{{coord(.*)}}', re.IGNORECASE)
+
+
+import ast
+with open('../data/wikipedia/coords/templates_including_coords.txt',
+          'r') as infile:
+    TEMPLATES = [ast.literal_eval(t) for t in infile.readlines()]
+
 
 def find_coords_templates(old_text):
-    return None
+    template = None
+
+    coord = COORD.search(old_text)
+    if coord:
+        template = 'coord'
+    else:
+        for t in TEMPLATES:
+            search_regex = '{{%s(.*)}}' % t['name']
+            s = re.search(search_regex, old_text, re.IGNORECASE)
+
+            if 'rifugio' in t['name'].lower():
+                import pdb
+                pdb.set_trace()
+
+            if s:
+                import pdb
+                pdb.set_trace()
+
+    return template
 
 
 def get_new_text(lat, lon, dim, old_text='', template=None):
@@ -60,4 +86,13 @@ def get_new_text(lat, lon, dim, old_text='', template=None):
 
 
 if __name__ == '__main__':
-    pass
+    with open('test/torre_pendente_di_pisa.txt', 'r') as infile:
+        pisa = infile.read()
+
+    with open('test/rifugio_laghi_gemelli.txt', 'r') as infile:
+        rifugio = infile.read()
+
+    find_coords_templates(rifugio)
+
+    import pdb
+    pdb.set_trace()

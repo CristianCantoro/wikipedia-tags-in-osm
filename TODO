@@ -1,13 +1,13 @@
 Cose da fare prima del rilascio (in ordine di importanza decrescente):
-* sistemare la parte del redirect dell'autenticazione, che non funziona nel popup  (errore XMLHttpRequest - No 'Access-Control-Allow-Origin' header is present on the requested resource.). Ovviamente perché la pagina viene richiesta via Ajax e si viene redirezionati.
+* <del>sistemare la parte del redirect dell'autenticazione, che non funziona nel popup  (errore XMLHttpRequest - No 'Access-Control-Allow-Origin' header is present on the requested resource.). Ovviamente perché la pagina viene richiesta via Ajax e si viene redirezionati.</del>
 * gestire i casi in cui:
 ** il template {{coord}} sia stato aggiunto nel frattempo (pochi minuti prima, ad esempio)
 ** esistano nella pagina altri template atti a contenere le coordinate (già iniziato a lavorarci, c'è la lista dei templati, ma la parte di "gestione" manca completamente.
-* gestire un po' di casi di errore (es. parametri errati o mancanti nelle url)
-* mettere due parole rispetto alle licenze (!!!)
+* <del>gestire un po' di casi di errore (es. parametri errati o mancanti nelle url)</del>s
+* <del>mettere due parole rispetto alle licenze (!!!)</del>
 * testare pesantemente e con violenza
 * Fare approvare l'applicazione in modo che tutti la possano utilizzare non sarebbe una cattiva idea, a questo punto...
-* Aggiungere le licenze delle immagini 
+* <del>Aggiungere le licenze delle immagini</del>
 * Aggiungere la parte per gli utenti anonimi
 
 I seguenti sono cambiamenti "cosmetici" e non sono fondamentali:

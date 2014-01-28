@@ -1,0 +1,15 @@
+Wikipedia-tags-in-OSM app
+=========================
+
+A simple application built on top of Wikipedia-tags-in-OSM
+to save coordinates in Wikipedia.
+
+Image licenses and stuff
+------------------------
+
+* In app/preview:
+
+**`Emblem-important.svg` 
+  [Public domain](https://commons.wikimedia.org/wiki/File:Emblem-important.svg)
+
+
