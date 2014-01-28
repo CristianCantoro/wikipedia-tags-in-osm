@@ -1,329 +1,330 @@
-{"name": "Template:Stato", "parameters": []}
-{"name": "Template:Link img", "parameters": []}
-{"name": "Template:Esogeologia", "parameters": []}
-{"name": "Template:Diga", "parameters": ["latitudine_d", "longitudine_d", "latitudineGradi", "latitudineMinuti", "latitudineSecondi", "latitudineNS", "longitudineGradi", "longitudineMinuti", "longitudineSecondi", "longitudineEW"]}
-{"name": "Template:Infobox incidente aereo", "parameters": []}
-{"name": "Template:Ponte", "parameters": []}
-{"name": "Template:Valle", "parameters": []}
-{"name": "Template:Area protetta", "parameters": []}
-{"name": "Template:Mappa di localizzazione/HRV", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BIH", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CZE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/AUT", "parameters": []}
-{"name": "Template:Mappa di localizzazione/LVA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/DEU", "parameters": []}
-{"name": "Template:Mappa di localizzazione/UKR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ALB", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MNE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BGR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MMR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SRB", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GBR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ESP", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ROU", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ITA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NPL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/AUS", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ARG", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PAK", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CHE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/IRL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/FRA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BOL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NOR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SCO", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SVK", "parameters": []}
-{"name": "Template:Mappa di localizzazione/IRN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GRC", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TJK", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MKD", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SVN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/IDN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PER", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TUR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/IND", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BLR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BEL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/DZA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SYR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BEN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/COD", "parameters": []}
-{"name": "Template:Mappa di localizzazione/COG", "parameters": []}
-{"name": "Template:Mappa di localizzazione/VEN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/URY", "parameters": []}
-{"name": "Template:Mappa di localizzazione/UGA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PRY", "parameters": []}
-{"name": "Template:Mappa di localizzazione/POL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/AGO", "parameters": []}
-{"name": "Template:Mappa di localizzazione/COL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/IRQ", "parameters": []}
-{"name": "Template:Mappa di localizzazione/AFG", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GAB", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TCD", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MDA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CYP", "parameters": []}
-{"name": "Template:Mappa di localizzazione/HUN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/EST", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SUR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MAR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/LBY", "parameters": []}
-{"name": "Template:Mappa di localizzazione/EGY", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BLZ", "parameters": []}
-{"name": "Template:Mappa di localizzazione/LUX", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MEX", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GTM", "parameters": []}
-{"name": "Template:Stazione meteorologica", "parameters": ["latitudine_d", "longitudine_d"]}
-{"name": "Template:Mappa di localizzazione/SLV", "parameters": []}
-{"name": "Template:Mappa di localizzazione/DOM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/HND", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CUB", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CRI", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PAN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ETH", "parameters": []}
-{"name": "Template:Mappa di localizzazione/KEN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ECU", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BRA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NZL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TUN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ZAF", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GEO", "parameters": []}
-{"name": "Template:Faro", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ARM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SOM", "parameters": []}
-{"name": "Template:Quartiere", "parameters": ["latitudineGradi", "latitudineMinuti", "latitudineSecondi", "latitudineVerso", "longitudineGradi", "longitudineMinuti", "longitudineSecondi", "longitudineVerso", "latDecimale", "longDecimale"]}
-{"name": "Template:Mappa di localizzazione/THA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/VNM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/KGZ", "parameters": []}
-{"name": "Template:Mappa di localizzazione/UZB", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TKM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NAM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/KAZ", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PRT", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CHL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/JOR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PSE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/LKA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PHL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/LBN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MOZ", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MDG", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ZMB", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CIV", "parameters": []}
-{"name": "Template:Mappa di localizzazione/LBR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/AND", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TZA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BGD", "parameters": []}
-{"name": "Template:Meteorite", "parameters": []}
-{"name": "Template:Infobox centrale nucleare", "parameters": []}
-{"name": "Template:Mappa di localizzazione/YEM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/JAM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ISR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SMR", "parameters": []}
-{"name": "Template:GeoTemplate", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PNG", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GHA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NGA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CMR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Laguna di Venezia", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ISL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MYS", "parameters": []}
-{"name": "Template:Infobox stazione della metropolitana", "parameters": ["latitudine", "longitudine"]}
-{"name": "Template:Mappa di localizzazione/BDI", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GNB", "parameters": []}
-{"name": "Template:Terremoto", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ARE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ECU-W", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NLD", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SWE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/LTU", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SAU", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NIC", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TGO", "parameters": []}
-{"name": "Template:Mappa di localizzazione/HTI", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SWZ", "parameters": []}
-{"name": "Template:Mappa di localizzazione/RWA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MWI", "parameters": []}
-{"name": "Template:Mappa di localizzazione/KHM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PRK", "parameters": []}
-{"name": "Template:Mappa di localizzazione/KOR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MNG", "parameters": []}
-{"name": "Template:Infobox isola", "parameters": []}
-{"name": "Template:Osservatorio", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BFA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/LSO", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BTN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BWA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ZWE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/AZE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BHS", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CAF", "parameters": []}
-{"name": "Template:Mappa di localizzazione/LAO", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GRD", "parameters": []}
-{"name": "Template:Mappa di localizzazione/FIN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/DMA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MLI", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SLE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SEN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TWN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/VAT", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GIN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ES-CN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MCO", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ESH", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GUF", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SDN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ERI", "parameters": []}
-{"name": "Template:Mappa di localizzazione/DJI", "parameters": []}
-{"name": "Template:Mappa di localizzazione/OMN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NER", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Alpi", "parameters": []}
-{"name": "Template:Mappa di localizzazione/FR-H", "parameters": []}
-{"name": "Template:Mappa di localizzazione/COM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CHN E", "parameters": []}
-{"name": "Template:Infobox struttura militare", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ANT", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PYF", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MTQ", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GLP", "parameters": []}
-{"name": "Template:Mappa di localizzazione/REU", "parameters": []}
-{"name": "Template:Coord", "parameters": []}
-{"name": "Template:Infobox isola/sandbox", "parameters": []}
-{"name": "Template:Mappa di localizzazione/DNK", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SLB", "parameters": []}
-{"name": "Template:Infobox aeroporto", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NCL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/FR-J", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MUS", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MRT", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GMB", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SYC", "parameters": []}
-{"name": "Template:Mappa di localizzazione/America centrale", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Oceano Atlantico", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BHR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Europa centrale", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Isole del Canale", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TLS", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GNQ", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GIB", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GUY", "parameters": []}
-{"name": "Template:Mappa di localizzazione/HKG", "parameters": []}
-{"name": "Template:Mappa di localizzazione/KOS", "parameters": []}
-{"name": "Template:Mappa di localizzazione/KWT", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Piccole Antille", "parameters": []}
-{"name": "Template:Mappa di localizzazione/LIE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MAC", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CHN Guangdong", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Carpazi", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Alpi Dinariche", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MDV", "parameters": []}
-{"name": "Template:Mappa di localizzazione/VCT", "parameters": []}
-{"name": "Template:Divisione amministrativa/man/Italia", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Isole Canarie", "parameters": []}
-{"name": "Template:Divisione amministrativa/man/San Marino", "parameters": []}
-{"name": "Template:Mappa di localizzazione/India NE", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Asia sudorientale", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BRN", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SSD", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NordItalia", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Sicilia", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Mar Baltico", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MLT", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Sardegna", "parameters": []}
-{"name": "Template:Massa d'acqua", "parameters": ["Latitudine", "Longitudine"]}
-{"name": "Template:Mappa di localizzazione/Toscana", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Alto Adige", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TUV", "parameters": []}
-{"name": "Template:Divisione amministrativa/man/Liechtenstein", "parameters": []}
-{"name": "Template:Divisione amministrativa/man/Germania", "parameters": []}
-{"name": "Template:Mappa di localizzazione/FRO", "parameters": []}
-{"name": "Template:Mappa di localizzazione/VUT", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GBR Suffolk", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Europa senza estremo nord", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Golfo di Napoli", "parameters": []}
-{"name": "Template:Mappa di localizzazione/GBR Hoxne", "parameters": []}
-{"name": "Template:Divisione amministrativa/man/Stati Uniti d'America", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ENG", "parameters": []}
-{"name": "Template:Mappa di localizzazione/WAL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NIR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MYT", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SGP", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Golfo Persico", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Hawaii", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PRT-Azzorre", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PRT-Madera", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PLW", "parameters": []}
-{"name": "Template:Mappa di localizzazione/WSM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/QAT", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ATG", "parameters": []}
-{"name": "Template:Mappa di localizzazione/FSM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/ITA 1861-1946", "parameters": []}
-{"name": "Template:Mappa di localizzazione/STP", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TON", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TTO", "parameters": []}
-{"name": "Template:Mappa di localizzazione/WLF-Wallis", "parameters": []}
-{"name": "Template:Mappa di localizzazione/WLF-Futuna", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Mondo", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SJM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/FLK", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CPV", "parameters": []}
-{"name": "Template:Mappa di localizzazione/PRI", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TCA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/TCH", "parameters": []}
-{"name": "Template:Mappa di localizzazione/DDR", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Milano", "parameters": []}
-{"name": "Template:Capo geografico", "parameters": ["latitudine", "longitudine"]}
-{"name": "Template:Mappa di localizzazione/ASM", "parameters": []}
-{"name": "Template:Mappa di localizzazione/SGS", "parameters": []}
-{"name": "Template:Mappa di localizzazione/AIA", "parameters": []}
-{"name": "Template:Mappa di localizzazione/BMU", "parameters": []}
-{"name": "Template:Mappa di localizzazione/CCK", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Parigi", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Citt\u00e0 del Messico", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Nagorno Karabakh", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NRU", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Provincia di Buenos Aires", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Liguria", "parameters": []}
-{"name": "Template:Base scientifica", "parameters": ["gradi latitudine", "primi latitudine", "secondi latitudine", "gradi longitudine", "primi longitudine", "secondi longitudine"]}
-{"name": "Template:Mappa di localizzazione/Mare del Nord", "parameters": []}
-{"name": "Template:Controllo di autorit\u00e0", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Calabria", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Miami", "parameters": []}
-{"name": "Template:Coordinate", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Piemonte", "parameters": []}
-{"name": "Template:Percorso escursionistico", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Londra", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Campania", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Lazio", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Veneto", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Puglia", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Austria-Svizzera", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Oblast' di Mosca", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Regno di Sardegna 1859", "parameters": []}
-{"name": "Template:Mappa di localizzazione/New York (stato)", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Roma", "parameters": []}
-{"name": "Template:Aeroporti", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Sicilia senza Pelagie", "parameters": []}
-{"name": "Template:GeoGroup", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Berlino", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Madrid", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Barcellona", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Amburgo", "parameters": []}
-{"name": "Template:Citt\u00e0 antica", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Copenaghen", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Kyoto", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Mosca", "parameters": []}
-{"name": "Template:Mappa di localizzazione/San Pietroburgo", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Tokyo", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Seul", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Tolosa", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Tours", "parameters": []}
-{"name": "Template:Mappa di localizzazione/Scandinavia", "parameters": []}
-{"name": "Template:Mappa di localizzazione/DEU 1933-1945", "parameters": []}
-{"name": "Template:Mappa di localizzazione/NFK", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MSR", "parameters": []}
-{"name": "Template:Esogeologia/globe", "parameters": []}
-{"name": "Template:Mappa di localizzazione/MHL", "parameters": []}
-{"name": "Template:Mappa di localizzazione/KNA", "parameters": []}
-{"name": "Template:Costa", "parameters": ["latitudine", "longitudine"]}
-{"name": "Template:Mappa di localizzazione/VIR", "parameters": []}
-{"name": "Template:Scala paese", "parameters": []}
+{"name": "Stato", "parameters": []}
+{"name": "Link img", "parameters": []}
+{"name": "Esogeologia", "parameters": []}
+{"name": "Diga", "parameters": ["latitudine_d", "longitudine_d", "latitudineGradi", "latitudineMinuti", "latitudineSecondi", "latitudineNS", "longitudineGradi", "longitudineMinuti", "longitudineSecondi", "longitudineEW"]}
+{"name": "Infobox incidente aereo", "parameters": []}
+{"name": "Ponte", "parameters": []}
+{"name": "Valle", "parameters": []}
+{"name": "Area protetta", "parameters": []}
+{"name": "Mappa di localizzazione/HRV", "parameters": []}
+{"name": "Mappa di localizzazione/BIH", "parameters": []}
+{"name": "Mappa di localizzazione/CZE", "parameters": []}
+{"name": "Mappa di localizzazione/AUT", "parameters": []}
+{"name": "Mappa di localizzazione/LVA", "parameters": []}
+{"name": "Mappa di localizzazione/DEU", "parameters": []}
+{"name": "Mappa di localizzazione/UKR", "parameters": []}
+{"name": "Mappa di localizzazione/ALB", "parameters": []}
+{"name": "Mappa di localizzazione/MNE", "parameters": []}
+{"name": "Mappa di localizzazione/BGR", "parameters": []}
+{"name": "Mappa di localizzazione/MMR", "parameters": []}
+{"name": "Mappa di localizzazione/SRB", "parameters": []}
+{"name": "Mappa di localizzazione/GBR", "parameters": []}
+{"name": "Mappa di localizzazione/ESP", "parameters": []}
+{"name": "Mappa di localizzazione/ROU", "parameters": []}
+{"name": "Mappa di localizzazione/ITA", "parameters": []}
+{"name": "Mappa di localizzazione/NPL", "parameters": []}
+{"name": "Mappa di localizzazione/AUS", "parameters": []}
+{"name": "Mappa di localizzazione/ARG", "parameters": []}
+{"name": "Mappa di localizzazione/PAK", "parameters": []}
+{"name": "Mappa di localizzazione/CHE", "parameters": []}
+{"name": "Mappa di localizzazione/IRL", "parameters": []}
+{"name": "Mappa di localizzazione/FRA", "parameters": []}
+{"name": "Mappa di localizzazione/BOL", "parameters": []}
+{"name": "Mappa di localizzazione/NOR", "parameters": []}
+{"name": "Mappa di localizzazione/SCO", "parameters": []}
+{"name": "Mappa di localizzazione/SVK", "parameters": []}
+{"name": "Mappa di localizzazione/IRN", "parameters": []}
+{"name": "Mappa di localizzazione/GRC", "parameters": []}
+{"name": "Mappa di localizzazione/TJK", "parameters": []}
+{"name": "Mappa di localizzazione/MKD", "parameters": []}
+{"name": "Mappa di localizzazione/SVN", "parameters": []}
+{"name": "Mappa di localizzazione/IDN", "parameters": []}
+{"name": "Mappa di localizzazione/PER", "parameters": []}
+{"name": "Mappa di localizzazione/TUR", "parameters": []}
+{"name": "Mappa di localizzazione/IND", "parameters": []}
+{"name": "Mappa di localizzazione/BLR", "parameters": []}
+{"name": "Mappa di localizzazione/BEL", "parameters": []}
+{"name": "Mappa di localizzazione/DZA", "parameters": []}
+{"name": "Mappa di localizzazione/SYR", "parameters": []}
+{"name": "Mappa di localizzazione/BEN", "parameters": []}
+{"name": "Mappa di localizzazione/COD", "parameters": []}
+{"name": "Mappa di localizzazione/COG", "parameters": []}
+{"name": "Mappa di localizzazione/VEN", "parameters": []}
+{"name": "Mappa di localizzazione/URY", "parameters": []}
+{"name": "Mappa di localizzazione/UGA", "parameters": []}
+{"name": "Mappa di localizzazione/PRY", "parameters": []}
+{"name": "Mappa di localizzazione/POL", "parameters": []}
+{"name": "Mappa di localizzazione/AGO", "parameters": []}
+{"name": "Mappa di localizzazione/COL", "parameters": []}
+{"name": "Mappa di localizzazione/IRQ", "parameters": []}
+{"name": "Mappa di localizzazione/AFG", "parameters": []}
+{"name": "Mappa di localizzazione/GAB", "parameters": []}
+{"name": "Mappa di localizzazione/TCD", "parameters": []}
+{"name": "Mappa di localizzazione/MDA", "parameters": []}
+{"name": "Mappa di localizzazione/CYP", "parameters": []}
+{"name": "Mappa di localizzazione/HUN", "parameters": []}
+{"name": "Mappa di localizzazione/EST", "parameters": []}
+{"name": "Mappa di localizzazione/SUR", "parameters": []}
+{"name": "Mappa di localizzazione/MAR", "parameters": []}
+{"name": "Mappa di localizzazione/LBY", "parameters": []}
+{"name": "Mappa di localizzazione/EGY", "parameters": []}
+{"name": "Mappa di localizzazione/BLZ", "parameters": []}
+{"name": "Mappa di localizzazione/LUX", "parameters": []}
+{"name": "Mappa di localizzazione/MEX", "parameters": []}
+{"name": "Mappa di localizzazione/GTM", "parameters": []}
+{"name": "Stazione meteorologica", "parameters": ["latitudine_d", "longitudine_d"]}
+{"name": "Mappa di localizzazione/SLV", "parameters": []}
+{"name": "Mappa di localizzazione/DOM", "parameters": []}
+{"name": "Mappa di localizzazione/HND", "parameters": []}
+{"name": "Mappa di localizzazione/CUB", "parameters": []}
+{"name": "Mappa di localizzazione/CRI", "parameters": []}
+{"name": "Mappa di localizzazione/PAN", "parameters": []}
+{"name": "Mappa di localizzazione/ETH", "parameters": []}
+{"name": "Mappa di localizzazione/KEN", "parameters": []}
+{"name": "Mappa di localizzazione/ECU", "parameters": []}
+{"name": "Mappa di localizzazione/BRA", "parameters": []}
+{"name": "Mappa di localizzazione/NZL", "parameters": []}
+{"name": "Mappa di localizzazione/TUN", "parameters": []}
+{"name": "Mappa di localizzazione/ZAF", "parameters": []}
+{"name": "Mappa di localizzazione/GEO", "parameters": []}
+{"name": "Faro", "parameters": []}
+{"name": "Mappa di localizzazione/ARM", "parameters": []}
+{"name": "Mappa di localizzazione/SOM", "parameters": []}
+{"name": "Quartiere", "parameters": ["latitudineGradi", "latitudineMinuti", "latitudineSecondi", "latitudineVerso", "longitudineGradi", "longitudineMinuti", "longitudineSecondi", "longitudineVerso", "latDecimale", "longDecimale"]}
+{"name": "Mappa di localizzazione/THA", "parameters": []}
+{"name": "Mappa di localizzazione/VNM", "parameters": []}
+{"name": "Mappa di localizzazione/KGZ", "parameters": []}
+{"name": "Mappa di localizzazione/UZB", "parameters": []}
+{"name": "Mappa di localizzazione/TKM", "parameters": []}
+{"name": "Mappa di localizzazione/NAM", "parameters": []}
+{"name": "Mappa di localizzazione/KAZ", "parameters": []}
+{"name": "Mappa di localizzazione/PRT", "parameters": []}
+{"name": "Mappa di localizzazione/CHL", "parameters": []}
+{"name": "Mappa di localizzazione/JOR", "parameters": []}
+{"name": "Mappa di localizzazione/PSE", "parameters": []}
+{"name": "Mappa di localizzazione/LKA", "parameters": []}
+{"name": "Mappa di localizzazione/PHL", "parameters": []}
+{"name": "Mappa di localizzazione/LBN", "parameters": []}
+{"name": "Mappa di localizzazione/MOZ", "parameters": []}
+{"name": "Mappa di localizzazione/MDG", "parameters": []}
+{"name": "Mappa di localizzazione/ZMB", "parameters": []}
+{"name": "Mappa di localizzazione/CIV", "parameters": []}
+{"name": "Mappa di localizzazione/LBR", "parameters": []}
+{"name": "Mappa di localizzazione/AND", "parameters": []}
+{"name": "Mappa di localizzazione/TZA", "parameters": []}
+{"name": "Mappa di localizzazione/BGD", "parameters": []}
+{"name": "Meteorite", "parameters": []}
+{"name": "Infobox centrale nucleare", "parameters": []}
+{"name": "Mappa di localizzazione/YEM", "parameters": []}
+{"name": "Mappa di localizzazione/JAM", "parameters": []}
+{"name": "Mappa di localizzazione/ISR", "parameters": []}
+{"name": "Mappa di localizzazione/SMR", "parameters": []}
+{"name": "GeoTemplate", "parameters": []}
+{"name": "Mappa di localizzazione/PNG", "parameters": []}
+{"name": "Mappa di localizzazione/GHA", "parameters": []}
+{"name": "Mappa di localizzazione/NGA", "parameters": []}
+{"name": "Mappa di localizzazione/CMR", "parameters": []}
+{"name": "Mappa di localizzazione/Laguna di Venezia", "parameters": []}
+{"name": "Mappa di localizzazione/ISL", "parameters": []}
+{"name": "Mappa di localizzazione/MYS", "parameters": []}
+{"name": "Infobox stazione della metropolitana", "parameters": ["latitudine", "longitudine"]}
+{"name": "Mappa di localizzazione/BDI", "parameters": []}
+{"name": "Mappa di localizzazione/GNB", "parameters": []}
+{"name": "Terremoto", "parameters": []}
+{"name": "Mappa di localizzazione/ARE", "parameters": []}
+{"name": "Mappa di localizzazione/ECU-W", "parameters": []}
+{"name": "Mappa di localizzazione/NLD", "parameters": []}
+{"name": "Mappa di localizzazione/SWE", "parameters": []}
+{"name": "Mappa di localizzazione/LTU", "parameters": []}
+{"name": "Mappa di localizzazione/SAU", "parameters": []}
+{"name": "Mappa di localizzazione/NIC", "parameters": []}
+{"name": "Mappa di localizzazione/TGO", "parameters": []}
+{"name": "Mappa di localizzazione/HTI", "parameters": []}
+{"name": "Mappa di localizzazione/SWZ", "parameters": []}
+{"name": "Mappa di localizzazione/RWA", "parameters": []}
+{"name": "Mappa di localizzazione/MWI", "parameters": []}
+{"name": "Mappa di localizzazione/KHM", "parameters": []}
+{"name": "Mappa di localizzazione/PRK", "parameters": []}
+{"name": "Mappa di localizzazione/KOR", "parameters": []}
+{"name": "Mappa di localizzazione/MNG", "parameters": []}
+{"name": "Infobox isola", "parameters": []}
+{"name": "Osservatorio", "parameters": []}
+{"name": "Mappa di localizzazione/BFA", "parameters": []}
+{"name": "Mappa di localizzazione/LSO", "parameters": []}
+{"name": "Mappa di localizzazione/BTN", "parameters": []}
+{"name": "Mappa di localizzazione/BWA", "parameters": []}
+{"name": "Mappa di localizzazione/ZWE", "parameters": []}
+{"name": "Mappa di localizzazione/AZE", "parameters": []}
+{"name": "Mappa di localizzazione/BHS", "parameters": []}
+{"name": "Mappa di localizzazione/CAF", "parameters": []}
+{"name": "Mappa di localizzazione/LAO", "parameters": []}
+{"name": "Mappa di localizzazione/GRD", "parameters": []}
+{"name": "Mappa di localizzazione/FIN", "parameters": []}
+{"name": "Mappa di localizzazione/DMA", "parameters": []}
+{"name": "Mappa di localizzazione/MLI", "parameters": []}
+{"name": "Mappa di localizzazione/SLE", "parameters": []}
+{"name": "Mappa di localizzazione/SEN", "parameters": []}
+{"name": "Mappa di localizzazione/TWN", "parameters": []}
+{"name": "Mappa di localizzazione/VAT", "parameters": []}
+{"name": "Mappa di localizzazione/GIN", "parameters": []}
+{"name": "Mappa di localizzazione/ES-CN", "parameters": []}
+{"name": "Mappa di localizzazione/MCO", "parameters": []}
+{"name": "Mappa di localizzazione/ESH", "parameters": []}
+{"name": "Mappa di localizzazione/GUF", "parameters": []}
+{"name": "Mappa di localizzazione/SDN", "parameters": []}
+{"name": "Mappa di localizzazione/ERI", "parameters": []}
+{"name": "Mappa di localizzazione/DJI", "parameters": []}
+{"name": "Mappa di localizzazione/OMN", "parameters": []}
+{"name": "Mappa di localizzazione/NER", "parameters": []}
+{"name": "Mappa di localizzazione/Alpi", "parameters": []}
+{"name": "Mappa di localizzazione/FR-H", "parameters": []}
+{"name": "Mappa di localizzazione/COM", "parameters": []}
+{"name": "Mappa di localizzazione/CHN E", "parameters": []}
+{"name": "Infobox struttura militare", "parameters": []}
+{"name": "Mappa di localizzazione/ANT", "parameters": []}
+{"name": "Mappa di localizzazione/PYF", "parameters": []}
+{"name": "Mappa di localizzazione/MTQ", "parameters": []}
+{"name": "Mappa di localizzazione/GLP", "parameters": []}
+{"name": "Mappa di localizzazione/REU", "parameters": []}
+{"name": "Coord", "parameters": []}
+{"name": "Infobox isola/sandbox", "parameters": []}
+{"name": "Mappa di localizzazione/DNK", "parameters": []}
+{"name": "Mappa di localizzazione/SLB", "parameters": []}
+{"name": "Infobox aeroporto", "parameters": []}
+{"name": "Mappa di localizzazione/NCL", "parameters": []}
+{"name": "Mappa di localizzazione/FR-J", "parameters": []}
+{"name": "Mappa di localizzazione/MUS", "parameters": []}
+{"name": "Mappa di localizzazione/MRT", "parameters": []}
+{"name": "Mappa di localizzazione/GMB", "parameters": []}
+{"name": "Mappa di localizzazione/SYC", "parameters": []}
+{"name": "Mappa di localizzazione/America centrale", "parameters": []}
+{"name": "Mappa di localizzazione/Oceano Atlantico", "parameters": []}
+{"name": "Mappa di localizzazione/BHR", "parameters": []}
+{"name": "Mappa di localizzazione/Europa centrale", "parameters": []}
+{"name": "Mappa di localizzazione/Isole del Canale", "parameters": []}
+{"name": "Mappa di localizzazione/TLS", "parameters": []}
+{"name": "Mappa di localizzazione/GNQ", "parameters": []}
+{"name": "Mappa di localizzazione/GIB", "parameters": []}
+{"name": "Mappa di localizzazione/GUY", "parameters": []}
+{"name": "Mappa di localizzazione/HKG", "parameters": []}
+{"name": "Mappa di localizzazione/KOS", "parameters": []}
+{"name": "Mappa di localizzazione/KWT", "parameters": []}
+{"name": "Mappa di localizzazione/Piccole Antille", "parameters": []}
+{"name": "Mappa di localizzazione/LIE", "parameters": []}
+{"name": "Mappa di localizzazione/MAC", "parameters": []}
+{"name": "Mappa di localizzazione/CHN Guangdong", "parameters": []}
+{"name": "Mappa di localizzazione/Carpazi", "parameters": []}
+{"name": "Mappa di localizzazione/Alpi Dinariche", "parameters": []}
+{"name": "Mappa di localizzazione/MDV", "parameters": []}
+{"name": "Mappa di localizzazione/VCT", "parameters": []}
+{"name": "Divisione amministrativa/man/Italia", "parameters": []}
+{"name": "Mappa di localizzazione/Isole Canarie", "parameters": []}
+{"name": "Divisione amministrativa/man/San Marino", "parameters": []}
+{"name": "Mappa di localizzazione/India NE", "parameters": []}
+{"name": "Mappa di localizzazione/Asia sudorientale", "parameters": []}
+{"name": "Mappa di localizzazione/BRN", "parameters": []}
+{"name": "Mappa di localizzazione/SSD", "parameters": []}
+{"name": "Mappa di localizzazione/NordItalia", "parameters": []}
+{"name": "Mappa di localizzazione/Sicilia", "parameters": []}
+{"name": "Mappa di localizzazione/Mar Baltico", "parameters": []}
+{"name": "Mappa di localizzazione/MLT", "parameters": []}
+{"name": "Mappa di localizzazione/Sardegna", "parameters": []}
+{"name": "Massa d'acqua", "parameters": ["Latitudine", "Longitudine"]}
+{"name": "Mappa di localizzazione/Toscana", "parameters": []}
+{"name": "Mappa di localizzazione/Alto Adige", "parameters": []}
+{"name": "Mappa di localizzazione/TUV", "parameters": []}
+{"name": "Divisione amministrativa/man/Liechtenstein", "parameters": []}
+{"name": "Divisione amministrativa/man/Germania", "parameters": []}
+{"name": "Mappa di localizzazione/FRO", "parameters": []}
+{"name": "Mappa di localizzazione/VUT", "parameters": []}
+{"name": "Mappa di localizzazione/GBR Suffolk", "parameters": []}
+{"name": "Mappa di localizzazione/Europa senza estremo nord", "parameters": []}
+{"name": "Mappa di localizzazione/Golfo di Napoli", "parameters": []}
+{"name": "Mappa di localizzazione/GBR Hoxne", "parameters": []}
+{"name": "Divisione amministrativa/man/Stati Uniti d'America", "parameters": []}
+{"name": "Mappa di localizzazione/ENG", "parameters": []}
+{"name": "Mappa di localizzazione/WAL", "parameters": []}
+{"name": "Mappa di localizzazione/NIR", "parameters": []}
+{"name": "Mappa di localizzazione/MYT", "parameters": []}
+{"name": "Mappa di localizzazione/SGP", "parameters": []}
+{"name": "Mappa di localizzazione/Golfo Persico", "parameters": []}
+{"name": "Mappa di localizzazione/Hawaii", "parameters": []}
+{"name": "Mappa di localizzazione/PRT-Azzorre", "parameters": []}
+{"name": "Mappa di localizzazione/PRT-Madera", "parameters": []}
+{"name": "Mappa di localizzazione/PLW", "parameters": []}
+{"name": "Mappa di localizzazione/WSM", "parameters": []}
+{"name": "Mappa di localizzazione/QAT", "parameters": []}
+{"name": "Mappa di localizzazione/ATG", "parameters": []}
+{"name": "Mappa di localizzazione/FSM", "parameters": []}
+{"name": "Mappa di localizzazione/ITA 1861-1946", "parameters": []}
+{"name": "Mappa di localizzazione/STP", "parameters": []}
+{"name": "Mappa di localizzazione/TON", "parameters": []}
+{"name": "Mappa di localizzazione/TTO", "parameters": []}
+{"name": "Mappa di localizzazione/WLF-Wallis", "parameters": []}
+{"name": "Mappa di localizzazione/WLF-Futuna", "parameters": []}
+{"name": "Mappa di localizzazione/Mondo", "parameters": []}
+{"name": "Mappa di localizzazione/SJM", "parameters": []}
+{"name": "Mappa di localizzazione/FLK", "parameters": []}
+{"name": "Mappa di localizzazione/CPV", "parameters": []}
+{"name": "Mappa di localizzazione/PRI", "parameters": []}
+{"name": "Mappa di localizzazione/TCA", "parameters": []}
+{"name": "Mappa di localizzazione/TCH", "parameters": []}
+{"name": "Mappa di localizzazione/DDR", "parameters": []}
+{"name": "Mappa di localizzazione/Milano", "parameters": []}
+{"name": "Capo geografico", "parameters": ["latitudine", "longitudine"]}
+{"name": "Mappa di localizzazione/ASM", "parameters": []}
+{"name": "Mappa di localizzazione/SGS", "parameters": []}
+{"name": "Mappa di localizzazione/AIA", "parameters": []}
+{"name": "Mappa di localizzazione/BMU", "parameters": []}
+{"name": "Mappa di localizzazione/CCK", "parameters": []}
+{"name": "Mappa di localizzazione/Parigi", "parameters": []}
+{"name": "Mappa di localizzazione/Citt\u00e0 del Messico", "parameters": []}
+{"name": "Mappa di localizzazione/Nagorno Karabakh", "parameters": []}
+{"name": "Mappa di localizzazione/NRU", "parameters": []}
+{"name": "Mappa di localizzazione/Provincia di Buenos Aires", "parameters": []}
+{"name": "Mappa di localizzazione/Liguria", "parameters": []}
+{"name": "Base scientifica", "parameters": ["gradi latitudine", "primi latitudine", "secondi latitudine", "gradi longitudine", "primi longitudine", "secondi longitudine"]}
+{"name": "Mappa di localizzazione/Mare del Nord", "parameters": []}
+{"name": "Controllo di autorit\u00e0", "parameters": []}
+{"name": "Mappa di localizzazione/Calabria", "parameters": []}
+{"name": "Mappa di localizzazione/Miami", "parameters": []}
+{"name": "Coordinate", "parameters": []}
+{"name": "Mappa di localizzazione/Piemonte", "parameters": []}
+{"name": "Percorso escursionistico", "parameters": []}
+{"name": "Mappa di localizzazione/Londra", "parameters": []}
+{"name": "Mappa di localizzazione/Campania", "parameters": []}
+{"name": "Mappa di localizzazione/Lazio", "parameters": []}
+{"name": "Mappa di localizzazione/Veneto", "parameters": []}
+{"name": "Mappa di localizzazione/Puglia", "parameters": []}
+{"name": "Mappa di localizzazione/Austria-Svizzera", "parameters": []}
+{"name": "Mappa di localizzazione/Oblast' di Mosca", "parameters": []}
+{"name": "Mappa di localizzazione/Regno di Sardegna 1859", "parameters": []}
+{"name": "Mappa di localizzazione/New York (stato)", "parameters": []}
+{"name": "Mappa di localizzazione/Roma", "parameters": []}
+{"name": "Aeroporti", "parameters": []}
+{"name": "Mappa di localizzazione/Sicilia senza Pelagie", "parameters": []}
+{"name": "GeoGroup", "parameters": []}
+{"name": "Mappa di localizzazione/Berlino", "parameters": []}
+{"name": "Mappa di localizzazione/Madrid", "parameters": []}
+{"name": "Mappa di localizzazione/Barcellona", "parameters": []}
+{"name": "Mappa di localizzazione/Amburgo", "parameters": []}
+{"name": "Citt\u00e0 antica", "parameters": []}
+{"name": "Mappa di localizzazione/Copenaghen", "parameters": []}
+{"name": "Mappa di localizzazione/Kyoto", "parameters": []}
+{"name": "Mappa di localizzazione/Mosca", "parameters": []}
+{"name": "Mappa di localizzazione/San Pietroburgo", "parameters": []}
+{"name": "Mappa di localizzazione/Tokyo", "parameters": []}
+{"name": "Mappa di localizzazione/Seul", "parameters": []}
+{"name": "Mappa di localizzazione/Tolosa", "parameters": []}
+{"name": "Mappa di localizzazione/Tours", "parameters": []}
+{"name": "Mappa di localizzazione/Scandinavia", "parameters": []}
+{"name": "Mappa di localizzazione/DEU 1933-1945", "parameters": []}
+{"name": "Mappa di localizzazione/NFK", "parameters": []}
+{"name": "Mappa di localizzazione/MSR", "parameters": []}
+{"name": "Esogeologia/globe", "parameters": []}
+{"name": "Mappa di localizzazione/MHL", "parameters": []}
+{"name": "Mappa di localizzazione/KNA", "parameters": []}
+{"name": "Costa", "parameters": ["latitudine", "longitudine"]}
+{"name": "Mappa di localizzazione/VIR", "parameters": []}
+{"name": "Scala paese", "parameters": []}
+{"name": "Rifugio", "parameters": ["latitudine_d", "longitudine_d"]}
