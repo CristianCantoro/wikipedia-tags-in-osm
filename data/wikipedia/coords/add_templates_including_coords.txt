@@ -1,0 +1,1 @@
+{"name": "Rifugio", "parameters": ["latitudine_d", "longitudine_d"]}
