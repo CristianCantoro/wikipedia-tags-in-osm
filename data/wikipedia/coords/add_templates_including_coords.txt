@@ -1,1 +1,2 @@
 {"name": "Rifugio", "parameters": ["latitudine_d", "longitudine_d"]}
+{"name": "Diga", "parameters": ["latitudineGradi", "latitudineMinuti", "latitudineSecondi", "latitudineNS", "longitudineGradi", "longitudineMinuti", "longitudineSecondi", "longitudineEW"]}

@@ -1,7 +1,7 @@
 {"name": "Stato", "parameters": []}
 {"name": "Link img", "parameters": []}
 {"name": "Esogeologia", "parameters": []}
-{"name": "Diga", "parameters": ["latitudine_d", "longitudine_d", "latitudineGradi", "latitudineMinuti", "latitudineSecondi", "latitudineNS", "longitudineGradi", "longitudineMinuti", "longitudineSecondi", "longitudineEW"]}
+{"name": "Diga", "parameters": ["latitudineGradi", "latitudineMinuti", "latitudineSecondi", "latitudineNS", "longitudineGradi", "longitudineMinuti", "longitudineSecondi", "longitudineEW"]}
 {"name": "Infobox incidente aereo", "parameters": []}
 {"name": "Ponte", "parameters": []}
 {"name": "Valle", "parameters": []}
@@ -327,4 +327,5 @@
 {"name": "Costa", "parameters": ["latitudine", "longitudine"]}
 {"name": "Mappa di localizzazione/VIR", "parameters": []}
 {"name": "Scala paese", "parameters": []}
+{"name": "Mappa di localizzazione/IsoleItalia", "parameters": []}
 {"name": "Rifugio", "parameters": ["latitudine_d", "longitudine_d"]}

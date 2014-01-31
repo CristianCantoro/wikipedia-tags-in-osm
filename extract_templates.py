@@ -68,6 +68,17 @@ def write(outfile, addfile=None):
     addtwp = None
     if addfile is not None:
         addtwp = read(addfile)
+
+        for t in addtwp:
+            repeat = [(id_, tmp)
+                      for (id_, tmp) in enumerate(twparslist)
+                      if tmp['name'] == t['name']
+                      ]
+            if repeat:
+                id_ = repeat[0][0]
+                twparslist[id_] = t
+                addtwp.remove(t)
+
         twparslist = twparslist + addtwp
 
     with open(outfile, 'w+') as out:
