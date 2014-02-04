@@ -105,41 +105,42 @@ draggable_marker.on('dragend', function(e){
 
 });
 
-function login() {
-    var r = $.Deferred();
-    var popup_baseurl =  '../app/login?';
-    
-    var params = {'next': '../app/login/success'}
-    var popup_params = $.param(params)
+$(function () {
 
-    var popup_title = "Login";
-    var popup_window = window.open(popup_baseurl + popup_params, 
-                                   popup_title,
-                                   'width=800, height=600');
-    if (window.focus) {
-        popup_window.focus();
+    function login() {
+        var r = $.Deferred();
+        var popup_baseurl =  '../app/login?';
+        
+        var params = {'next': '../app/login/success'}
+        var popup_params = $.param(params)
+
+        var popup_title = "Login";
+        var popup_window = window.open(popup_baseurl + popup_params, 
+                                       popup_title,
+                                       'width=800, height=600');
+        if (window.focus) {
+            popup_window.focus();
+        }
+
+        var pollTimer = window.setInterval(function() {
+            try {
+                console.log(popup_window.document.URL) 
+                if ( popup_window.location.pathname === 
+                        '/app/login/success') {
+                    window.clearInterval(pollTimer);
+                    popup_window.close();
+                    r.resolve()
+                    return r;
+                }
+            }
+            catch(e) {
+                if (e instanceof TypeError) {
+                    console.log('Waiting for the user to log in');
+                }
+            }
+        }, 1500);
     }
 
-    var pollTimer = window.setInterval(function() {
-        try {
-            console.log(popup_window.document.URL) 
-            if ( popup_window.location.pathname === 
-                    '/app/login/success') {
-                window.clearInterval(pollTimer);
-                popup_window.close();
-                r.resolve()
-                return r;
-            }
-        }
-        catch(e) {
-            if (e instanceof TypeError) {
-                console.log('Waiting for the user to log in');
-            }
-        }
-    }, 1500);
-}
-
-$(function () {
     $('#app-popup-map').hide();
 
     $('#app-popup-map a.close').click(function () {
@@ -177,7 +178,7 @@ $(function () {
             });
         }
 
-        ajaxCall();
+        callPreview();
 
         if ( needs_login ) {
             login().done(callPreview);

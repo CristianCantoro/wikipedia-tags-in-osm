@@ -20,6 +20,30 @@
   </header>
 
   <section>
+    {% if not template %}
+      <p>Verrà aggiunto alla voce il template &#123;&#123;<a href="https://it.wikipedia.org/wiki/Template:Coord">coord</a>&#125;&#125;
+      con le coordinate ({{lat}}; {{lon}}) <span style="font-size:x-small;">(lat,lon)</span></p>
+    {% endif %}
+    {% if template %}
+      <p>Nella pagina è già presente un template &#123;&#123;<a href="https://it.wikipedia.org/wiki/Template:{{template['name']}}">{{template['name']}}</a>&#125;&#125;
+      (<a href="https://it.wikipedia.org/wiki/Template:{{template['name']}}/man">documentazione</a>). Questo template può contenere le coordinate dell'oggetto.</p>
+
+      {% if template['has_coords'] %}
+        Il template conteneva già delle coordinate <span style="font-size:x-small;">(lat,lon)</span>:
+        <ul>
+          <li>vecchie coordinate: ({{template['old_coords']['lat']}}; {{template['old_coords']['lon']}})</li>
+          <li>nuove coordinate: ({{lat}}; {{lon}})</li>
+        </ul>
+      {% endif %}
+      {% if not template['has_coords'] %}
+        Il template non conteneva delle coordinate: le nuove coordinate ({{lat}}; {{lon}}) <span style="font-size:x-small;">(lat,lon)</span><br />
+        sono state aggiunte al template.
+      {% endif %}
+    {% endif %}
+  </section>
+
+  <h2>Differenza tra le versioni</h2>
+  <section>
     <p>Di seguito viene visualizzata la modifica applicata alla voce:</p>
     <div class="container">
       {{ difftable }}
@@ -33,6 +57,7 @@
         <input name=title type=hidden value="{{ title|unquote }}">
         <input name=section type=hidden value="{{ section }}">
         <input name=referrer type=hidden value="{{ referrer }}">
+        <input name=id type=hidden value="{{ id }}">
         <textarea id='search_result' name='new_text' rows={{rows}}  title='new text' type='text'>{{ new_text }}</textarea>
         <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
         <input name=edit_token type=hidden value="{{ edit_token }}">
@@ -57,10 +82,9 @@
           </tr>
         </table>
         <br />
-
-        <br />
         <input id='submit_button' type='submit' value='Salva' />
         <button id='test_button' onclick="test_edit()">Test</button>
+        <p>È possibile modificare Wikipedia come utente anonimo, copiando il testo nella casella soprastante e inserendola <a href="https://it.wikipedia.org/w/index.php?title={{title}}&action=edit&section={{section}}">direttamente su Wikipedia</a>.
     </form>
   </div>
 

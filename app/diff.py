@@ -26,11 +26,12 @@ import re
 from jinja2 import Markup
 
 
-def get_difftable_difflib(old_text, new_text, pageid, section):
+def get_difftable_difflib(old_text, new_text):
         dhtml = difflib.HtmlDiff()
         difftable = Markup(dhtml.make_table(fromlines=old_text.splitlines(),
                                             tolines=new_text.splitlines(),
-                                            context=True
+                                            context=True,
+                                            numlines=10
                                             )
                            )
 

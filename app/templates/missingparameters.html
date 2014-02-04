@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Wikipedia-tags-in-OSM</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-  </head>
-<body>
+{% extends base %}
+{% block title %}Errore: parametri mancanti{% endblock %}
 
-  <h1>W00t!</h1>
-  
+{% block header %}W00t!{% endblock %}
+
+{% block content %}
   Non sono stati indicati i parametri necessari per visualizzare questa pagina.
   
   Per visualizzare questa pagina è necessario passare i seguenti
@@ -40,6 +35,4 @@
   (In linea di principio questo non dovrebbe succedere, a meno che tu non ti sia
   messo a giocare con le url di Wikipedia-tags-in-osm, se così non fosse contatta
   gli sviluppatori e mandagli qualche dettaglio a proposito di questo errore.)
-
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,37 @@
+{{S|dighe|Provincia di Belluno}}
+{{Diga
+|nome=Diga di Pieve di Cadore
+|immagine = Pieve_cadore_dam_2.JPG
+|nomestato = ITA
+|fiume = [[Piave]]
+|uso = [[energia]]
+|inaugurazione = [[1949]]
+|tipo = Gravità (in calcestruzzo)
+|superficie_irrigata = 202.255,75
+|superficie = 55
+|volume = 0,377
+|altezza = da 55 a 112
+|capacità = 
+|produzione = 
+}}
+
+La '''diga di Pieve di Cadore''' è quello sbarramento che va a formare il [[Lago di Centro Cadore]], ai piedi del paese di [[Pieve di Cadore]].
+
+
+
+==Voci correlate==
+*[[Pieve di Cadore]]
+*[[Diga]]
+*[[Sottocastello]]
+
+==Fonti==
+*[http://www.progettodighe.it/main/le-dighe/article/pieve-di-cadore-o-di-sottocastello Progetto Dighe (approfondimento sulla Diga di Pieve di Cadore)]
+
+==Altri progetti==
+{{interprogetto|commons=Category:Lago di Centro Cadore}}
+
+{{Portale|ingegneria|Veneto}}
+
+[[Categoria:Dighe della provincia di Belluno|Pieve di Cadore]]
+[[Categoria:Pieve di Cadore]]
+[[Categoria:Cadore]]

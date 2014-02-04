@@ -1,0 +1,157 @@
+{{Coord|43|43|23|N|10|23|47|E|display=title|type:landmark_region:IT}}
+{{Edificio civile
+|nome edificio = Torre pendente di Pisa
+|immagine = Leaning tower of pisa 2.jpg
+|didascalia = 
+|paese = ITA
+|divamm1 = {{IT-TOS}}
+|città = Pisa
+|cittàlink = <!-- valorizzare tale campo se la città è ambigua -->
+|indirizzo = [[Piazza dei Miracoli]]
+|stato = <!-- di default è "in uso" -->
+|periodo costruzione = [[1173]] - metà [[XIV secolo]]
+|inaugurazione = 
+|stile = 
+|uso = [[campanile]]
+|altezza = 56 m
+|costo = 
+|architetto = 
+|ingegnere = 
+|appaltatore = 
+|costruttore = 
+|proprietario = 
+|proprietario storico = 
+}}
+{{Piazza dei Miracoli}}
+La cosiddetta '''torre pendente di [[Pisa]]''' (chiamata semplicemente '''torre pendente''' o '''torre di Pisa''') è il [[campanile]] della [[duomo di Pisa|Cattedrale di Santa Maria Assunta]], nella celeberrima [[Piazza dei Miracoli|Piazza del Duomo]] di cui oggi è il monumento più famoso per via della caratteristica pendenza.
+
+Si tratta di un campanile a sé stante alto circa 56 metri fuori terra (58,36 metri considerando il piano di fondazione)<ref>{{cita web|autore=www.opapisa.it|url=http://www.opapisa.it/it/la-piazza-dei-miracoli/torre-pendente/larchitettura.html|titolo=Torre pendente|accesso=25 giugno 2013}}</ref>, costruito nell'arco di due secoli, tra il [[XII secolo|dodicesimo]] e il [[XIV secolo|quattordicesimo]] secolo. Pesante 14.453 tonnellate,<ref>{{cita web|url=http://torredipisa.historiaweb.net/|titolo=La Torre di Pisa, la storia, le dimensioni, la pendenza|editore=TorrediPisa.it}}</ref> vi predomina la linea curva, con giri di arcate cieche e sei piani di loggette. La sua pendenza è dovuta a un [[Cedimento differenziale|cedimento del terreno]] verificatosi già nelle prime fasi della costruzione.
+
+L'inclinazione dell'edificio attualmente misura 3,97° rispetto all'asse verticale.<ref name="Sole 24 ORE">[http://www.ilsole24ore.com/art/SoleOnLine4/Mondo/2007/11/torre-pendente-guinness.shtml ''La Torre di Pisa non è più da Guinness''], in "[[Il Sole 24 ORE]]" del 2 novembre 2007.</ref> La torre di Pisa rimane in equilibrio perché la verticale che passa per il suo baricentro cade all'interno della base di appoggio.
+
+È stata proposta come una delle [[sette meraviglie del mondo moderno]].
+
+== Storia ==
+=== La costruzione ===
+[[File:Lightmatter pisa.jpg|200px|thumb|left|Vista verso l'alto]]
+I lavori iniziarono il 9 agosto [[1173]] (anno [[1174]], secondo il [[calendario pisano]], in cui l'anno iniziava il 25 marzo). Come era solito fare con i [[faro|fari]] e con le costruzioni adiacenti al mare in genere, le fondamenta vennero lasciate a riposare per un anno intero.
+
+Alcuni studi tra i più recenti attribuiscono la paternità del progetto a [[Diotisalvi]], che nello stesso periodo stava costruendo il [[Battistero di San Giovanni (Pisa)|Battistero]]. Le analogie tra i due edifici sono infatti molte, a partire dal tipo di fondazioni. Altri suggeriscono invece [[Gherardi]], mentre secondo il [[Giorgio Vasari|Vasari]] i lavori furono iniziati da [[Bonanno Pisano]]. La tesi del Vasari, oggi ritenuta priva di fondamento, fu invece ritenuta valida soprattutto dopo il ritrovamento nelle vicinanze del campanile di una pietra tombale col nome del Bonanno, che oggi si trova murata nell'atrio dell'edificio; inoltre nell'Ottocento fu rinvenuto sempre nei dintorni un frammento epigrafico di materiale rosa, probabilmente un calco su cui venne fusa una lastra metallica, che attualmente trova collocazione sullo stipite della porta di ingresso dell'edificio. Su tale frammento si legge, ovviamente rovesciato: "cittadino pisano di nome Bonanno". Tale calco con tutta probabilità era relativo alla porta regia del Duomo, distrutta durante l'incendio del [[1595]].
+
+La prima fase dei lavori fu interrotta a metà del terzo piano, a causa del cedimento del terreno su cui sorge la base del campanile. La cedevolezza del terreno, costituito da [[argilla]] molle [[argilla normalconsolidata|normalconsolidata]], è la causa della pendenza della torre e, sebbene in misura minore, di tutti gli edifici nella piazza.
+
+I lavori ripresero nel [[1275]] sotto la guida di [[Giovanni di Simone]] e [[Giovanni Pisano]], aggiungendo alla costruzione precedente altri tre piani. Nel tentativo di raddrizzare la torre, i tre piani aggiunti tendono ad incurvarsi in senso opposto alla pendenza.
+
+Il campanile fu completato alla metà del secolo successivo, aggiungendo la cella campanaria.
+
+== La leggenda pessimismo e fastidio ==
+Nell’anno del signore 1367 il 23 di maggio, a pochi mesi dalla grande inaugurazione della maestosa torre campanaria della cattedrale di santa Maria assunta in quei di Pisa, la popolazione si svegliò di soprassalto udendo un gran frastuono. Accorsi in piazza duomo, luogo del gran baccano, furono presi da sgomento perché tra le polveri e il ciel ancor notturnino, la loro torre che si addormentò dritta, si svegliò pendente. Ad occhio ben esperto, dopo analisi accurata, si capì che la gran torsione fu data da una pietra trafugata.
+E si sa come sono questi toscani, orgogliosi e fieri della propria patria; sempre capaci di puntare il dito contro le città nemiche al primo sospetto di complotto. A buon intenditor poche parole si usa dire ed infatti subito si accusò i primi nemici, quelli storici ed eterni: lucchesi e livornesi.
+E tra calunnie e mal dicenze a godere eran i gigliati che facevano da giudici e spettatori.
+
+=== I restauri ===
+Dalla sua costruzione a oggi lo strapiombo è sostanzialmente aumentato, ma nel corso dei secoli ci sono stati anche lunghi periodi di stabilità o addirittura di riduzione della pendenza.
+
+Nel corso dell'Ottocento il campanile fu interessato da importanti restauri, che portarono, ad esempio, all'isolamento del basamento della torre.
+I lavori, effettuati sotto la direzione di [[Alessandro Gherardesca]], contribuirono a sfatare definitivamente la teoria, sostenuta da alcuni studiosi dell'epoca, secondo la quale il campanile sarebbe stato pensato pendente sin dalla sua origine.<ref>G. Morolli (a cura di), ''Alessandro Gherardesca. Architetto toscano del Romanticismo (Pisa 1777-1852)'', Pisa 2002, pp. 118-119.</ref>
+Difatti, i saggi del terreno effettuati durante i restauri portarono alla luce la presenza di una notevole quantità di acqua sotterranea che rendeva cedevole il terreno.
+Per far fronte a questo problema, fu aspirata acqua del sottosuolo con l'ausilio di pompe, ma ciò favorì il fenomeno della [[subsidenza]] e il conseguente aumento della pendenza della torre.<ref>''Ibidem''.</ref>
+
+Negli ultimi decenni del [[XX secolo]] l'inclinazione aveva subito un deciso incremento, tanto che il pericolo del crollo si era fatto concreto. Nel [[1993]] lo spostamento dalla sommità dell'asse alla base era stato valutato in circa 4,47 metri,<ref>[[Corriere della Sera]], giovedì 30 novembre 1989, pag. 13.</ref> ovvero circa 4,5 [[Grado d'arco|gradi]].<ref name=RF>Si tratta di un calcolo indicativo in quanto l'asse della torre non è rettilineo; α = [[Arcotangente|arctan]](s/h), s = spostamento, h = altezza</ref>
+
+[[File:Pisa schiefer turm gewichte 1998 01.jpg|thumb|Contrappesi di piombo]]
+[[File:Pisa - Torre pendente, interno.jpg|thumb|Struttura interna della Torre]]
+
+Durante i lavori di consolidamento, iniziati nel [[1990]] e terminati alla fine del [[2001]], la pendenza del campanile è stata ridotta tramite cerchiatura di alcuni piani, applicazione temporanea di tiranti di acciaio e contrappesi di piombo (fino a 900 tonnellate) e sottoescavazione, riportandola a quella che presumibilmente doveva avere 200 anni prima. La base è stata inoltre consolidata e secondo gli esperti questo consentirà di mantenere in sicurezza la torre per almeno altri tre secoli, permettendo così l'accesso ai visitatori.
+
+Dal marzo [[2008]] la torre ha raggiunto il livello definitivo di consolidamento sotto il profilo dell'inclinazione, tornato a essere di 3,97°,<ref name="Sole 24 ORE"/> con uno spostamento alla cima del campanile di quasi mezzo metro e tale valore dovrebbe rimanere inalterato per almeno altri 300 anni. Il successo dell'operazione è legato al nome di Michele Jamiolkowski, benemerito docente del [[Politecnico di Torino]] e presidente del Comitato internazionale per la Salvaguardia della Torre di Pisa dal 1990 al 2001, a quello di Carlo Viggiani, docente del Dipartimento di Ingegneria Geotecnica dell’[[Università degli Studi di Napoli Federico II]] e Presidente del Comitato Internazionale per la Conservazione dei Monumenti e dei Siti Storici e a quello di J. B. Burland, professore del Dipartimento di Ingegneria Civile dell'Imperial College di Londra.
+
+Dopo vent'anni, il 22 aprile [[2011]] sono terminati i lavori di restauro delle superfici lapidee, sia negli esterni che negli interni.<ref>{{cita web | url = http://www.corriere.it/cultura/11_aprile_22/gasperetti-torre-pisa-fine-restauro_dc6d923e-6cdc-11e0-902f-2f9ba9bc9f1b.shtml | titolo = Bianca e lucente come in origine. Ecco la nuova Torre di Pisa | autore = Marco Gasperetti | editore = [[Corriere della Sera]] | accesso = 30 aprile 2011}}</ref>
+
+== Struttura ==
+La struttura del campanile incorpora due stanze. Una alla base della torre, nota come ''Sala del pesce'', per via di un bassorilievo raffigurante un pesce. Tale sala non ha soffitto, essendo di fatto il cavo della torre. L'altra invece è la cella campanaria, al settimo anello. Delimitata dalle mura del camminamento superiore, è anch'essa a cielo aperto e al centro, tramite un'apertura, è possibile vedere il pian terreno della torre.
+Sono inoltre presenti tre rampe di scale: una ininterrotta dalla base fino al sesto anello, dove si esce all'esterno; una, a chiocciola più piccola che porta dal sesto anello al settimo; infine una ancor più piccola, sempre a chiocciola, che porta dal settimo anello alla sommità.
+
+== Campane ==
+* ''Assunta'' -Si2 La più grande, pesa 2600 kg e fu fusa nel 1654 da Giovanni Pietro Orlandi.
+* ''Crocifisso'' -Do#3 Pesa 1850 kg e fusa originariamente nel 1572 da Vincenzo Possenti, poi rifusa nel 1818 da Gualandi da Prato.
+* ''San Ranieri'' -Re#3 Pesa 1150 kg e rifusa diverse volte e in ultimo nel 1735 da Pier Francesco berti di Lucca.
+* ''Dal Pozzo'' -Sol3 fu fusa nel 1606, danneggata dai bombardamenti dell'ultimo conflitto mondiale, è stata musealizzata e nel 2004 al suo posto è stata inserita una copia della fonderia Marinelli di Agnone in peso di 490 kg.
+* ''Pasquereccia'' -Sol#3 Pesa 1014 kg fusa nel 1262 da Lotteringio di Bartolomeo (Locterineus de Pisis).
+* ''Terza'' - Sib3 Pesa 330 kg e fu realizzata da maestranze lorene o alsaziane nel 1473.
+* ''Vespruccio'' -Mi4 Pesa 120 kg realizzata nel XIV secolo e rifusa nell'attuale nel 1501.
+
+Le campane suonano tuttora prima delle messe in Duomo ed a mezzogiorno tramite un sistema di elettrobattagli.
+
+Anticamente ogni campana era adibita ad un momento della giornata liturgica. Ad esempio la Pasquereccia suonava per Pasqua, la Terza nell'ora terza del giorno (le nove di mattina), la campana del Vespruccio all'ora dei vespri (le sei del pomeriggio).
+
+La campana ''di S. Ranieri'', si chiamava originariamente ''Giustizia'' e si trovava nell'omonimo palazzo. Soleva suonare per le morti dei traditori e, si suppone, suonò anche per la morte del [[Ugolino della Gherardesca|conte Ugolino]]. Fu portata sul campanile nel [[XV secolo]] a sostituire l'originale Pasquareccia e rifusa in seguito nel 1606.
+<gallery>
+File:Leaning tower bell assunta.JPG|Campana ''Assunta''
+File:Bell san ranieri.JPG|Campana ''San Ranieri''
+File:Leaning tower bell Pasquareccia.JPG|Campana ''Pasquareccia''
+File:Bell dal pozzo.JPG|Campana ''Dal Pozzo''
+</gallery>
+
+== Altre torri pendenti a Pisa ==
+Sebbene sia la più famosa, il campanile di Santa Maria Assunta non è l'unica torre pendente a Pisa: il suolo costituito per lo più da [[sabbia]] e [[argilla]] è causa dell'inclinazione di altre due torri campanarie, oltre a diversi edifici: il campanile della [[chiesa di San Nicola (Pisa)|chiesa di San Nicola]], all'estremità opposta di via Santa Maria, vicino al [[Lungarno]], che manifesta un'inclinazione di 2,5 gradi, e il campanile della [[chiesa di San Michele degli Scalzi]] (in questo caso anche la chiesa è pendente), a metà strada del [[viale delle Piagge]] (lungofiume situato nella parte est della città), che risulta inclinato di 5 gradi.<ref name=NG>
+{{cita pubblicazione | quotes = | autore = | coautori = | data = | anno = 2009 | mese=agosto| titolo = | rivista = National Geographic Italia | volume = 24 | numero = 2 | cid = NG08-2009}}</ref>
+
+== Scheda ==
+[[File:Scheme of the Leaning Tower of Pisa.svg|240px|thumb|misure della Torre di Pisa]]
+{{clear|left}}
+* Elevazione di Piazza del Duomo: circa 2 metri s.l.m.
+* Altezza: 58,36 metri (100 braccia pisane) sul piano di fondazione
+* Altezza sul terreno: 55,86 metri sul lato più basso e 56,70 metri sul lato più alto
+* Altezza di ogni loggiato: 5,82 metri (2 pertiche o 10 braccia pisane)
+* Diametro esterno alla base: 15,484 metri
+* Diametro interno alla base: 7,368 metri
+* Diametro della fondazione: 19,58 metri
+* Diametro del foro alla fondazione: 4,5 metri
+* Circonferenza alla base: 48,6 metri (100 piedi pisani)
+* Peso: 14.453 [[tonnellata|tonnellate]]
+* Direzione della pendenza: 1173-1250 N, 1272-1997 S
+* Campane totali: 7
+* Campana più grande: "L'Assunta"; 2,5 tonnellate, fusa nel 1655
+* Campana più antica: "Pasquareccia", fusa nel 1262
+* Scalini fino alla cella campanaria: 296
+
+<gallery>
+File:Leaning tower door.JPG|Ingresso alla torre
+File:Rilievo sulla torre di pisa che mostra l'antico porto pisano.JPG|Bassorilievo del [[Porto Pisano]], replica di quello preesistente sul Duomo
+File:Plaque galileo.jpg|Lapide che ricorda gli esperimenti condotti da Galileo Galilei sulla caduta dei gravi
+File:Leaning_tower_loggiati.jpg|Loggiati esterni
+File:Leaning_tower_staircase_6th_floor.jpg|Scaletta che porta dal 6º al 7º livello
+File:Leaning tower staircase 7th floor.JPG|Scaletta che porta dal 7º all'8º livello
+File:Leaning tower staircase 8th floor.JPG|8º livello
+File:TorreLunaPisa.jpg|La Torre di Notte
+</gallery>
+
+== Note ==
+<references/>
+
+== Altri progetti ==
+{{Interprogetto|commons=Category:Leaning Tower (Pisa)}}
+
+== Collegamenti esterni ==
+* {{lingue|it|en|fr}} [http://www.opapisa.it/ Sito ufficiale]
+* {{lingue|it|en}} [http://www.opapisa.it/it/organizza-la-tua-visita/biglietteria-online.html Biglietteria Online Torre di Pisa - Sito Ufficiale]
+* {{lingue|it|en}} [http://torredipisa.historiaweb.net/ Notizie ed Informazioni sulla Torre di Pisa]
+* {{lingue|it|en}} [http://www.compart-multimedia.com/virtuale/it/pisa/torre_di_pisa.htm Visita Virtuale alla torre di Pisa]
+* {{lingue|it|en}} [http://www.hvweb.net/it/foto360/toscana/ Foto panoramica a 360° interattiva ad alta risoluzione della torre di Pisa e Piazza dei Miracoli] realizzata da Hans von Weissenfluh
+* [http://www.stilepisano.it/immagini/Pisa_Piazza2_dei_Miracoli.htm La Piazza] su Stile pisano
+* [http://www.arte.unipi.it/Torre/notizie.html Notizie certe, congetture, ipotesi e accertamenti sul Campanile] sul sito dell'Università di Pisa
+* {{en}} [http://www.endex.com/gf/buildings/ltpisa/ltpinfo/belltower.htm Le campane della torre]
+* {{en}} Riproduzione dell Torre di Pisa, Albany by Aldo Scamozzi http://www.sixthousand.com.au/stray/leaning-tower-of-pisa-albany/
+* {{lingue|it|en}} [http://www.pisaonline.it/Torre-Pendente/default.htm Informazioni storiche sulla Torre Pendente di Pisa]
+
+{{Patrimoni Unesco|Italia}}
+{{Portale|architettura|Toscana}}
+
+[[Categoria:Torri di Pisa]]
+[[Categoria:Campanili|Pisa]]
+[[Categoria:Architetture romaniche di Pisa]]
+[[Categoria:Torri pendenti|Pisa]]
+[[Categoria:Duomo di Pisa]]
+
+{{Link VdQ|zh}}

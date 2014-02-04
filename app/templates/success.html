@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Wikipedia-tags-in-OSM</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-  </head>
-<body>
+{% extends base %}
+{% block title %}Successo{% endblock %}
 
-  <header class="main-header">
-      <h1>Congratulazioni</h1>
-  </header>
+{% block header %}Ben fatto!{% endblock %}
 
+{% block content %}
   Hai modificato la pagina: <strong><em><a href="{{link}}">{{title}}</a></em></strong> su Wikipedia in Italiano.<br />
   (La modifica ha oggetto: <em>"{{summary}}"</em> )
 
-  <a href="javascript:void(0)">Chiudi</a> la finestra o <<a href="{{referrer}}">ritorna alla lista</a>.
-
-</body>
-</html>
+  <a href="javascript:void(0)">Chiudi</a> la finestra{% if referrer %} o <a href="{{referrer}}#{% if id %}{{id}}{% endif %}">ritorna alla lista</a>{% endif %}.
+{% endblock %}

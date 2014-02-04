@@ -22,6 +22,7 @@
 #  If not, see <http://www.gnu.org/licenses/>.
 
 import re
+import itertools as it
 import wikipedia_template_parser as wtp
 from coords import coords_template
 from utils import coords_deg2dms_cp, format_dms
@@ -29,6 +30,8 @@ from utils import coords_deg2dms_cp, format_dms
 HEADING = re.compile(r'==[^=]+==')
 
 COORD = re.compile(r'\{\{coord[^{}]*?', re.IGNORECASE)
+
+CLOSE_TEMPLATE_COORDS = re.compile(r'[^{}]*?(\}\})?}}')
 
 CLOSE_TEMPLATE = re.compile(r'[^{}]*?(\}\})?')
 
@@ -41,11 +44,22 @@ with open('../data/wikipedia/coords/templates_including_coords.txt',
 
 def find_coords_templates(old_text):
     template_found = {}
+    old_coords = None
 
     coord = COORD.search(old_text)
     if coord:
         template_found['name'] = 'coord'
         template_found['has_coords'] = True
+        templates = wtp.data_from_templates(page='',
+                                            lang='',
+                                            wikitext=old_text
+                                            )
+        tmpl = [template['data']
+                for template in templates
+                if template['name'].lower() == 'coord'
+                ]
+        old_coords = tmpl and tmpl[0] or None
+
     else:
         for t in TEMPLATES:
             search_regex = r'{{%s(.*)' % t['name']
@@ -65,10 +79,24 @@ def find_coords_templates(old_text):
                 template_found['name'] = t['name']
                 template_found['has_coords'] = False
 
-                for p in t['parameters']:
-                    if data and p in data:
-                        if data[p]:
+                old_coords = {}
+                for par in t['parameters']:
+                    if data and par in data:
+                        if data[par]:
                             template_found['has_coords'] = True
+
+                            par_value, par_name = get_parameter(
+                                par,
+                                float(data[par]),
+                                float(data[par]))
+
+                            old_coords[par_name] = par_value
+
+    if template_found['has_coords']:
+        if old_coords:
+            template_found['old_coords'] = old_coords
+        else:
+            template_found['old_coords'] = {'lat': None, 'lon': None}
 
     return template_found
 
@@ -127,20 +155,66 @@ def get_parameter(name, lat, lon):
         el = _get_element(name)
 
         if el == 'dec':
-            return str(lat)
+            return str(lat), 'lat'
         else:
-            return str(dms['lat'][el])
+            return str(dms['lat'][el]), 'lat'
 
     elif ('lon' in name) or ('lng' in name):
         el = _get_element(name)
 
         if el == 'dec':
-            return str(lon)
+            return str(lon), 'lon'
         else:
-            return str(dms['lon'][el])
+            return str(dms['lon'][el]), 'lon'
     else:
         return "Caso inatteso, non salvare questa pagina e segnalalo "\
-               "segnalalo agli sviluppatori. Grazie."
+               "segnalalo agli sviluppatori. Grazie.", None
+
+
+def find_sections_intervals(text):
+
+    headings_matches = HEADING.finditer(text)
+    headings = [(h.start(), h.end()) for h in headings_matches]
+    intervals = sum(headings, ())
+    intervals = (0,) + intervals[::2] + (len(text),)
+    section_intervals = [i for i
+                         in enumerate([r for r
+                                       in it.izip_longest(intervals[::],
+                                                          intervals[1::],
+                                                          fillvalue=0)
+                                       ])]
+
+    return section_intervals
+
+
+def find_section(text, start_template, end_template):
+
+    section_intervals = find_sections_intervals(text)
+
+    sections = [i[0] for i in section_intervals
+                if start_template >= i[1][0] and end_template <= i[1][1]]
+
+    section_number = -1
+    if sections:
+        section_number = sections[0]
+
+    return section_number
+
+
+def get_section_text(text, section_number):
+
+    section_start = 0
+    section_end = len(text)
+
+    section_intervals = find_sections_intervals(text)
+
+    section_limits = [i[1] for i in section_intervals
+                      if i[0] == section_number]
+
+    if section_number != -1 and len(section_limits) == 1:
+        section_start, section_end = section_limits[0]
+
+    return text[section_start:section_end]
 
 
 def get_new_text_with_template(lat, lon, dim, template, old_text=''):
@@ -153,9 +227,9 @@ def get_new_text_with_template(lat, lon, dim, template, old_text=''):
 
         end_parameter = coord.end()
 
-        match_close = CLOSE_TEMPLATE.search(old_text[end_parameter:],
-                                            re.MULTILINE
-                                            )
+        match_close = CLOSE_TEMPLATE_COORDS.search(old_text[end_parameter:],
+                                                   re.MULTILINE
+                                                   )
         end_template = end_parameter + match_close.end()
 
         new_template = coords_template(lat, lon, dim)
@@ -231,7 +305,7 @@ def get_new_text_with_template(lat, lon, dim, template, old_text=''):
                     value_start = parameter_end
                     value_end = value_start + line_end
 
-                    new_parameter = get_parameter(p, lat, lon)
+                    new_parameter, parameter_name = get_parameter(p, lat, lon)
 
                     new_template_text = new_template_text[:value_start] + \
                         new_parameter + \
@@ -243,7 +317,7 @@ def get_new_text_with_template(lat, lon, dim, template, old_text=''):
                 new_template_text = new_template_text[:-2]
                 new_line = '|{par_name} = {par_value}\n'
                 for p in coord_params:
-                    par_value = get_parameter(p, lat, lon)
+                    par_value, parameter_name = get_parameter(p, lat, lon)
                     new_parameter = new_line.format(par_name=p,
                                                     par_value=par_value)
                     new_template_text += new_parameter
@@ -252,6 +326,11 @@ def get_new_text_with_template(lat, lon, dim, template, old_text=''):
 
                 new_text = old_text[:start_template] + \
                     new_template_text + old_text[end_template:]
+
+    section = find_section(old_text, start_template, end_template)
+
+    new_text = get_section_text(new_text, section)
+    old_text = get_section_text(old_text, section)
 
     return new_text, old_text, section
 
@@ -282,10 +361,10 @@ if __name__ == '__main__':
     import codecs
 
     __test(in_='test/torre_pendente_di_pisa.txt',
-           out_='torre_pendente_di_pisa.html')
+           out_='test/torre_pendente_di_pisa.html')
 
     __test(in_='test/rifugio_laghi_gemelli.txt',
-           out_='rifugio_laghi_gemelli.html')
+           out_='test/rifugio_laghi_gemelli.html')
 
     __test(in_='test/diga_di_pieve_di_cadore.txt',
-           out_='diga_di_pieve_di_cadore.html')
+           out_='test/diga_di_pieve_di_cadore.html')

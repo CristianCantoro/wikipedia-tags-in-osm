@@ -5,9 +5,7 @@ import requests
 import wikipedia_template_parser as wtp
 from lxml import etree
 import re
-import pickle
 import json
-import ast
 
 
 def templates_including_coords():

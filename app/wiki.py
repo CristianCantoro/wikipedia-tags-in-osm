@@ -22,7 +22,6 @@
 #  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import re
 import urllib
 import ConfigParser as configparser
 from flask import Flask
@@ -32,12 +31,14 @@ from flask import redirect
 from flask import session
 from flask import abort
 from flask_mwoauth import MWOAuth
-from jinja2 import Environment
 from urlparse import urlparse
 import binascii
+import wikipedia_template_parser as wtp
 
 from diff import get_difftable_difflib
-from templates import find_coords_templates, get_new_text
+from templates import find_coords_templates
+from templates import get_new_text_with_template
+from templates import get_new_text_no_template
 
 app = Flask(__name__)
 
@@ -150,6 +151,26 @@ def validate_parameters(args):
     return parameters, optional, error
 
 
+def get_new_text(old_text, parameters, optional):
+    template = find_coords_templates(old_text)
+
+    if template:
+        template_func = get_new_text_with_template
+    else:
+        template_func = get_new_text_no_template
+
+    new_text, old_text, section = template_func(lat=parameters['lat'],
+                                                lon=parameters['lon'],
+                                                dim=optional['dim'],
+                                                old_text=old_text,
+                                                template=template
+                                                )
+
+    difftable = get_difftable_difflib(old_text, new_text)
+
+    return new_text, old_text, template, section, difftable
+
+
 @app.route("/map")
 def show_map():
     parameters, optional, error = validate_parameters(request.args)
@@ -160,13 +181,30 @@ def show_map():
                                optional=optional
                                )
 
+        title = parameters['title']
+        clear_title = urllib.unquote_plus(title).replace('_', ' ')
+
+    try:
+        old_text = wtp.get_wikitext_from_api(clear_title, "it")
+    except Exception as e:
+        return render_template('error.html', info=e.message)
+
+    new_text, old_text, template, section, difftable = get_new_text(
+        old_text,
+        parameters,
+        optional)
+
     return render_template('wikimap.html',
                            lat=parameters['lat'],
                            lon=parameters['lon'],
                            title=urllib.quote_plus(parameters['title']),
                            dim=optional['dim'],
-                           referrer=urllib.quote_plus(optional['referrer']),
-                           id=optional['id']
+                           referrer=urllib.quote_plus(optional['ref']),
+                           id=optional['id'],
+                           new_text=new_text,
+                           template=template,
+                           section=section,
+                           difftable=difftable
                            )
 
 
@@ -241,23 +279,22 @@ def preview():
 
         old_text = revs['*']
 
-        template = find_coords_templates(old_text)
-
-        new_text, old_text, section = get_new_text(lat=parameters['lat'],
-                                                   lon=parameters['lon'],
-                                                   dim=optional['dim'],
-                                                   old_text=old_text,
-                                                   template=template
-                                                   )
-
-        difftable = get_difftable_difflib(old_text, new_text, pageid, section)
+        new_text, old_text, template, section, difftable = get_new_text(
+            old_text,
+            parameters,
+            optional)
 
         return render_template('preview.html',
+                               lat=parameters['lat'],
+                               lon=parameters['lon'],
+                               referrer=optional['ref'],
+                               id=optional['id'],
                                difftable=difftable,
                                new_text=new_text,
                                rows=len(new_text.split('\n')),
                                title=title,
                                section=section,
+                               template=template,
                                edit_token=token
                                )
 
@@ -274,7 +311,8 @@ def mock_success():
 @app.route("/edit", methods=['POST'])
 def edit():
 
-    print "This is /edit"
+    import pdb
+    pdb.set_trace()
 
     csrf_token = session.pop('_csrf_token', None)
     if not csrf_token or csrf_token != request.form.get('_csrf_token'):
@@ -289,6 +327,7 @@ def edit():
         summary = '[wtosm] aggiunta coordinate'
         section = request.form['section']
         referrer = request.form['referrer']
+        id_ = request.form['id']
 
         edit_query = {'action': 'edit',
                       'title': title,
@@ -311,13 +350,16 @@ def edit():
                 return render_template('nochange.html',
                                        link=link,
                                        title=title,
+                                       referrer=referrer,
+                                       id=id_
                                        )
             elif 'newrevid' in result['edit']:
                 return render_template('success.html',
                                        link=link,
                                        title=title,
                                        summary=summary,
-                                       referrer=referrer
+                                       referrer=referrer,
+                                       id=id_
                                        )
 
         except Exception as e:
@@ -352,6 +394,8 @@ def edit_test():
         new_text = request.form['new_text']
         summary = '[wtosm] aggiunta coordinate'
         section = request.form['section']
+        referrer = request.form['referrer']
+        id_ = request.form['id']
 
         edit_query = {'action': 'edit',
                       'title': 'Utente:CristianCantoro'

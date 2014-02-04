@@ -1,0 +1,58 @@
+{{rifugio
+|nomerifugio=Rifugio Laghi Gemelli
+|immagine=Rifugio Laghi Gemelli - luglio 2008.jpg
+|descrizione_immagine=
+|altitudine=1.968
+|stato=ITA
+|localita=[[Branzi]]
+|latitudine_d=45.993027
+|longitudine_d=9.803474
+|catena=[[Prealpi Orobiche]]
+|data=
+|proprietà=[[Club Alpino Italiano]]
+|gestione=Maurizio Nava
+|periodo=Da metà giugno a metà settembre. Il resto dell'anno solo prefestivi e festivi.
+|capienza=80
+|sito=http://www.rifugiolaghigemelli.it
+}}
+Il '''rifugio Laghi Gemelli''' è un [[rifugio alpino|rifugio]] di proprietà del [[Club Alpino Italiano|CAI]] di [[Bergamo]]. È situato nel comune di [[Branzi]] ([[Provincia di Bergamo|BG]]), in [[Valle Brembana]], nelle [[Alpi Orobie]], a 1.968&nbsp;m [[s.l.m.]] presso il bacino artificiale dei [[Laghi Gemelli]]. È dotato di circa 80 posti letto.
+
+== Storia ==
+Il rifugio originario fu edificato a partire dalla seconda metà del [[1899]] ed inaugurato il 1º luglio [[1900]], alla presenza di circa 200 soci. Si trattava di un edificio ad un solo piano, 15,30 x 5,10&nbsp;m, con pareti in muratura e tetto di ardesia, costituito da quattro locali, dotato di 18 posti letto.
+
+Fu completamente distrutto l'11 ottobre [[1944]] da reparti [[Fascismo|fascisti]] nel corso di azioni di rastrellamento contro i [[partigiano|partigiani]], in quanto era una zona importante per la [[Resistenza italiana|Resistenza]].
+
+Già nell'estate del [[1946]] iniziarono i lavori di costruzione di un nuovo rifugio, vicino alla posizione del precedente, su progetto dell'ing. Veneziani e di Emilio Corti. Fu inaugurato il 25 luglio [[1947]], in occasione della celebrazione del 75º anniversario della Sezione locale del CAI.
+
+== Accessi ==
+L'accesso principale al rifugio è il [[sentiero]] n. 211 che parte da [[Carona (Italia)|Carona]] e permette di raggiungere il rifugio in circa 3 ore, passando per il [[Lago Marcio]] ed il [[Lago Casere|Lago di Pian Casere]].
+
+È possibile raggiungere il rifugio anche da [[Branzi]], lungo il sentiero n. 212, in circa 3h30', da [[Roncobello]] (località Baite di Mezzeno), lungo il sentiero n. 215, in circa 2 ore.
+
+È possibile raggiungerlo anche dalla [[Valle Seriana]], da [[Ardesio|Valcanale]], lungo il sentiero n. 216, attraverso il [[Sentiero delle Orobie]], in circa 4 ore, e da [[Valgoglio]], per la [[val Sanguigno]], lungo il sentiero n. 232, o per il Passo Aviasco lungo il sentiero n. 228-229-214, in entrambi i casi per un tempo di percorrenza di circa 5 ore.
+
+== Ascensioni ==
+* [[Pizzo del Becco]] (2.507&nbsp;m)
+* [[Monte Spondone]]
+* [[Monte Corte]]
+* [[Pizzo Farno]]
+* [[Monte Pradella]]
+
+== Traversate ==
+Il rifugio è la meta della 2ª tappa del [[Sentiero_delle_Orobie#Sentiero_delle_Orobie_orientali|Sentiero delle Orobie Orientali]], provenendo dal [[Rifugio Alpe Corte]], segnavia n. 216, percorribile in circa 4 ore, e la partenza della 3ª tappa, alla volta del [[Rifugio Fratelli Calvi]], segnavia n. 213, percorribile in circa 4 ore.
+
+== Bibliografia ==
+{{cita libro|Aurelio|Locati|Cento anni di alpinismo bergamasco|1973|Bergamo|CAI Bergamo}}
+
+== Altri progetti ==
+{{interprogetto|commons=Category: Rifugio Laghi Gemelli}}
+
+== Collegamenti esterni ==
+* [http://www.rifugiolaghigemelli.it/ Sito ufficiale]
+* [http://www.vallibergamasche.info/rifugi/gemelli.html Scheda del rifugio su vallibergamasche.info]
+* [http://www.caibergamo.it/index.php?inurl=uo.php%3Fuo%3DLAGHI Scheda del rifugio sul sito del CAI di Bergamo]
+
+{{Portale|Bergamo|montagna}}
+
+[[Categoria:Rifugi della provincia di Bergamo|Laghi Gemelli]]
+[[Categoria:Rifugi delle Orobie|Gemelli]]
