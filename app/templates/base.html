@@ -1,21 +1,23 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="it">
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     {% block head %}
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css" />
     <title>{% block title %}{% endblock %} - Wikipedia-tags-in-OSM</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="../app/css/style.css">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     {% endblock %}
 </head>
+{% block body %}
 <body>
     <div id="content">
       <header class="main-header"><h1>{% block header %}{% endblock %}</h1></header>
-    	{% block content %}{% endblock %}
+        {% block content %}{% endblock %}
     </div>
     <div id="footer">
         {% block footer %}{% endblock %}
     </div>
 </body>
+{% endblock %}
 </html>

@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Wikipedia-tags-in-OSM</title>
-    <link rel="stylesheet" type="text/css" href="../app/css/style.css">
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  </head>
+{% extends 'base.html' %}
+{% block title %}Anteprima delle modifiche{% endblock %}
+
+{% block body %}
 <body>
   <div id="app-popup-preview" class="app-popup">
     <a href="javascript:void(0)" class="close"></a>
@@ -42,13 +38,7 @@
     {% endif %}
   </section>
 
-  <h2>Differenza tra le versioni</h2>
-  <section>
-    <p>Di seguito viene visualizzata la modifica applicata alla voce:</p>
-    <div class="container">
-      {{ difftable }}
-    </div>
-  </section>
+  {% include '_difftable.html' %}
   
   <h2>Nuovo testo</h2>
   <p>È possibile fare delle modifiche all'incipit della voce:</p>
@@ -84,11 +74,11 @@
         <br />
         <input id='submit_button' type='submit' value='Salva' />
         <button id='test_button' onclick="test_edit()">Test</button>
-        <p>È possibile modificare Wikipedia come utente anonimo, copiando il testo nella casella soprastante e inserendola <a href="https://it.wikipedia.org/w/index.php?title={{title}}&action=edit&section={{section}}">direttamente su Wikipedia</a>.
+        <p>È possibile comunque modificare Wikipedia come utente anonimo, copiando il testo nella casella soprastante e inserendola <a href="https://it.wikipedia.org/w/index.php?title={{title}}&action=edit&section={{section}}">direttamente su Wikipedia</a>.
     </form>
   </div>
 
   <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   <script type="text/javascript" src="../app/js/app/preview.js"></script>
 </body>
-</html>
+{% endblock body %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Seleziona le coordinate{% endblock %}
+
+{% block body %}
+  <span>Puoi modificare la pagina come utente anonimo, incollando <a id="wikipedia-anon-edit-text" href="#">questo testo</a>)</span>
+  <div id="wiki-anon-edit">
+    <h3>Differenza tra le versioni</h3>
+    <section>
+      <p>Di seguito viene visualizzata la modifica applicata alla voce:</p>
+      <div class="container">
+        {{ difftable }}
+      </div>
+
+
+      <p>Copia il testo nella casella sottostante <a href="https://it.wikipedia.org/w/index.php?title={{title}}&action=edit&section={{section}}">su Wikipedia:</a>.
+      <form name=anonform>
+        <textarea name=anon-textarea rows={{textarea_default_height(new_text)}} readonly>{{new_text}}</textarea>
+      </form>
+      <p><span style="font-size:x-small;">(Ricordati di leggere le avvertenze su Wikipedia prima di salvare ;-) )</span></p>
+
+    </section>
+  </div>
+{% endblock body %}

@@ -86,6 +86,12 @@ except:
     pass
 
 
+def textarea_default_height(text):
+    return len(text.split('\n')) + 5
+
+app.jinja_env.globals['textarea_default_height'] = textarea_default_height
+
+
 def generate_csrf_token():
     if '_csrf_token' not in session:
         session['_csrf_token'] = binascii.b2a_hex(os.urandom(24))
@@ -181,8 +187,8 @@ def show_map():
                                optional=optional
                                )
 
-        title = parameters['title']
-        clear_title = urllib.unquote_plus(title).replace('_', ' ')
+    title = parameters['title']
+    clear_title = urllib.unquote_plus(title).replace('_', ' ')
 
     try:
         old_text = wtp.get_wikitext_from_api(clear_title, "it")
@@ -195,6 +201,39 @@ def show_map():
         optional)
 
     return render_template('wikimap.html',
+                           lat=parameters['lat'],
+                           lon=parameters['lon'],
+                           title=urllib.quote_plus(parameters['title']),
+                           dim=optional['dim'],
+                           referrer=urllib.quote_plus(optional['ref']),
+                           id=optional['id'],
+                           )
+
+
+@app.route("/anon-edit")
+def anon_edit():
+    parameters, optional, error = validate_parameters(request.args)
+
+    if error:
+        return render_template('missingparameters.html',
+                               parameters=parameters,
+                               optional=optional
+                               )
+
+    title = parameters['title']
+    clear_title = urllib.unquote_plus(title).replace('_', ' ')
+
+    try:
+        old_text = wtp.get_wikitext_from_api(clear_title, "it")
+    except Exception as e:
+        return render_template('error.html', info=e.message)
+
+    new_text, old_text, template, section, difftable = get_new_text(
+        old_text,
+        parameters,
+        optional)
+
+    return render_template('anon-edit.html',
                            lat=parameters['lat'],
                            lon=parameters['lon'],
                            title=urllib.quote_plus(parameters['title']),

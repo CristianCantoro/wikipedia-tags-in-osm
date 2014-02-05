@@ -385,8 +385,6 @@ table.popup tr:nth-child(2) {
     text-align : center;
     font-size: 90%;
 }
-
-table.popup tr:nth-child(2),
 table.popup tr:nth-child(3) {
     font-size: 65%;
 }
@@ -469,4 +467,9 @@ div#app-popup-map-container {
 
 div#app-popup-preview-container {
     background: #D7A5D5;
+}
+
+table#avviso_modifica {
+    background-color: #FFCE7B;
+    margin: 0px 0px 0px 0px;
 }
