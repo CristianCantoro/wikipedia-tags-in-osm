@@ -400,6 +400,24 @@ table.popup tr:nth-child(3) {
     left: 10px;
 }
 
+div.box {
+    width: 33%;
+    padding: 10px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    background-color: #DBDBDB;
+    display: inline-block;
+}
+
+div#box-left {
+    background-color: #8CC78B;
+}
+
+div#box-right {
+    background-color: #FCB722;
+}
+
 div.app-popup {
     position:fixed;
     top:20px;
@@ -437,6 +455,7 @@ div.app-popup-container {
 img.addWikipediaIcon {
     width: 25px;
     height: 25px;
+    vertical-align: middle;
 }
 
 div.container {

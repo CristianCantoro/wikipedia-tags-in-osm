@@ -92,7 +92,7 @@ def find_coords_templates(old_text):
 
                             old_coords[par_name] = par_value
 
-    if template_found['has_coords']:
+    if template_found and template_found['has_coords']:
         if old_coords:
             template_found['old_coords'] = old_coords
         else:

@@ -1,17 +1,21 @@
 function test_edit() {
-    $('form#save_form').get(0).setAttribute('action', '../app/edit/test');
+    $('form#saveform').get(0).setAttribute('action', '../app/edit/test');
 }
+
+$('#wikipedia-info').click(function (e) {
+    e.preventDefault();
+    $("#wikipedia-edit-info").slideToggle('slow');
+    return false;
+});
 
 $(function() {
     "use strict";
 
-    $('#wikipedia-info').click(function (e) {
-        e.preventDefault();
-        $("#wikipedia-edit-info").slideToggle('slow');
-        return false;
-    });
-
     $("#wikipedia-edit-info").hide();
+
+    $('.app-popup a.close').click(function () {
+        $('.app-popup').hide();
+    });
 
     $("#saveform").submit(function(e) {
         e.preventDefault();

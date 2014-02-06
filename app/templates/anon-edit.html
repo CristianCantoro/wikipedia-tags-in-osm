@@ -3,7 +3,8 @@
 {% block title %}Seleziona le coordinate{% endblock %}
 
 {% block body %}
-  <span>Puoi modificare la pagina come utente anonimo, incollando <a id="wikipedia-anon-edit-text" href="#">questo testo</a>)</span>
+  <span>Puoi modificare la pagina come utente anonimo, incollando questo testo.</span>
+
   <div id="wiki-anon-edit">
     <h3>Differenza tra le versioni</h3>
     <section>
@@ -13,11 +14,12 @@
       </div>
 
 
-      <p>Copia il testo nella casella sottostante <a href="https://it.wikipedia.org/w/index.php?title={{title}}&action=edit&section={{section}}">su Wikipedia:</a>.
+      <p>Copia il testo nella casella sottostante nella pagina: <a href="https://it.wikipedia.org/w/index.php?title={{title}}&action=edit&section={{section}}">{{ title.replace('_', ' ')|unquote }}</a>.<br />
+      <span style="font-size:x-small;">(Ricordati di leggere le avvertenze su Wikipedia prima di salvare ;-) )</span></p>
+
       <form name=anonform>
         <textarea name=anon-textarea rows={{textarea_default_height(new_text)}} readonly>{{new_text}}</textarea>
       </form>
-      <p><span style="font-size:x-small;">(Ricordati di leggere le avvertenze su Wikipedia prima di salvare ;-) )</span></p>
 
     </section>
   </div>

@@ -143,8 +143,8 @@ $(function () {
 
     $('#app-popup-map').hide();
 
-    $('#app-popup-map a.close').click(function () {
-        $('#app-popup-map').hide();
+    $('.app-popup a.close').click(function () {
+        $('.app-popup').hide();
     });
 
     $('.wiki_user_edit').click(function (e) {
@@ -186,4 +186,37 @@ $(function () {
         return false;
 
     });
+
+    $('.wiki_anon_edit').click(function (e) {
+        e.preventDefault();
+
+        var data = {
+            lat: lat,
+            lon: lon,
+            dim: dim,
+            title: title,
+            referrer: referrer,
+            id: id
+        };
+
+        var needs_login = false;
+
+        var callAnonEdit = function ajaxCall() {
+            $.ajax({
+                url: "../app/anon-edit",
+                data: data,
+                dataType: "html",
+                type: 'GET',
+                success: function (result) {
+                    $('.app-popup').show();
+                    $('.app-popup-container').html(result);
+                },
+            });
+        }
+
+        callAnonEdit();
+       return false;
+
+    });
+
 });

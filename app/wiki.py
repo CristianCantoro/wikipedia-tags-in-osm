@@ -27,7 +27,6 @@ import ConfigParser as configparser
 from flask import Flask
 from flask import render_template
 from flask import request
-from flask import redirect
 from flask import session
 from flask import abort
 from flask_mwoauth import MWOAuth
@@ -161,16 +160,19 @@ def get_new_text(old_text, parameters, optional):
     template = find_coords_templates(old_text)
 
     if template:
-        template_func = get_new_text_with_template
-    else:
-        template_func = get_new_text_no_template
+        new_text, old_text, section = get_new_text_with_template(
+            lat=parameters['lat'],
+            lon=parameters['lon'],
+            dim=optional['dim'],
+            old_text=old_text,
+            template=template)
 
-    new_text, old_text, section = template_func(lat=parameters['lat'],
-                                                lon=parameters['lon'],
-                                                dim=optional['dim'],
-                                                old_text=old_text,
-                                                template=template
-                                                )
+    else:
+        new_text, old_text, section = get_new_text_no_template(
+            lat=parameters['lat'],
+            lon=parameters['lon'],
+            dim=optional['dim'],
+            old_text=old_text)
 
     difftable = get_difftable_difflib(old_text, new_text)
 
@@ -350,9 +352,6 @@ def mock_success():
 @app.route("/edit", methods=['POST'])
 def edit():
 
-    import pdb
-    pdb.set_trace()
-
     csrf_token = session.pop('_csrf_token', None)
     if not csrf_token or csrf_token != request.form.get('_csrf_token'):
         abort(403)
@@ -384,7 +383,7 @@ def edit():
 
         try:
             assert(result['edit']['result'] == 'Success')
-            link = mwoauth.base_url + '/wiki/' + title
+            link = mwoauth.base_url + title
             if 'nochange' in result['edit']:
                 return render_template('nochange.html',
                                        link=link,
@@ -402,7 +401,7 @@ def edit():
                                        )
 
         except Exception as e:
-            print e
+            pass
 
             try:
                 info = result['error']['info']
@@ -419,8 +418,6 @@ def edit():
 @app.route("/edit/test", methods=['POST'])
 def edit_test():
 
-    print "This is /edit/test"
-
     csrf_token = session.pop('_csrf_token', None)
     if not csrf_token or csrf_token != request.form.get('_csrf_token'):
         abort(403)
@@ -429,12 +426,9 @@ def edit_test():
         return 'Something went wrong, you are not logged in'
     else:
         edit_token = request.form['edit_token']
-        title = request.form['title']
         new_text = request.form['new_text']
         summary = '[wtosm] aggiunta coordinate'
         section = request.form['section']
-        referrer = request.form['referrer']
-        id_ = request.form['id']
 
         edit_query = {'action': 'edit',
                       'title': 'Utente:CristianCantoro'
@@ -447,8 +441,8 @@ def edit_test():
         if section != '-1':
             edit_query['section'] = int(section)
 
-        # result = mwoauth.request(edit_query)
-        result = mock_success()
+        result = mwoauth.request(edit_query)
+        # result = mock_success()
 
         try:
             assert(result['edit']['result'] == 'Success')
@@ -457,6 +451,7 @@ def edit_test():
             message = 'Oh Noes!'
 
         return message
+
 
 if __name__ == "__main__":
     from werkzeug.wsgi import DispatcherMiddleware

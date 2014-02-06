@@ -113,8 +113,8 @@ $(document).ready(function () {
         var dim = input.attr( 'data-dim' );
         var title = input.attr( 'data-wikipedia' );
 
-        $('#app-popup-main a.close').click(function () {
-            $('#app-popup-main').hide();
+        $('.app-popup a.close').click(function () {
+            $('.app-popup').hide();
         });
 
 
