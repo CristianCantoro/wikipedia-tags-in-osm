@@ -11,6 +11,8 @@ itsdangerous==0.23
 lxml==3.2.3
 mwparserfromhell==0.1.1
 oauth2==1.5.211
+pyquery==1.2.4
+pysqlite==2.6.3
 requests==2.0.1
 stevedore==0.9.1
 -e git+https://github.com/SpazioDati/Wikipedia-Template-Parser.git@9d739bbbaa6de6617a0c99d796a060eeb660ac4c#egg=wikipedia_template_parser-dev
