@@ -9,20 +9,84 @@ First of all, let's create a new virtualenv:
 mkvirtualenv wtosm
 ```
 
-To install the python `lxml` package you need some library headers for libxml2 and libxslt,
-to install the sqlite-relate packages you need the libsqlite3 headers.
-
-On a Debian (and derived) system you can install them with the following command:
+For all the installation operations activate your virtualenv with:
 ```bash
-sudo apt-get install libxml2-dev libxslt-dev
-sudo apt-get install libsqlite3-dev
+workon wtosm
 ```
+you prompt will change to reflect the fact that you are using a virtualenv to something like:
+`(wtosm)user@host:~/wikipedia-tags-in-osm$`
 
-To install all the required python packages you can 
+In general you can use install the package needed using the requirements file:
 ```bash
 pip install -r requirements.txt
 ```
 
+To exit the virtualenv you can `deactivate' it:
+```bash
+deactivate
+
+There are several details that need to be taken care of and are detailed below.
+
+Installing Spatialite tools 
+---------------------------
+The tool `spatialite_osm_raw` of the [spatialite](https://www.gaia-gis.it/), you can download
+and install it from the [spatialite-tools](https://www.gaia-gis.it/fossil/spatialite-tools/index)
+page.
+
+On a Debian/Ubuntu system you can install with:
+```bash
+sudo apt-get install spatialite-bin libspatialite-dev
+```
+
+Installing lxml
+---------------
+To install the python `lxml` package you need some library headers for libxml2 and libxslt,
+
+On a Debian (and derived) system you can install them with the following command:
+```bash
+sudo apt-get install libxml2-dev libxslt-dev
+```
+
+After installing this libraries you can install the module `lxml` with pip:
+```bash
+pip install lxml
+```
+Otherwise you can install the lxml module system-wide installing the package
+```bash
+sudo apt-get install python-lxml
+```
+
+Install pysqlite
+----------------
+
+Installing the pysqlite2 module for pythin requires a little bit extra work because
+the `enable_load_extension` attribute is [disabled by default](http://stackoverflow.com/questions/1545479/force-python-to-forego-native-sqlite3-and-use-the-installed-latest-sqlite3-ver).
+
+To install the sqlite-relate packages you need the libsqlite3 headers.
+```bash
+sudo apt-get install libsqlite3-dev
+```
+
+Download the pysqlite package (as of now ver. 2.6.3) from PyPI: [pysqlite[(https://pypi.python.org/pypi/pysqlite),
+and extract the package:
+```bash
+wget https://pypi.python.org/packages/source/p/pysqlite/pysqlite-2.6.3.tar.gz#md5=7ff1cedee74646b50117acff87aa1cfa
+tar xvzf pysqlite-2.6.3.tar.gz
+```
+
+Open the `setup.cfg` file and comment out the setting that omits the load extension attribute to be installed.
+Add an hash at the beginning of the line as in:
+`#define=SQLITE_OMIT_LOAD_EXTENSION`
+
+Then install the package using `setup.py`:
+```bash
+(wtosmapp)user@host:~/wtosm/misc/pysqlite-2.6.3$ python setup.py install
+```
+(make sure that you are working on your virtualenv before isntalling)
+
+
+Miscellanea
+-----------
 
 About virtualenvs
 -----------------
