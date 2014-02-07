@@ -7,13 +7,17 @@ argparse==1.2.1
 cssselect==0.9.1
 distribute==0.6.35
 flask-mwoauth==0.1.31
+https://git.wikimedia.org/zip/?r=pywikibot/externals/httplib2.git&format=gz#egg=httplib2-0.8-pywikibot1
 itsdangerous==0.23
-lxml==3.2.3
+lxml==3.3.0
 mwparserfromhell==0.1.1
 oauth2==1.5.211
 pyquery==1.2.4
 pysqlite==2.6.3
 requests==2.0.1
 stevedore==0.9.1
+virtualenv==1.9.1
+virtualenv-clone==0.2.4
+virtualenvwrapper==3.7
 -e git+https://github.com/SpazioDati/Wikipedia-Template-Parser.git@9d739bbbaa6de6617a0c99d796a060eeb660ac4c#egg=wikipedia_template_parser-dev
 wsgiref==0.1.2

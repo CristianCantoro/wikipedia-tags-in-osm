@@ -9,10 +9,13 @@ First of all, let's create a new virtualenv:
 mkvirtualenv wtosm
 ```
 
-To install the python `lxml` package you need some library headers for libxml2 and libxslt
-on a Debian (and derived) system you can install them with the following command:
+To install the python `lxml` package you need some library headers for libxml2 and libxslt,
+to install the sqlite-relate packages you need the libsqlite3 headers.
+
+On a Debian (and derived) system you can install them with the following command:
 ```bash
 sudo apt-get install libxml2-dev libxslt-dev
+sudo apt-get install libsqlite3-dev
 ```
 
 To install all the required python packages you can 
@@ -27,7 +30,7 @@ About virtualenvs
 If you wish to know more about virtualenvs you can read some info in this 
 [primer](http://iamzed.com/2009/05/07/a-primer-on-virtualenv/).
 
-An easy way to install a working virtual + virtualenvwrapper is 
+An easy way to install a working virtual + virtualenvwrapper is
 [virtualenv-burrito](https://github.com/brainsik/virtualenv-burrito).
 
 Removing virtualenvs
