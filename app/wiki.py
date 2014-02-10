@@ -104,7 +104,8 @@ def index():
     username = repr(mwoauth.get_current_user(False))
     return "WTOSM-dev test app <br />" + \
            "logged in as: " + username + "<br />" + \
-           '<a href="/wtosm/app/login">login</a> / <a href="/wtosm/app/logout">logout</a>'
+           '<a href="/wtosm/app/login">login</a> ' + \
+           '/ <a href="/wtosm/app/logout">logout</a>'
 
 
 @app.route("/login/success")
@@ -375,10 +376,9 @@ def edit():
                       }
 
         if section != '-1':
-            edit_query['section'] = int(section)
+            edit_query['section'] = section
 
         # result = mwoauth.request(edit_query)
-
         result = mock_success()
 
         try:
@@ -391,7 +391,6 @@ def edit():
                                        )
             elif 'newrevid' in result['edit']:
                 return render_template('success.html',
-                                       link=link,
                                        title=title,
                                        summary=summary,
                                        referrer=referrer,
@@ -399,8 +398,6 @@ def edit():
                                        )
 
         except Exception as e:
-            pass
-
             try:
                 info = result['error']['info']
             except:
@@ -410,7 +407,7 @@ def edit():
                 return render_template('error.html', info=info)
             else:
                 return render_template('error.html',
-                                       info="Nessuna informazione")
+                                       info="Exception: {}".format(e.message))
 
 
 @app.route("/edit/test", methods=['POST'])
