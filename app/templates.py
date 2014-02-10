@@ -105,23 +105,19 @@ def get_new_text_no_template(lat, lon, dim, old_text=''):
     new_text = old_text
     section = 0
 
-    incipit = None
     first_heading = HEADING.search(old_text)
+
+    tmpl = coords_template(lat=lat,
+                           lon=lon,
+                           dim=dim)
     if first_heading:
         incipit = old_text[:first_heading.start()]
-
+        new_text = tmpl + '\n\n' + incipit
+        old_text = incipit
+        section = 0
     else:
-        tmpl = coords_template(lat=lat,
-                               lon=lon,
-                               dim=dim)
-        if incipit:
-            new_text = tmpl + '\n\n' + incipit
-            old_text = incipit
-            section = 0
-
-        else:
-            new_text = tmpl + '\n\n' + old_text
-            section = -1
+        new_text = tmpl + '\n\n' + old_text
+        section = -1
 
     return new_text, old_text, section
 

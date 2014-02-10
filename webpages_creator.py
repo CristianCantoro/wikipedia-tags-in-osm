@@ -297,11 +297,10 @@ class Creator():
         #Create categories pages
         for theme in app.themes:
             for category in theme.categories:
-                #articles
-                category.articlesTable = ArticlesTable(app, category, selectNonMappable)
-                #category
+                category.articles_html = ArticlesTable(app, category, selectNonMappable).code
                 for subcategory in category.subcategories:
-                    subcategory.categoryTable = CategoryTable(app, subcategory, selectNonMappable)
+                    subcategory.html = CategoryTable(app, subcategory, selectNonMappable).code
+                category.html = Subpage(app, "themes", "", category, selectNonMappable).code
 
         #Create regions pages
         for region in app.regions:
