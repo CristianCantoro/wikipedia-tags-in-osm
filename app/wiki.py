@@ -102,9 +102,9 @@ app.jinja_env.globals['csrf_token'] = generate_csrf_token
 @app.route("/")
 def index():
     username = repr(mwoauth.get_current_user(False))
-    return "logged in as: " + username + "<br />" + \
-           "pippo 5<br />" + \
-           '<a href="login">login</a> / <a href="logout">logout</a>'
+    return "WTOSM-dev test app <br />" + \
+           "logged in as: " + username + "<br />" + \
+           '<a href="/wtosm/app/login">login</a> / <a href="/wtosm/app/logout">logout</a>'
 
 
 @app.route("/login/success")
