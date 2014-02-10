@@ -383,10 +383,8 @@ def edit():
 
         try:
             assert(result['edit']['result'] == 'Success')
-            link = mwoauth.base_url + title
             if 'nochange' in result['edit']:
                 return render_template('nochange.html',
-                                       link=link,
                                        title=title,
                                        referrer=referrer,
                                        id=id_
