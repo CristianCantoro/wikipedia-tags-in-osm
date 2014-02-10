@@ -301,6 +301,7 @@ class OSMcentroids(object):
 
 
 def main():
+        import ConfigParser
         # Options
         text = 'Starting from the file containing OSM elements with '\
                'Wikipedia tag (created with osmfilter) this script imports data into a '\
@@ -331,7 +332,6 @@ def main():
                             help='Path to libspatialite [default: '
                                  'libspatialite]',
                             dest="libspatialitePath",
-                            default="libspatialite",
                             action="store"
                             )
         parser.add_argument("-f", "--osm_file",
@@ -371,6 +371,14 @@ def main():
 
         args = parser.parse_args()
         #print args
+
+        if args.libspatialitePath is None:
+            with open("config") as fp:
+                configparser = ConfigParser.RawConfigParser()
+                configparser.readfp(fp)
+                args.libspatialitePath = configparser.get("general",
+                                                          "libspatialite-path"
+                                                          )
 
         osm = OSMcentroids(args.wOSMFile,
                            args.wOSMdb,
