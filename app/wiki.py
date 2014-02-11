@@ -25,6 +25,7 @@ import os
 import urllib
 import ConfigParser as configparser
 from flask import Flask
+from flask import redirect
 from flask import render_template
 from flask import request
 from flask import session
@@ -469,7 +470,6 @@ def test_nochange():
 
 if __name__ == "__main__":
     from werkzeug.wsgi import DispatcherMiddleware
-    from flask import redirect
     from flask import send_from_directory
 
     app.secret_key = "local secret is secret"
