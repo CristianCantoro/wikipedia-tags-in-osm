@@ -492,3 +492,7 @@ table#avviso_modifica {
     background-color: #FFCE7B;
     margin: 0px 0px 0px 0px;
 }
+
+#anon-textarea{
+    width: 99%;
+}
