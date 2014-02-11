@@ -410,8 +410,8 @@ def edit():
                                        info="Exception: {}".format(e.message))
 
 
-@app.route("/edit/test", methods=['POST'])
-def edit_test():
+@app.route("/test/edit", methods=['POST'])
+def test_edit():
 
     csrf_token = session.pop('_csrf_token', None)
     if not csrf_token or csrf_token != request.form.get('_csrf_token'):
@@ -446,6 +446,25 @@ def edit_test():
             message = 'Oh Noes!'
 
         return message
+
+
+@app.route("/test/success")
+def test_success():
+    return render_template('success.html',
+                           title='Wikipedia',
+                           summary='Test summary',
+                           referrer='/index.html',
+                           id=None
+                           )
+
+
+@app.route("/test/nochange")
+def test_nochange():
+    return render_template('nochange.html',
+                           title='Wikipedia',
+                           referrer='/index.html',
+                           id=None
+                           )
 
 
 if __name__ == "__main__":

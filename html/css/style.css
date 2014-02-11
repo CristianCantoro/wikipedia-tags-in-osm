@@ -432,7 +432,7 @@ div.app-popup {
     box-shadow: rgba(0,0,0,.2) 0 0 0 10px;
 }
 
-div.app-popup a.close {
+div.app-popup a#close-button {
     content:"";
     width:20px;
     height:20px;

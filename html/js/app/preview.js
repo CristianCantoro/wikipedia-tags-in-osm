@@ -1,5 +1,5 @@
 function test_edit() {
-    $('form#saveform').get(0).setAttribute('action', '../app/edit/test');
+    $('form#saveform').get(0).setAttribute('action', '../app/test/edit');
 }
 
 $('#wikipedia-info').click(function (e) {
@@ -36,4 +36,3 @@ $(function() {
         return false;
     }); 
 });
-
