@@ -100,7 +100,8 @@ def main():
     parser.add_argument("-f", "--file",
                         help='Nome del file di output con i dati '
                              '[default: '
-                             './data/wikipedia/templates_with_coords.txt]',
+                             './data/wikipedia'
+                             '/coords/templates_with_coords.txt]',
                         default=os.path.join("data",
                                              "wikipedia",
                                              "coords",
@@ -112,7 +113,8 @@ def main():
                         help='Nome del file con una lista di template '
                              '(serve per aggiungere alcuni template "a mano" '
                              '[default: '
-                             './data/wikipedia/add_templates_with_coords.txt]',
+                             './data/wikipedia'
+                             '/coords/add_templates_with_coords.txt]',
                         default=os.path.join("data",
                                              "wikipedia",
                                              "coords",
