@@ -303,9 +303,13 @@ def preview():
 
         try:
             pageid = token_req['query']['pages'].keys()[0]
-        except KeyError:
+        except (KeyError, TypeError) as e:
             info = token_req['error']['info']
-            return render_template('error.html', info=info)
+	    if info:
+                return render_template('error.html', info=info)
+            else:
+                return render_template('error.html', info=e.message)
+
 
         pages = token_req['query']['pages']
 
