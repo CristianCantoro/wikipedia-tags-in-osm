@@ -42,11 +42,6 @@ from templates import get_new_text_no_template
 
 app = Flask(__name__)
 
-app.config.update(
-    DEBUG=True,
-    PROPAGATE_EXCEPTIONS=True
-)
-
 BASEDIR = os.path.dirname(os.path.realpath(__file__))
 CONFIG_FILENAME = 'settings.cfg'
 CONFIG_FILE = os.path.realpath(
@@ -56,6 +51,10 @@ CONFIG_FILE = os.path.realpath(
 # CONFIG_FILENAME = 'settings.dev.cfg'
 # CONFIG_FILE = os.path.realpath(
 #    os.path.join('..', 'wtosm', 'dev', CONFIG_FILENAME))
+# app.config.update(
+#     DEBUG=True,
+#     PROPAGATE_EXCEPTIONS=True
+# )
 
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
@@ -305,11 +304,10 @@ def preview():
             pageid = token_req['query']['pages'].keys()[0]
         except (KeyError, TypeError) as e:
             info = token_req['error']['info']
-	    if info:
+            if info:
                 return render_template('error.html', info=info)
             else:
                 return render_template('error.html', info=e.message)
-
 
         pages = token_req['query']['pages']
 
