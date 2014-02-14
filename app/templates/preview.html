@@ -11,7 +11,7 @@
   <header class="main-header">
     <div class="container">
       <h1>Inserimento in Wikipedia</h1>
-      <p class="subtitle"><strong>nella voce di Wikipedia: {{ title.replace('_', ' ')|unquote }}</strong></p>
+      <p class="subtitle"><strong>nella voce di Wikipedia: {{ title.replace('_', ' ') }}</strong></p>
     </div>
   </header>
 
@@ -44,11 +44,11 @@
   <p>È possibile fare delle modifiche all'incipit della voce:</p>
   <div class="container">
     <form id='saveform' class='inputform' method="post" action="../app/edit">
-        <input name=title type=hidden value="{{ title|unquote }}">
+        <input name=title type=hidden value="{{ title }}">
         <input name=section type=hidden value="{{ section }}">
         <input name=referrer type=hidden value="{{ referrer }}">
         <input name=id type=hidden value="{{ id }}">
-        <textarea id='search_result' name='new_text' rows={{rows}}  title='new text' type='text'>{{ new_text }}</textarea>
+        <textarea id='new_text' name='new_text' rows={{rows}}  title='new text' type='text'>{{ new_text }}</textarea>
         <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
         <input name=edit_token type=hidden value="{{ edit_token }}">
         <br />

@@ -191,7 +191,7 @@ def show_map():
                                )
 
     title = parameters['title']
-    clear_title = urllib.unquote_plus(title).replace('_', ' ')
+    clear_title = urllib.unquote_plus(title)
 
     try:
         old_text = wtp.get_wikitext_from_api(clear_title, "it")
@@ -206,7 +206,7 @@ def show_map():
     return render_template('wikimap.html',
                            lat=parameters['lat'],
                            lon=parameters['lon'],
-                           title=urllib.quote_plus(parameters['title']),
+                           title=clear_title,
                            dim=optional['dim'],
                            referrer=urllib.quote_plus(optional['ref']),
                            id=optional['id'],
@@ -224,7 +224,7 @@ def anon_edit():
                                )
 
     title = parameters['title']
-    clear_title = urllib.unquote_plus(title).replace('_', ' ')
+    clear_title = urllib.unquote_plus(title)
 
     try:
         old_text = wtp.get_wikitext_from_api(clear_title, "it")
@@ -239,9 +239,9 @@ def anon_edit():
     return render_template('anon-edit.html',
                            lat=parameters['lat'],
                            lon=parameters['lon'],
-                           title=urllib.quote_plus(parameters['title']),
+                           title=clear_title,
                            dim=optional['dim'],
-                           referrer=urllib.quote_plus(optional['ref']),
+                           referrer=optional['ref'],
                            id=optional['id'],
                            new_text=new_text,
                            template=template,
@@ -289,10 +289,12 @@ def preview():
     if mwoauth.get_current_user(False) is None:
         return redirect('../app/login?next={next}'.format(next=next_url))
     else:
+
         title = parameters['title']
-        clear_title = urllib.unquote_plus(title).replace('_', ' ')
+        clear_title = urllib.unquote_plus(title)
+
         token_req = mwoauth.request({'action': 'query',
-                                     'titles': clear_title,
+                                     'titles': clear_title.replace('_', ' '),
                                      'prop': 'info|revisions',
                                      'rvprop': 'timestamp|user'
                                                '|comment|content',
@@ -304,6 +306,7 @@ def preview():
             pageid = token_req['query']['pages'].keys()[0]
         except (KeyError, TypeError) as e:
             info = token_req['error']['info']
+
             if info:
                 return render_template('error.html', info=info)
             else:
@@ -337,7 +340,7 @@ def preview():
                                difftable=difftable,
                                new_text=new_text,
                                rows=len(new_text.split('\n')),
-                               title=title,
+                               title=clear_title,
                                section=section,
                                template=template,
                                edit_token=token
