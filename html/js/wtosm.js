@@ -112,6 +112,8 @@ $(document).ready(function () {
         var lon = input.attr( 'data-lon' );
         var dim = input.attr( 'data-dim' );
         var title = input.attr( 'data-wikipedia' );
+        var ref = input.attr( 'data-referrer' );
+        var id = input.attr( 'data-id' );
 
         $('.app-popup a.close').click(function () {
             $('.app-popup').hide();
@@ -122,7 +124,9 @@ $(document).ready(function () {
             lat: lat,
             lon: lon,
             dim: dim,
-            title: title
+            title: title,
+            ref: ref,
+            id: id
         };
 
         $.ajax({
