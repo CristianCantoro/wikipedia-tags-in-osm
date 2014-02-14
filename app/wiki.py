@@ -124,7 +124,7 @@ def validate_parameters(args):
         lat = None
         lon = None
 
-    title = urllib.quote(args.get('title', ''))
+    title = args.get('title', '')
 
     dim = int(args.get('dim', 0))
     referrer = args.get('ref', '')
@@ -191,10 +191,9 @@ def show_map():
                                )
 
     title = parameters['title']
-    clear_title = urllib.unquote_plus(title)
 
     try:
-        old_text = wtp.get_wikitext_from_api(clear_title, "it")
+        old_text = wtp.get_wikitext_from_api(title, "it")
     except Exception as e:
         return render_template('error.html', info=e.message)
 
@@ -206,9 +205,9 @@ def show_map():
     return render_template('wikimap.html',
                            lat=parameters['lat'],
                            lon=parameters['lon'],
-                           title=clear_title,
+                           title=title,
                            dim=optional['dim'],
-                           referrer=urllib.quote_plus(optional['ref']),
+                           referrer=optional['ref'],
                            id=optional['id'],
                            )
 
@@ -224,10 +223,9 @@ def anon_edit():
                                )
 
     title = parameters['title']
-    clear_title = urllib.unquote_plus(title)
 
     try:
-        old_text = wtp.get_wikitext_from_api(clear_title, "it")
+        old_text = wtp.get_wikitext_from_api(title, "it")
     except Exception as e:
         return render_template('error.html', info=e.message)
 
@@ -239,7 +237,7 @@ def anon_edit():
     return render_template('anon-edit.html',
                            lat=parameters['lat'],
                            lon=parameters['lon'],
-                           title=clear_title,
+                           title=title,
                            dim=optional['dim'],
                            referrer=optional['ref'],
                            id=optional['id'],
@@ -284,17 +282,14 @@ def preview():
     if optional['id']:
         next_url = next_url + '&id={id}'.format(id=optional['id'])
 
-    next_url = urllib.quote_plus(next_url)
-
     if mwoauth.get_current_user(False) is None:
         return redirect('../app/login?next={next}'.format(next=next_url))
     else:
 
         title = parameters['title']
-        clear_title = urllib.unquote_plus(title)
 
         token_req = mwoauth.request({'action': 'query',
-                                     'titles': clear_title.replace('_', ' '),
+                                     'titles': title.replace('_', ' '),
                                      'prop': 'info|revisions',
                                      'rvprop': 'timestamp|user'
                                                '|comment|content',
@@ -318,7 +313,7 @@ def preview():
             if pages[pageid].get('missing', None) is not None:
                 domain = get_domain(mwoauth.base_url)
                 return render_template('missing.html',
-                                       title=clear_title,
+                                       title=title,
                                        site=domain)
 
         token = token_req['query']['pages'][pageid]['edittoken']
@@ -340,7 +335,7 @@ def preview():
                                difftable=difftable,
                                new_text=new_text,
                                rows=len(new_text.split('\n')),
-                               title=clear_title,
+                               title=title,
                                section=section,
                                template=template,
                                edit_token=token

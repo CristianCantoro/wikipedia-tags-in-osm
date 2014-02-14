@@ -7,5 +7,5 @@
   Hai modificato la pagina: <strong><em><a href="http://it.wikipedia.org/wiki/{{title}}">{{ title.replace('_', ' ')|unquote }}</a></em></strong> su Wikipedia in Italiano.<br />
   (La modifica ha oggetto: <em>"{{summary}}"</em> )
 
-  {% if referrer %}<a href="{{referrer}}{% if id %}#{{id}}{% endif %}">Ritorna alla lista</a>{% endif %}.
+  {% if referrer %}<a href="../{{referrer}}{% if id %}#{{id}}{% endif %}">Ritorna alla lista</a>{% endif %}.
 {% endblock %}
