@@ -150,11 +150,13 @@ $(function () {
     $('.wiki_user_edit').click(function (e) {
         e.preventDefault();
 
+        var dec_title = decodeURIComponent(title);
+        
         var data = {
             lat: lat,
             lon: lon,
             dim: dim,
-            title: title,
+            title: dec_title,
             referrer: referrer,
             id: id
         };
