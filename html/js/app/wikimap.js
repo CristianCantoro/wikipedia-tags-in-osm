@@ -109,9 +109,9 @@ $(function () {
 
     function login() {
         var r = $.Deferred();
-        var popup_baseurl =  '../app/login?';
+        var popup_baseurl =  './app/login?';
         
-        var params = {'next': '../app/login/success'}
+        var params = {'next': './app/login/success'}
         var popup_params = $.param(params)
 
         var popup_title = "Login";
@@ -126,7 +126,7 @@ $(function () {
             try {
                 console.log(popup_window.document.URL) 
                 if ( popup_window.location.pathname === 
-                        '/app/login/success') {
+                        '/wtosm/app/login/success') {
                     window.clearInterval(pollTimer);
                     popup_window.close();
                     r.resolve()
@@ -151,7 +151,7 @@ $(function () {
         e.preventDefault();
 
         var dec_title = decodeURIComponent(title);
-        
+
         var data = {
             lat: lat,
             lon: lon,
