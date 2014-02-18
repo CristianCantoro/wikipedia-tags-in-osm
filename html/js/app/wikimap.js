@@ -151,13 +151,14 @@ $(function () {
         e.preventDefault();
 
         var dec_title = decodeURIComponent(title);
+        var dec_referrer = decodeURIComponent(referrer);
 
         var data = {
             lat: lat,
             lon: lon,
             dim: dim,
             title: dec_title,
-            referrer: referrer,
+            ref: dec_referrer,
             id: id
         };
 
@@ -192,12 +193,15 @@ $(function () {
     $('.wiki_anon_edit').click(function (e) {
         e.preventDefault();
 
+        var dec_title = decodeURIComponent(title);
+        var dec_referrer = decodeURIComponent(referrer);
+
         var data = {
             lat: lat,
             lon: lon,
             dim: dim,
-            title: title,
-            referrer: referrer,
+            title: dec_title,
+            ref: dec_referrer,
             id: id
         };
 

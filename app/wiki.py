@@ -33,6 +33,7 @@ from flask import abort
 from flask_mwoauth import MWOAuth
 from urlparse import urlparse
 import binascii
+import HTMLParser
 import wikipedia_template_parser as wtp
 
 from diff import get_difftable_difflib
@@ -73,6 +74,8 @@ mwoauth = MWOAuth(base_url='https://it.wikipedia.org/w',
 app.register_blueprint(mwoauth.bp)
 
 app.jinja_env.filters['unquote'] = urllib.unquote
+
+app.jinja_env.filters['unescape'] = HTMLParser.HTMLParser().unescape
 
 templates_file = config.get('app', 'templates_file')
 
