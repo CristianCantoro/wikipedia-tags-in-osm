@@ -2,11 +2,13 @@ function test_edit() {
     $('form#saveform').get(0).setAttribute('action', '../app/test/edit');
 }
 
-$('#wikipedia-info').click(function (e) {
-    e.preventDefault();
-    $("#wikipedia-edit-info").slideToggle('slow');
-    return false;
-});
+function toggle_info() {
+    $('#wikipedia-info').click(function (e) {
+        e.preventDefault();
+        $("#wikipedia-edit-info").slideToggle('slow');
+        return false;
+    });
+}
 
 $(function() {
     "use strict";
