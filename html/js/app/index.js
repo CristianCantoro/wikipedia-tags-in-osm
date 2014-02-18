@@ -1,4 +1,4 @@
-function toggleImg(id) {
+function toggle_img(id) {
     $('#' + id).slideToggle('slow');
 }
 

@@ -46,44 +46,44 @@
 <h2 id="istruzioni">Istruzioni</h2>
 
 <ol>
-  <li>Scegliamo una voce senza coordinate in Wikipedia, ma linkata da OSM, per esempio la <a href="https://it.wikipedia.org/wiki/Piramide_Cestia">piramide Cestia</a> a Roma (<a href="javascript:toggleImg('piramide-cestia')">visualizza immagine</a>).</li>
+  <li>Scegliamo una voce senza coordinate in Wikipedia, ma linkata da OSM, per esempio la <a href="https://it.wikipedia.org/wiki/Piramide_Cestia">piramide Cestia</a> a Roma (<a href="javascript:toggle_img('piramide-cestia')">visualizza immagine</a>).</li>
   <span id="piramide-cestia" class="img-instructions"><img src="../app/img/Piramide_Cestia.png" /></span>
 
-  <li>Cliccando sul template si apre un popup (<a href="javascript:toggleImg('map-popup')">visualizza immagine</a>).</li>
+  <li>Cliccando sul template si apre un popup (<a href="javascript:toggle_img('map-popup')">visualizza immagine</a>).</li>
   <span id="map-popup" class="img-instructions"><img src="../app/img/map_popup.png" /></span>
 
   <li>sulla mappa ci sono due marker: uno blu (fisso) ed uno rosso (spostabile), quello blu è il centroide dell'oggetto calcolato a partire da OSM.<br />
-  È possibile spostare il marker in una nuova posizione desiderata, se necessario (<a href="javascript:toggleImg('drag-marker')">visualizza immagine</a>).<br />
+  È possibile spostare il marker in una nuova posizione desiderata, se necessario (<a href="javascript:toggle_img('drag-marker')">visualizza immagine</a>).<br />
   <span id="drag-marker" class="img-instructions"><img src="../app/img/drag_marker.png" /><br /></span>
-  Un messaggio informerà quali sono le nuove coordinate del marker, che poi saranno quelle inserite in Wikipedia. Queste coordinate sono visibili anche sotto alla mappa (<a href="javascript:toggleImg('drag-marker-result')">visualizza immagine</a>).
+  Un messaggio informerà quali sono le nuove coordinate del marker, che poi saranno quelle inserite in Wikipedia. Queste coordinate sono visibili anche sotto alla mappa (<a href="javascript:toggle_img('drag-marker-result')">visualizza immagine</a>).
   <span id="drag-marker-result" class="img-instructions"><img src="../app/img/drag_marker_result.png" /></span>
   </li>
 
   <li>Cliccando sull'icona con il (+) (si veda ancora l'immagine al punto 2):
     <ol>
-      <li> 4a) (se non lo si è già fatto in precedenza) si viene redirezionati a Wikipedia in Italiano dove viene chiesto di effettuare il login con il proprio account (<a href="javascript:toggleImg('wikipedia-login')">visualizza immagine</a>)<br />
+      <li> 4a) (se non lo si è già fatto in precedenza) si viene redirezionati a Wikipedia in Italiano dove viene chiesto di effettuare il login con il proprio account (<a href="javascript:toggle_img('wikipedia-login')">visualizza immagine</a>)<br />
         <span id="wikipedia-login" class="img-instructions"><img src="../app/img/wikipedia_login.png" /><br /></span>
       </li>
-      <li> 4b) viene richiesta l'autorizzazione da parte dell'applicazione ad effettuare modifiche alle pagine di Wikipedia con il proprio nome utente (<a href="javascript:toggleImg('wikipedia-auth')">visualizza immagine</a>)<br />
+      <li> 4b) viene richiesta l'autorizzazione da parte dell'applicazione ad effettuare modifiche alle pagine di Wikipedia con il proprio nome utente (<a href="javascript:toggle_img('wikipedia-auth')">visualizza immagine</a>)<br />
         <span id="wikipedia-auth" class="img-instructions"><img src="../app/img/wikipedia_auth.png" /></span>
       </li>
     </ol>
   </li>
 
-  <li>Si ottiene una anteprima delle modifiche alla pagina (<a href="javascript:toggleImg('preview-top')">visualizza immagine</a>)<br />
+  <li>Si ottiene una anteprima delle modifiche alla pagina (<a href="javascript:toggle_img('preview-top')">visualizza immagine</a>)<br />
   <span id="preview-top" class="img-instructions"><img src="../app/img/preview_top.png" /><br /></span>
-  La sezione rilevante (tipicamente quella iniziale) è riportata per intero nella casella di testo, si può quindi salvare (<a href="javascript:toggleImg('text-preview')">visualizza immagine</a>)<br />
+  La sezione rilevante (tipicamente quella iniziale) è riportata per intero nella casella di testo, si può quindi salvare (<a href="javascript:toggle_img('text-preview')">visualizza immagine</a>)<br />
   <span id="text-preview" class="img-instructions"><img src="../app/img/text_preview.png" /><br /></span>
   (i punti 4a e 4b vengono effettuati solo la prima volta)
   </li>
 
   <li>
-  Si riceve un messaggio se il salvataggio è andato a buon fine (<a href="javascript:toggleImg('success-message')">visualizza immagine</a>)
+  Si riceve un messaggio se il salvataggio è andato a buon fine (<a href="javascript:toggle_img('success-message')">visualizza immagine</a>)
   </li>
   <span id="success-message" class="img-instructions"><img src="../app/img/success_message.png" /></span>
 
   <li>
-  Si può quindi verificare nei propri contributi utente che appare la modifica appena fatta (ed è automaticamente <a href="https://it.wikipedia.org/wiki/Speciale:Etichette">etichettata</a> con "wtosm") (<a href="javascript:toggleImg('wikipedia-diff')">visualizza immagine</a>)
+  Si può quindi verificare nei propri contributi utente che appare la modifica appena fatta (ed è automaticamente <a href="https://it.wikipedia.org/wiki/Speciale:Etichette">etichettata</a> con "wtosm") (<a href="javascript:toggle_img('wikipedia-diff')">visualizza immagine</a>)
   </li>
   <span id="wikipedia-diff" class="img-instructions"><img src="../app/img/wikipedia_diff.png" /></span>
 
@@ -107,7 +107,8 @@ Hanno contribuito:
 <li>Cristian "CristianCantoro" Consonni: <a href="mailto:consonni (at) fbk (punto) eu">consonni (at) fbk (punto) eu</a></li>
 </ul>
 
-Il progetto ha fatto uso di diversi software e librerie esterne esistenti, consultate il <a href="https://github.com/simone-f/wikipedia-tags-in-osm/blob/master/README.md">README</a> per una lista dettagliata dei credits.
+Il progetto ha fatto uso di diversi software e librerie esterne esistenti, consultate il <a href="https://github.com/simone-f/wikipedia-tags-in-osm/blob/master/README.md">README</a> per una lista dettagliata dei credits. 
+In particolare per questa applicazione OAuth un ringraziamento va a  <a href="https://github.com/valhallasw">Merlijn "valhallasw" van Deen</a> autore di <a href="https://github.com/valhallasw/flask-mwoauth">flask-mwoauth</a> per il continuo supporto.
 
 Il lavoro di Cristian Consonni è svolto all'interno delle attività del <a href="http://digitalcommonslab.fbk.eu/">Digital Commons Lab</a> della <a href="http://fbk.eu/">Fondazione Bruno Kessler</a>.
 
