@@ -487,6 +487,7 @@ div#app-popup-map-container {
 div#app-popup-preview-container {
     background: #D7A5D5;
 }
+*/
 
 table#avviso_modifica {
     background-color: #FFCE7B;
@@ -495,4 +496,55 @@ table#avviso_modifica {
 
 #anon-textarea{
     width: 99%;
+}
+
+.table-of-contents {
+  float: left;
+  background: #eee;
+  font-size: 0.8em;
+  padding: 1em 2em;
+  margin: 0 0 0.5em 0.5em;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.table-of-contents ul {
+  padding: 0;
+}
+
+.table-of-contents li {
+  margin: 0 0 0.25em 0;
+}
+
+.table-of-contents a {
+  text-decoration: none;
+}
+
+.table-of-contents a:hover,
+.table-of-contents a:active {
+  text-decoration: underline;
+}
+
+div.box-log {
+    width: 10%;
+    padding: 10px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    background-color: #DBDBDB;
+    display: inline-block;
+    text-align: center;
+}
+
+div#box-login {
+    background-color: #64D800;
+}
+
+div#box-logout {
+    background-color: #FF7CA5;
+}
+
+span.img-instructions {
+    clear: both;
 }
