@@ -10,31 +10,33 @@ function toggle_info() {
     });
 }
 
-$(function() {
-    "use strict";
+function load_preview() {
+    $(function() {
+        "use strict";
 
-    $("#wikipedia-edit-info").hide();
+        $("#wikipedia-edit-info").hide();
 
-    $('.app-popup a.close').click(function () {
-        $('.app-popup').hide();
-    });
-
-    $("#saveform").submit(function(e) {
-        e.preventDefault();
-        
-        $.ajax({
-            data: $(this).serialize(),
-            type: $(this).attr('method'),
-            url: $(this).attr('action'),
-            dataType: "html",
-            success: function (result) {
-                $('.app-popup').show();
-                $('.app-popup-container').html(result);
-            },
-            error: function (){
-                  alert('Error!');
-            }
+        $('.app-popup a.close').click(function () {
+            $('.app-popup').hide();
         });
-        return false;
-    }); 
-});
+
+        $("#saveform").submit(function(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                data: $(this).serialize(),
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                dataType: "html",
+                success: function (result) {
+                    $('.app-popup').show();
+                    $('.app-popup-container').html(result);
+                },
+                error: function (){
+                      alert('Error!');
+                }
+            });
+            return false;
+        }); 
+    });
+}
