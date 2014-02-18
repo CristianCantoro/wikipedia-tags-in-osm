@@ -109,9 +109,9 @@ $(function () {
 
     function login() {
         var r = $.Deferred();
-        var popup_baseurl =  './app/login?';
+        var popup_baseurl =  '../app/login?';
         
-        var params = {'next': './app/login/success'}
+        var params = {'next': '/wtosm/app/login/success'}
         var popup_params = $.param(params)
 
         var popup_title = "Login";
