@@ -117,7 +117,10 @@ draggable_marker.on('dragend', function(e){
         'id': id
     };
 
-    $("a#wiki-user-edit").attr("href", "../app/preview?"+$.param(data));
+    lat = drag_lat;
+    lon = drag_lng;
+
+    $("a.wiki-edit").attr("href", "../app/preview?"+$.param(data));
 
 });
 
