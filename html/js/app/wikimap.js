@@ -39,7 +39,7 @@ var blueIcon = new L.icon({
     shadowSize:   [50, 64],
     iconAnchor:   [12, 41],
     shadowAnchor: [4, 62],
-    popupAnchor:  [-50, -33]
+    popupAnchor:  [3, -33]
 });
 
 var infocontent = "<em>" + dec_title.replace(/_/g, ' ') + "</em>";
