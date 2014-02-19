@@ -1,13 +1,29 @@
-var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/'+
-                   '{key}/{styleId}/256/{z}/{x}/{y}.png',
-    cloudmadeAttribution = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
-                           'Imagery &copy; 2012 CloudMade',
-    cloudmadeKey = '2d72720041c94acf89b2e51c3d1792de';
+// Cloudmade
+// var map_url = 'http://{s}.tile.cloudmade.com/'+
+//               '{key}/{styleId}/256/{z}/{x}/{y}.png',
+//     map_attribution = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
+//                       'Imagery &copy; 2012 CloudMade',
+//     map_key = '2d72720041c94acf89b2e51c3d1792de';
+//
+//     map_style = '997@2x'
+//
+// map_url.replace("{key}", map_key)
+//
+// map_url.replace("{styleId}", ,map_style)
 
-var standard = L.tileLayer(cloudmadeUrl, {
-    styleId: 997,
-    attribution: cloudmadeAttribution,
-    key: cloudmadeKey});
+// OpenCycleMap
+// var map_url = 'http://{s}.tile2.opencyclemap.org/' +
+//               'transport/{z}/{x}/{y}.png',
+//     map_attribution = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
+//                       'Imagery &copy; 2012 OpenCycleMap'
+
+// Mapquest
+var map_url = 'http://otile1.mqcdn.com/' +
+              '/tiles/1.0.0/osm/{z}/{x}/{y}.jpg',
+    map_attribution = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
+                      'Imagery &copy; 2012 MapQuest'
+
+var standard = L.tileLayer(map_url, {attribution: map_attribution});
 
 var map = L.map('map_canvas', {
     center: new L.LatLng(lat, lon),
