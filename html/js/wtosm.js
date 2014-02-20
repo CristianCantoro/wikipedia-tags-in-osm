@@ -112,26 +112,28 @@ $(document).ready(function () {
         var lon = input.attr( 'data-lon' );
         var dim = input.attr( 'data-dim' );
         var title = input.attr( 'data-wikipedia' );
-        var ref = input.attr( 'data-referrer' );
+        var referrer = input.attr( 'data-referrer' );
         var id = input.attr( 'data-id' );
 
         $('.app-popup a.close').click(function () {
             $('.app-popup').hide();
         });
 
+        var dec_title = decodeURIComponent(title);
+        var dec_referrer = decodeURIComponent(referrer);
 
-        var params = {
+        var data = {
             lat: lat,
             lon: lon,
             dim: dim,
-            title: title,
-            ref: ref,
+            title: dec_title,
+            ref: dec_referrer,
             id: id
         };
 
         $.ajax({
             url: "../app/map",
-            data: params,
+            data: data,
             dataType: "html",
             type: 'GET',
             success: function (result) { 
