@@ -1,45 +1,70 @@
 // Cloudmade
-// var map_url = 'http://{s}.tile.cloudmade.com/'+
-//               '{key}/{styleId}/256/{z}/{x}/{y}.png',
-//     map_attribution = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
-//                       'Imagery &copy; 2012 CloudMade',
-//     map_key = '2d72720041c94acf89b2e51c3d1792de';
-//
-//     map_style = '997@2x'
-//
-// map_url.replace("{key}", map_key)
-//
-// map_url.replace("{styleId}", ,map_style)
+var map_url_cm = 'http://{s}.tile.cloudmade.com/'+
+                    '{key}/{styleId}/256/{z}/{x}/{y}.png',
+    map_attribution_cm = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
+                         'Imagery &copy; 2012 CloudMade',
+    map_key_cm = '2d72720041c94acf89b2e51c3d1792de';
+
+map_url_cm = map_url_cm.replace("{key}", map_key_cm)
+
+
 
 // OpenCycleMap
-// var map_url = 'http://{s}.tile2.opencyclemap.org/' +
-//               'transport/{z}/{x}/{y}.png',
-//     map_attribution = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
-//                       'Imagery &copy; 2012 OpenCycleMap'
+var map_url_oc = 'http://{s}.tile2.opencyclemap.org/' +
+                 'transport/{z}/{x}/{y}.png',
+    map_attribution_oc = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
+                         'Imagery &copy; 2012 OpenCycleMap'
+
+// Toolserver
+var map_url_ts = 'http://{s}.www.toolserver.org/' +
+                 'tiles/bw-mapnik/{z}/{x}/{y}.png',
+    map_attribution_ts = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
+                         'Imagery &copy; 2012 Toolserver'
 
 // Mapquest
-var map_url = 'http://otile1.mqcdn.com/' +
-              '/tiles/1.0.0/osm/{z}/{x}/{y}.jpg',
-    map_attribution = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
-                      'Imagery &copy; 2012 MapQuest'
+var map_url_mq = 'http://otile1.mqcdn.com/' +
+                 '/tiles/1.0.0/osm/{z}/{x}/{y}.jpg',
+    map_attribution_mq = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
+                         'Imagery &copy; 2012 MapQuest'
 
-var standard = L.tileLayer(map_url, {attribution: map_attribution});
+var cloudmade_base = L.tileLayer(map_url_cm, {
+        styleId: 997,
+        attribution: map_attribution_cm
+    }),
+    cloudmade_classic = L.tileLayer(map_url_cm, {
+        styleId: 1,
+        attribution: map_attribution_cm
+    }),
+    opencyclemap = L.tileLayer(map_url_oc, {
+        attribution: map_attribution_oc
+    }),
+    toolserver = L.tileLayer(map_url_ts, {
+        attribution: map_attribution_ts
+    }),
+    mapquest = L.tileLayer(map_url_mq, {
+        attribution: map_attribution_mq
+    });
 
 var map = L.map('map_canvas', {
-    center: new L.LatLng(lat, lon),
-    zoom: 17,
-    layers: [standard]
+        center: new L.LatLng(lat, lon),
+        zoom: 17,
+        layers: [opencyclemap,
+                 cloudmade_base,
+                 cloudmade_classic,
+                 mapquest,
+                 toolserver
+                 ]
 });
 
 var dec_title = decodeURIComponent(title);
 
 var blueIcon = new L.icon({
-    iconUrl: '../app/img/marker-icon-blue.png',
-    iconSize:     [25, 41],
-    shadowSize:   [50, 64],
-    iconAnchor:   [12, 41],
-    shadowAnchor: [4, 62],
-    popupAnchor:  [3, -33]
+        iconUrl: '../app/img/marker-icon-blue.png',
+        iconSize:     [25, 41],
+        shadowSize:   [50, 64],
+        iconAnchor:   [12, 41],
+        shadowAnchor: [4, 62],
+        popupAnchor:  [3, -33]
 });
 
 var infocontent = "<em>" + dec_title.replace(/_/g, ' ') + "</em>";
@@ -51,8 +76,6 @@ var infopopup = L.popup();
 infopopup
     .setLatLng(fixed_marker.getLatLng())
     .setContent(infocontent);
-
-map.addLayer(fixed_marker);
 
 fixed_marker
         .bindPopup(infopopup)
@@ -73,7 +96,7 @@ var draggable_marker = new L.marker([lat-0.00005, lon-0.00005], {
     icon: redIcon,
     draggable:'true'
 });
-map.addLayer(draggable_marker);
+
 
 var data = {
     'title': dec_title,
@@ -83,6 +106,24 @@ var data = {
     'ref': referrer,
     'id': id
 };
+
+var base_maps = {
+    "OpenCycleMap": opencyclemap,
+    "CloudMade Base": cloudmade_base,
+    "CloudMade Classic": cloudmade_classic,
+    "MapQuest": mapquest,
+    "Toolserver": toolserver
+};
+
+var overlay_maps = {
+    "Centroide in OSM": fixed_marker,
+};
+
+fixed_marker.addTo(map);
+
+draggable_marker.addTo(map);
+
+L.control.layers(base_maps, overlay_maps).addTo(map);
 
 draggable_marker.on('dragend', function(e){
     var draggable_marker = e.target;
@@ -123,6 +164,8 @@ draggable_marker.on('dragend', function(e){
     $("a.wiki-edit").attr("href", "../app/preview?"+$.param(data));
 
 });
+
+
 
 $(function () {
 
