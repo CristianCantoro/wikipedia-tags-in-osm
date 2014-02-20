@@ -5,7 +5,7 @@
 
 {% block content %}
   Non è stata apportata alcuna modifica alla pagina:
-  <strong><em><a href="http://it.wikipedia.org/wiki/{{title}}">{{ title.replace('_', ' ')|unquote }}</a></em></strong> su Wikipedia in Italiano.<br />
+  <strong><em><a href="http://it.wikipedia.org/wiki/{{title | unescape}}">{{ title.replace('_', ' ')| unquote | unescape}}</a></em></strong> su Wikipedia in Italiano.<br />
 
   {% if referrer %}<a href="../{{referrer| unescape }}{% if id %}#{{id}}{% endif %}">Ritorna alla lista</a>{% endif %}.
 {% endblock %}

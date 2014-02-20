@@ -4,7 +4,7 @@
 {% block header %}Ben fatto!{% endblock %}
 
 {% block content %}
-  Hai modificato la pagina: <strong><em><a href="http://it.wikipedia.org/wiki/{{title}}">{{ title.replace('_', ' ')|unquote }}</a></em></strong> su Wikipedia in Italiano.<br />
+  Hai modificato la pagina: <strong><em><a href="http://it.wikipedia.org/wiki/{{title | unescape}}">{{ title.replace('_', ' ')| unquote | unescape}}</a></em></strong> su Wikipedia in Italiano.<br />
   (La modifica ha oggetto: <em>"{{summary}}"</em> )
 
   {% if referrer %}<a href="../{{referrer| unescape }}{% if id %}#{{id}}{% endif %}">Ritorna alla lista</a>{% endif %}.
