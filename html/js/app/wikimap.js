@@ -67,7 +67,10 @@ var blueIcon = new L.icon({
         popupAnchor:  [3, -33]
 });
 
-var infocontent = "<em>" + dec_title.replace(/_/g, ' ') + "</em>";
+var infocontent = "Questa è la posizione del centroide " +
+                  "ricavato da OpenStreetMap per l'oggetto collegato " +
+                  "alla voce di Wikipedia: <em>" +
+                  dec_title.replace(/_/g, ' ') + "</em>";
 
 var fixed_marker = new L.marker([lat, lon], {icon: blueIcon});
 
@@ -82,7 +85,7 @@ fixed_marker
         .update();
 
 var redIcon = new L.icon({
-    iconUrl: '../app/img/marker-icon-red.png',
+    iconUrl: '../app/img/marker-icon-green.png',
     iconSize:     [25, 41],
     shadowSize:   [50, 64],
     iconAnchor:   [12, 41],
@@ -134,8 +137,8 @@ draggable_marker.on('dragend', function(e){
     var drag_lat = Math.round(position.lat * precision) / precision;
     var drag_lng = Math.round(position.lng * precision) / precision;
 
-    var msg = "Il marker si trova a:<br />";
-        msg += "(" + drag_lat + "; " + drag_lng + ")";
+    var msg = "La coordinate inserite su Wikipedia saranno:<br />" +
+              "(" + drag_lat + "; " + drag_lng + ")";
 
     popup
         .setLatLng(position)
