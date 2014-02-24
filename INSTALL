@@ -1,48 +1,49 @@
 Install instructions
 ====================
 
-It is advised to install all the packages needed to run Wikipedia-tags-in-OSM in a virtualenv
-(see below for more information).
+
+##Create a virtualenv and activate it
+
+Note: if you don't wish to use a virtualenv you can skip this section and
+install the required packages system-wide. You can do that using either:
+
+* your distribution packages (i.e. `apt-get` for DEB-based system,
+`yum` for RPM-based system, etc.)
+* `pip` or `easy_install`
+
+In general, it is possible (and advised) to install all the packages needed to
+run Wikipedia-tags-in-OSM in a virtualenv (see below for more information).
 
 First of all, let's create a new virtualenv:
 ```bash
 mkvirtualenv wtosm
 ```
-
 For all the installation operations activate your virtualenv with:
 ```bash
 workon wtosm
 ```
-you prompt will change to reflect the fact that you are using a virtualenv to something like:
+you prompt will change to reflect the fact that you are using a virtualenv to
+something like:
 `(wtosm)user@host:~/wikipedia-tags-in-osm$`
 
-In general you can use install the package needed using the requirements file:
-```bash
-pip install -r requirements.txt
-```
+##Requirements
 
-To exit the virtualenv you can `deactivate' it:
-```bash
-deactivate
+The basic requirements are:
+* python module: `lxml` (see next section for details)
+* osmupdate
+* osmconvert
+* osmfilter
+* wget
+* zgrep, cut (if using --show_link_to_wikipedia_coordinates)
+* python module `requests` (if using --infer_coordinates_from_wikipedia)
+(installable on DEB-based system with `sudo apt-get install python-requests`)
 
-There are several details that need to be taken care of and are detailed below.
+###Installing lxml
+To install the python `lxml` package you need some library headers for libxml2
+and libxslt.
 
-Installing Spatialite tools 
----------------------------
-The tool `spatialite_osm_raw` of the [spatialite](https://www.gaia-gis.it/), you can download
-and install it from the [spatialite-tools](https://www.gaia-gis.it/fossil/spatialite-tools/index)
-page.
-
-On a Debian/Ubuntu system you can install with:
-```bash
-sudo apt-get install spatialite-bin libspatialite-dev
-```
-
-Installing lxml
----------------
-To install the python `lxml` package you need some library headers for libxml2 and libxslt,
-
-On a Debian (and derived) system you can install them with the following command:
+On a Debian (and derived) system you can install them with the following
+command:
 ```bash
 sudo apt-get install libxml2-dev libxslt-dev
 ```
@@ -56,25 +57,70 @@ Otherwise you can install the lxml module system-wide installing the package
 sudo apt-get install python-lxml
 ```
 
-Install pysqlite
-----------------
+###Installing Osmconvert tools
+[osmconvert/update/filter](http://wiki.openstreetmap.org/wiki/Osmconvert)
+tools (from Marqqs) can be downloaded and installed with:
+```bash
+sudo wget http://m.m.i24.cc/osmconvert32 -O /usr/bin/osmconvert
+sudo wget http://m.m.i24.cc/osmupdate32 -O /usr/bin/osmupdate
+sudo wget http://m.m.i24.cc/osmfilter32 -O /usr/bin/osmfilter
+sudo chmod +x /usr/bin/osmconvert /usr/bin/osmupdate /usr/bin/osmfilter
+```
+On 64 bit system you can either install 'ia32-libs' package to execute the
+previous 32 bit programs or compile them from source with the following
+commands:
+```bash
+mkdir osmconvert
+cd osmconvert
+wget -O - http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o osmconvert
+wget -O - http://m.m.i24.cc/osmfilter.c | cc -x c - -O3 -o osmfilter
+wget -O - http://m.m.i24.cc/osmupdate.c | cc -x c - -o osmupdate
+sudo mv osmconvert osmfilter osmupdate /usr/bin/
+sudo chmod +x /usr/bin/osmconvert /usr/bin/osmupdate /usr/bin/osmfilter
+```
 
-Installing the pysqlite2 module for pythin requires a little bit extra work because
-the `enable_load_extension` attribute is [disabled by default](http://stackoverflow.com/questions/1545479/force-python-to-forego-native-sqlite3-and-use-the-installed-latest-sqlite3-ver).
+## Installing the Wikipedia-tags-in-OSM app
+
+In general you can use install the package needed using the
+requirements file:
+```bash
+pip install -r requirements.txt
+```
+
+Other packages and software needs to be installed, here's the detailed
+instructions.
+
+###Installing Spatialite tools
+The tool `spatialite_osm_raw` of the [spatialite](https://www.gaia-gis.it/),
+you can download and install it from the
+[spatialite-tools](https://www.gaia-gis.it/fossil/spatialite-tools/index)
+page.
+
+On a Debian/Ubuntu system you can install with:
+```bash
+sudo apt-get install spatialite-bin libspatialite-dev
+```
+
+###Install pysqlite
+Installing the pysqlite2 module for pythin requires a little bit extra work 
+becausethe `enable_load_extension` attribute is 
+[disabled by default](http://stackoverflow.com/questions/1545479/force-python-to-forego-native-sqlite3-and-use-the-installed-latest-sqlite3-ver).
 
 To install the sqlite-relate packages you need the libsqlite3 headers.
 ```bash
 sudo apt-get install libsqlite3-dev
 ```
 
-Download the pysqlite package (as of now ver. 2.6.3) from PyPI: [pysqlite[(https://pypi.python.org/pypi/pysqlite),
+Download the pysqlite package (as of now ver. 2.6.3) from PyPI:
+[pysqlite[(https://pypi.python.org/pypi/pysqlite),
 and extract the package:
 ```bash
 wget https://pypi.python.org/packages/source/p/pysqlite/pysqlite-2.6.3.tar.gz#md5=7ff1cedee74646b50117acff87aa1cfa
 tar xvzf pysqlite-2.6.3.tar.gz
 ```
 
-Open the `setup.cfg` file and comment out the setting that omits the load extension attribute to be installed.
+Open the `setup.cfg` file and comment out the setting that omits the load
+extension attribute to be installed.
 Add an hash at the beginning of the line as in:
 `#define=SQLITE_OMIT_LOAD_EXTENSION`
 
@@ -84,23 +130,19 @@ Then install the package using `setup.py`:
 ```
 (make sure that you are working on your virtualenv before isntalling)
 
+##Miscellanea
 
-Miscellanea
------------
+###About virtualenvs
 
-About virtualenvs
------------------
-
-If you wish to know more about virtualenvs you can read some info in this 
+If you wish to know more about virtualenvs you can read some info in this
 [primer](http://iamzed.com/2009/05/07/a-primer-on-virtualenv/).
 
 An easy way to install a working virtual + virtualenvwrapper is
 [virtualenv-burrito](https://github.com/brainsik/virtualenv-burrito).
 
-Removing virtualenvs
---------------------
+####Removing virtualenvs
 
-You can remove the virtualenv with the command `rmvirtualenv`
+You can remove the virtualenv with the command `rmvirtualenv`:
 ```bash
 rmvirtualenv wtosm
 ```
