@@ -1,8 +1,10 @@
+// Attribution to OSM contributors
+var common_attr = 'Map data &copy; <a href="http://osm.org/copyright">' +
+                  'OpenStreetMap</a> contributors, Imagery &copy; '
 // Cloudmade
 var map_url_cm = 'http://{s}.tile.cloudmade.com/'+
-                    '{key}/{styleId}/256/{z}/{x}/{y}.png',
-    map_attribution_cm = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
-                         'Imagery &copy; 2012 CloudMade',
+                 '{key}/{styleId}/256/{z}/{x}/{y}.png',
+    map_attribution_cm = common_attr + 'CloudMade',
     map_key_cm = '2d72720041c94acf89b2e51c3d1792de';
 
 map_url_cm = map_url_cm.replace("{key}", map_key_cm)
@@ -12,20 +14,22 @@ map_url_cm = map_url_cm.replace("{key}", map_key_cm)
 // OpenCycleMap
 var map_url_oc = 'http://{s}.tile2.opencyclemap.org/' +
                  'transport/{z}/{x}/{y}.png',
-    map_attribution_oc = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
-                         'Imagery &copy; 2012 OpenCycleMap'
+    map_attribution_oc = common_attr + 'OpenCycleMap'
 
 // Toolserver
 var map_url_ts = 'http://{s}.www.toolserver.org/' +
                  'tiles/bw-mapnik/{z}/{x}/{y}.png',
-    map_attribution_ts = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
-                         'Imagery &copy; 2012 Toolserver'
+    map_attribution_ts = common_attr + 'Toolserver'
 
 // Mapquest
 var map_url_mq = 'http://otile1.mqcdn.com/' +
                  '/tiles/1.0.0/osm/{z}/{x}/{y}.jpg',
-    map_attribution_mq = 'Map data &copy; 2013 OpenStreetMap contributors, ' +
-                         'Imagery &copy; 2012 MapQuest'
+    map_attribution_mq = common_attr + 'MapQuest'
+
+// OpenStreetMap classic tiles
+var map_url_osm_classic = 'http://{s}.tile.osm.org/' +
+                 '{z}/{x}/{y}.png',
+    map_attribution_osm_classic = common_attr + 'OpenStreetMap'
 
 var cloudmade_base = L.tileLayer(map_url_cm, {
         styleId: 997,
@@ -44,16 +48,14 @@ var cloudmade_base = L.tileLayer(map_url_cm, {
     mapquest = L.tileLayer(map_url_mq, {
         attribution: map_attribution_mq
     });
+    osm_classic = L.tileLayer(map_url_osm_classic, {
+        attribution: map_attribution_osm_classic
+    });
 
 var map = L.map('map_canvas', {
         center: new L.LatLng(lat, lon),
         zoom: 17,
-        layers: [opencyclemap,
-                 cloudmade_base,
-                 cloudmade_classic,
-                 mapquest,
-                 toolserver
-                 ]
+        layers: [toolserver]
 });
 
 var dec_title = decodeURIComponent(title);
@@ -111,6 +113,7 @@ var data = {
 };
 
 var base_maps = {
+    "OpenStreetMap Classic (Mapnik)": osm_classic,
     "OpenCycleMap": opencyclemap,
     "CloudMade Base": cloudmade_base,
     "CloudMade Classic": cloudmade_classic,
