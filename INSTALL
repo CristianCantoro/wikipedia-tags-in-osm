@@ -1,30 +1,14 @@
 Install instructions
 ====================
 
+Note: if you wish to use a virtualenv you can refer to the last section.
+Otherwise you can install the required packages system-wide.
 
-##Create a virtualenv and activate it
-
-Note: if you don't wish to use a virtualenv you can skip this section and
-install the required packages system-wide. You can do that using either:
+You can do that using either:
 
 * your distribution packages (i.e. `apt-get` for DEB-based system,
 `yum` for RPM-based system, etc.)
 * `pip` or `easy_install`
-
-In general, it is possible (and advised) to install all the packages needed to
-run Wikipedia-tags-in-OSM in a virtualenv (see below for more information).
-
-First of all, let's create a new virtualenv:
-```bash
-mkvirtualenv wtosm
-```
-For all the installation operations activate your virtualenv with:
-```bash
-workon wtosm
-```
-you prompt will change to reflect the fact that you are using a virtualenv to
-something like:
-`(wtosm)user@host:~/wikipedia-tags-in-osm$`
 
 ##Requirements
 
@@ -48,13 +32,15 @@ command:
 sudo apt-get install libxml2-dev libxslt-dev
 ```
 
-After installing this libraries you can install the module `lxml` with pip:
-```bash
-pip install lxml
-```
-Otherwise you can install the lxml module system-wide installing the package
+You can then install the lxml module system-wide installing the package
+`python-lxml`:
 ```bash
 sudo apt-get install python-lxml
+```
+
+Otherwise you can install the module `lxml` with pip:
+```bash
+sudo pip install lxml
 ```
 
 ###Installing Osmconvert tools
@@ -80,6 +66,7 @@ sudo chmod +x /usr/bin/osmconvert /usr/bin/osmupdate /usr/bin/osmfilter
 ```
 
 ## Installing the Wikipedia-tags-in-OSM app
+(to use with the `-o, --show_coordinates_from_osm` options)
 
 In general you can use install the package needed using the
 requirements file:
@@ -102,14 +89,20 @@ sudo apt-get install spatialite-bin libspatialite-dev
 ```
 
 ###Install pysqlite
-Installing the pysqlite2 module for pythin requires a little bit extra work 
-becausethe `enable_load_extension` attribute is 
-[disabled by default](http://stackoverflow.com/questions/1545479/force-python-to-forego-native-sqlite3-and-use-the-installed-latest-sqlite3-ver).
-
 To install the sqlite-relate packages you need the libsqlite3 headers.
 ```bash
 sudo apt-get install libsqlite3-dev
 ```
+
+You can then install the pysqlite2 module system-wide installing the package
+`python-pysqlite2`:
+```bash
+sudo apt-get install python-pysqlite2
+```
+
+Io you wish to install it with pip or easy_install the route requires a little
+bit extra work because the `enable_load_extension` attribute is
+[disabled by default](http://stackoverflow.com/questions/1545479/force-python-to-forego-native-sqlite3-and-use-the-installed-latest-sqlite3-ver).
 
 Download the pysqlite package (as of now ver. 2.6.3) from PyPI:
 [pysqlite[(https://pypi.python.org/pypi/pysqlite),
@@ -131,6 +124,23 @@ Then install the package using `setup.py`:
 (make sure that you are working on your virtualenv before isntalling)
 
 ##Miscellanea
+
+###Create a virtualenv
+
+In general, it is possible (and advised) to install all the packages needed to
+run Wikipedia-tags-in-OSM in a virtualenv (see below for more information).
+
+First of all, let's create a new virtualenv:
+```bash
+mkvirtualenv wtosm
+```
+For all the installation operations activate your virtualenv with:
+```bash
+workon wtosm
+```
+you prompt will change to reflect the fact that you are using a virtualenv to
+something like:
+`(wtosm)user@host:~/wikipedia-tags-in-osm$`
 
 ###About virtualenvs
 
