@@ -108,6 +108,8 @@ var data = {
     'lat': lat,
     'lon': lon,
     'dim': dim,
+    'osm_id': osm_id.join(","),
+    'osm_type': osm_type.join(","),
     'ref': referrer,
     'id': id
 };
@@ -159,6 +161,8 @@ draggable_marker.on('dragend', function(e){
         'title': dec_title,
         'lat': drag_lat,
         'lon': drag_lng,
+        'osm_id': osm_id.join(","),
+        'osm_type': osm_type.join(","),
         'dim': dim,
         'ref': referrer,
         'id': id
@@ -222,13 +226,16 @@ $(function () {
         var dec_referrer = decodeURIComponent(referrer);
 
         var data = {
-            lat: lat,
-            lon: lon,
-            dim: dim,
-            title: dec_title,
-            ref: dec_referrer,
-            id: id
+            'lat': lat,
+            'lon': lon,
+            'osm_id': osm_id.join(","),
+            'osm_type': osm_type.join(","),
+            'dim': dim,
+            'title': dec_title,
+            'ref': dec_referrer,
+            'id': id
         };
+
 
         var needs_login = false;
 
@@ -265,12 +272,14 @@ $(function () {
         var dec_referrer = decodeURIComponent(referrer);
 
         var data = {
-            lat: lat,
-            lon: lon,
-            dim: dim,
-            title: dec_title,
-            ref: dec_referrer,
-            id: id
+            'lat': lat,
+            'lon': lon,
+            'osm_id': osm_id.join(","),
+            'osm_type': osm_type.join(","),
+            'dim': dim,
+            'title': dec_title,
+            'ref': dec_referrer,
+            'id': id
         };
 
         var needs_login = false;

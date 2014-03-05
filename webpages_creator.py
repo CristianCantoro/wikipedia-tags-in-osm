@@ -22,10 +22,16 @@
 
 import os
 import urllib
+import json
 from data_manager import Category, Article
 from subprocess import call
 from jinja2 import Environment, FileSystemLoader
 
+OSM_TYPES = {
+'n': 'node',
+'w': 'way',
+'r': 'relation'
+}
 
 ### Helpers ############################################################
 class Helpers:
@@ -155,15 +161,48 @@ class Helpers:
             dim = article.OSMdim
             wikipedia_title = urllib.quote_plus(article.name.encode("utf-8"))
 
-            a_tag = '<a href="../app/login?lat={lat}&lon={lon}">'\
-                    '{{span}}</a>'.format(lat=lat, lon=lon)
+            osm_ids = []
+            osm_types = []
+            for osm_id in article.osmIds:
+                osm_types.append(OSM_TYPES[osm_id[0]])
+                osm_ids.append(osm_id[1:])
 
-            data = 'data-lat="{lat}" data-lon="{lon}" '\
-                   'data-dim="{dim}" '\
-                   'data-wikipedia="{title}"'.format(lat=lat,
+            ref = u"./subpages/WTOSMSUBPAGENAME.html"
+
+            a_tag = u'<a href="../app/map?'\
+                     'lat={lat}'\
+                     '&lon={lon}'\
+                     '&dim={dim}'\
+                     '&title={title}'\
+                     '&ref={ref}'\
+                     '&id={ident}"'\
+                     ' id={ident}>'\
+                     '{{span}}</a>'.format(lat=lat,
+                                           lon=lon,
+                                           dim=dim,
+                                           ref=ref,
+                                           ident=article.ident,
+                                           title=wikipedia_title
+                                           )
+
+            osm_id_dump = json.dumps([int(o) for o in  osm_ids])
+            osm_types_dump = json.dumps(osm_types)
+
+            data = u'data-lat="{lat}" data-lon="{lon}" '\
+                    'data-dim="{dim}" '\
+                    'data-wikipedia="{title}" '\
+                    'data-referrer="{ref}" '\
+                    'data-id="{ident}" '\
+                    'data-osmid={osm_id} '\
+                    'data-osmtype={osm_type}'.format(lat=lat,
                                                      lon=lon,
                                                      dim=dim,
-                                                     title=wikipedia_title)
+                                                     title=wikipedia_title,
+                                                     ref=ref,
+                                                     ident=article.ident,
+                                                     osm_id=osm_id_dump,
+                                                     osm_type=osm_types_dump
+                                                     )
 
             span_tag = span_tag.format(data=data)
             link = a_tag.format(span=span_tag)

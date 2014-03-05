@@ -110,6 +110,8 @@ $(document).ready(function () {
 
         var lat = input.attr( 'data-lat');
         var lon = input.attr( 'data-lon' );
+        var osm_id = JSON.parse(input.attr( 'data-osmid' ));
+        var osm_type = JSON.parse(input.attr( 'data-osmtype' ));
         var dim = input.attr( 'data-dim' );
         var title = input.attr( 'data-wikipedia' );
         var referrer = input.attr( 'data-referrer' );
@@ -123,13 +125,16 @@ $(document).ready(function () {
         var dec_referrer = decodeURIComponent(referrer);
 
         var data = {
-            lat: lat,
-            lon: lon,
-            dim: dim,
-            title: dec_title,
-            ref: dec_referrer,
-            id: id
+            'lat': lat,
+            'lon': lon,
+            'osm_id': osm_id.join(","),
+            'osm_type': osm_type.join(","),
+            'dim': dim,
+            'title': dec_title,
+            'ref': dec_referrer,
+            'id': id
         };
+
 
         $.ajax({
             url: "../app/map",

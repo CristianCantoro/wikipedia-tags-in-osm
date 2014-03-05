@@ -35,6 +35,30 @@ CLOSE_TEMPLATE_COORDS = re.compile(r'[^{}]*?(\}\})?}}')
 
 CLOSE_TEMPLATE = re.compile(r'[^{}]*?(\}\})?')
 
+REF = re.compile(r'<ref>', re.IGNORECASE)
+
+REFERENCES = re.compile(r'(\{\{|<)\s*references[^}>]*(\}\}|>)', re.IGNORECASE)
+
+REFERENCES_SECTION = """
+== Note ==
+<references />
+
+"""
+
+# section regexes
+NOTEREGEX = re.compile(r"==\s*note\s*==", flags=re.IGNORECASE)
+BIBLIOREGEX = re.compile(r"==\s*bibliografia\s*==", flags=re.IGNORECASE)
+CORRELSEZREGEX = re.compile(r"==\s*voci\s*correlate\s*==", flags=re.IGNORECASE)
+OTHERPROJREGEX = re.compile(r"==\s*altri\s*progetti\s*==", flags=re.IGNORECASE)
+LINKREGEX = re.compile(r"==\s*collegamenti esterni\s*==", flags=re.IGNORECASE)
+EXTLINKREGEX = re.compile(r"\[http://(.*)\](.*)\n", flags=re.IGNORECASE)
+PORTALREGEX = re.compile(r"{{portale\|(.*)}}", flags=re.IGNORECASE)
+CATREGEX = re.compile(r"\[\[Categoria:(.*)\]\]", flags=re.IGNORECASE)
+INTERPROGREGEX = re.compile(r"{{interprogetto(.*)}}\n", flags=re.IGNORECASE)
+
+REGEXES = [NOTEREGEX, BIBLIOREGEX, CORRELSEZREGEX, OTHERPROJREGEX, LINKREGEX,
+           EXTLINKREGEX, PORTALREGEX, CATREGEX, INTERPROGREGEX]
+
 
 import ast
 with open('../data/wikipedia/coords/templates_including_coords.txt',
@@ -101,23 +125,62 @@ def find_coords_templates(old_text):
     return template_found
 
 
-def get_new_text_no_template(lat, lon, dim, old_text=''):
+def __find_reference_position(old_text):
+
+    ref_pos = len(old_text)
+
+    match = None
+    for regex in REGEXES:
+        match = regex.search(old_text)
+
+    if match:
+        ref_pos = match.start()
+
+    return ref_pos
+
+
+def get_new_text_no_template(lat,
+                             lon,
+                             osm_refs,
+                             dim,
+                             old_text=''
+                             ):
     new_text = old_text
-    section = 0
+    references = REFERENCES.search(old_text)
+    if references:
+        section = 0
+    else:
+        section = -1
 
     first_heading = HEADING.search(old_text)
 
     tmpl = coords_template(lat=lat,
                            lon=lon,
-                           dim=dim)
+                           osm_refs=osm_refs,
+                           dim=dim
+                           )
+
     if first_heading:
-        incipit = old_text[:first_heading.start()]
+        start_heading = first_heading.start()
+        incipit = old_text[:start_heading]
         new_text = tmpl + '\n\n' + incipit
-        old_text = incipit
-        section = 0
+        if not references:
+            section = -1
+            ref_pos = __find_reference_position(old_text)
+            new_text += old_text[start_heading:ref_pos] + \
+                REFERENCES_SECTION + \
+                old_text[ref_pos:]
+        else:
+            old_text = incipit
+            section = 0
     else:
         new_text = tmpl + '\n\n' + old_text
         section = -1
+        if not references:
+            ref_pos = __find_reference_position(new_text)
+            new_text = new_text[:ref_pos] + \
+                REFERENCES_SECTION + \
+                new_text[ref_pos:]
 
     return new_text, old_text, section
 
@@ -167,7 +230,7 @@ def get_parameter(name, lat, lon):
                "segnalalo agli sviluppatori. Grazie.", None
 
 
-def find_sections_intervals(text):
+def __find_sections_intervals(text):
 
     headings_matches = HEADING.finditer(text)
     headings = [(h.start(), h.end()) for h in headings_matches]
@@ -185,7 +248,7 @@ def find_sections_intervals(text):
 
 def find_section(text, start_template, end_template):
 
-    section_intervals = find_sections_intervals(text)
+    section_intervals = __find_sections_intervals(text)
 
     sections = [i[0] for i in section_intervals
                 if start_template >= i[1][0] and end_template <= i[1][1]]
@@ -202,7 +265,7 @@ def get_section_text(text, section_number):
     section_start = 0
     section_end = len(text)
 
-    section_intervals = find_sections_intervals(text)
+    section_intervals = __find_sections_intervals(text)
 
     section_limits = [i[1] for i in section_intervals
                       if i[0] == section_number]
@@ -213,8 +276,19 @@ def get_section_text(text, section_number):
     return text[section_start:section_end]
 
 
-def get_new_text_with_template(lat, lon, dim, template, old_text=''):
-    section = 0
+def get_new_text_with_template(lat,
+                               lon,
+                               osm_refs,
+                               dim,
+                               template,
+                               old_text=''
+                               ):
+
+    references = REFERENCES.search(old_text)
+    if references:
+        section = 0
+    else:
+        section = -1
 
     if template['name'] == 'coord':
         coord = COORD.search(old_text)
@@ -228,7 +302,11 @@ def get_new_text_with_template(lat, lon, dim, template, old_text=''):
                                                    )
         end_template = end_parameter + match_close.end()
 
-        new_template = coords_template(lat, lon, dim)
+        new_template = coords_template(lat=lat,
+                                       lon=lon,
+                                       osm_refs=osm_refs,
+                                       dim=dim
+                                       )
 
         new_text = old_text[:start_template] + new_template + \
             old_text[end_template:]
@@ -323,7 +401,15 @@ def get_new_text_with_template(lat, lon, dim, template, old_text=''):
                 new_text = old_text[:start_template] + \
                     new_template_text + old_text[end_template:]
 
-    section = find_section(old_text, start_template, end_template)
+    if not references and REF.search(new_text):
+        ref_pos = __find_reference_position(new_text)
+        new_text = new_text[:ref_pos] + \
+            REFERENCES_SECTION + \
+            new_text[ref_pos:]
+        section = -1
+
+    else:
+        section = find_section(old_text, start_template, end_template)
 
     new_text = get_section_text(new_text, section)
     old_text = get_section_text(old_text, section)
@@ -331,19 +417,46 @@ def get_new_text_with_template(lat, lon, dim, template, old_text=''):
     return new_text, old_text, section
 
 
+def get_new_text(old_text, parameters, optional):
+    template = find_coords_templates(old_text)
+
+    if template:
+        new_text, old_text, section = get_new_text_with_template(
+            lat=parameters['lat'],
+            lon=parameters['lon'],
+            osm_refs=zip(parameters['osm_type'], parameters['osm_id']),
+            dim=optional['dim'],
+            old_text=old_text,
+            template=template)
+
+    else:
+        new_text, old_text, section = get_new_text_no_template(
+            lat=parameters['lat'],
+            lon=parameters['lon'],
+            osm_refs=zip(parameters['osm_type'], parameters['osm_id']),
+            dim=optional['dim'],
+            old_text=old_text)
+
+    return template, new_text, old_text, section
+
+
 def __test(in_, out_):
 
     with open(in_, 'r') as infile:
         wikitext = infile.read().decode('utf-8')
 
-    template = find_coords_templates(wikitext)
+    parameters = {'lat': 45.990001,
+                  'lon': 9.800001,
+                  'osm_type': ['node'],
+                  'osm_id': [64776484]
+                  }
 
-    new_text, old_text, section = get_new_text_with_template(
-        lat=45.990001,
-        lon=9.800001,
-        dim=100,
-        template=template,
-        old_text=wikitext)
+    optional = {'dim': 100}
+
+    template, new_text, old_text, section = get_new_text(
+        old_text=wikitext,
+        parameters=parameters,
+        optional=optional)
 
     d = difflib.HtmlDiff()
     diff = d.make_file(old_text.split('\n'), new_text.split('\n'))
@@ -356,11 +469,22 @@ if __name__ == '__main__':
     import difflib
     import codecs
 
+    print 'Torre pendente di Pisa'
     __test(in_='test/torre_pendente_di_pisa.txt',
-           out_='test/torre_pendente_di_pisa.html')
+           out_='test/torre_pendente_di_pisa.html'
+           )
 
+    print 'Rifugio laghi gemelli'
     __test(in_='test/rifugio_laghi_gemelli.txt',
-           out_='test/rifugio_laghi_gemelli.html')
+           out_='test/rifugio_laghi_gemelli.html'
+           )
 
+    print 'Diga di Pieve di Cadore'
     __test(in_='test/diga_di_pieve_di_cadore.txt',
-           out_='test/diga_di_pieve_di_cadore.html')
+           out_='test/diga_di_pieve_di_cadore.html'
+           )
+
+    print 'Ara della Regina'
+    __test(in_='test/ara_della_regina.txt',
+           out_='test/ara_della_regina.html'
+           )

@@ -34,14 +34,15 @@ from flask_mwoauth import MWOAuth
 from urlparse import urlparse
 import binascii
 import HTMLParser
+import json
 import wikipedia_template_parser as wtp
 
 from diff import get_difftable_difflib
-from templates import find_coords_templates
-from templates import get_new_text_with_template
-from templates import get_new_text_no_template
+from templates import get_new_text
 
 app = Flask(__name__)
+
+OSM_TYPES = ['node', 'way', 'relation']
 
 BASEDIR = os.path.dirname(os.path.realpath(__file__))
 CONFIG_FILENAME = 'settings.cfg'
@@ -76,6 +77,8 @@ app.register_blueprint(mwoauth.bp)
 app.jinja_env.filters['unquote'] = urllib.unquote
 
 app.jinja_env.filters['unescape'] = HTMLParser.HTMLParser().unescape
+
+app.jinja_env.filters['jsondumps'] = json.dumps
 
 templates_file = config.get('app', 'templates_file')
 
@@ -117,12 +120,37 @@ def login_success():
 
 
 def validate_parameters(args):
+
     try:
         lat = float(args.get('lat', ''))
-        lon = float(args.get('lon', ''))
     except ValueError:
         lat = None
+
+    try:
+        lon = float(args.get('lon', ''))
+    except ValueError:
         lon = None
+
+    osm_id = args.get('osm_id', '')
+    osm_ids = osm_id.split(',')
+
+    osm_ids_num = []
+    try:
+        for oid in osm_ids:
+            osm_ids_num.append(int(oid))
+    except ValueError:
+            osm_ids_num = None
+
+    osm_type = args.get('osm_type', '')
+    osm_types = osm_type.split(',')
+
+    osm_types_norm = []
+    for otype in osm_types:
+        if otype in OSM_TYPES:
+            osm_types_norm.append(otype)
+        else:
+            osm_types_norm = None
+            break
 
     title = args.get('title', '')
 
@@ -131,13 +159,18 @@ def validate_parameters(args):
     id_ = args.get('id', '')
 
     error = 0
-    if not (lat and lon and title):
+    if not (lat and lon and title and osm_ids_num and osm_types_norm):
         error = 1
         parameters = {'lat': "La latitudine dell'oggetto",
                       'lon': "La longitudine dell'oggetto",
                       'title': "Il titolo della corrispondente voce"
-                               "di Wikipedia"
+                               "di Wikipedia",
+                      'osm_id': "L'identificativo dell'oggetto su"
+                                "OpenStreetMap",
+                      'osm_type': "Il tipo di oggetto in OpenStreetMap"
+                                  "(node, way, relation)"
                       }
+
         optional = {'dim': "La dimensione lineare dell'oggetto"
                            "ad esempio la sua diagonale nel caso di "
                            "un'edificio",
@@ -147,7 +180,9 @@ def validate_parameters(args):
     else:
         parameters = {'lat': lat,
                       'lon': lon,
-                      'title': title
+                      'title': title,
+                      'osm_type': osm_types_norm,
+                      'osm_id': osm_ids_num
                       }
         optional = {'dim': dim,
                     'ref': referrer,
@@ -157,23 +192,12 @@ def validate_parameters(args):
     return parameters, optional, error
 
 
-def get_new_text(old_text, parameters, optional):
-    template = find_coords_templates(old_text)
+def __get_new_text(old_text, parameters, optional):
 
-    if template:
-        new_text, old_text, section = get_new_text_with_template(
-            lat=parameters['lat'],
-            lon=parameters['lon'],
-            dim=optional['dim'],
-            old_text=old_text,
-            template=template)
-
-    else:
-        new_text, old_text, section = get_new_text_no_template(
-            lat=parameters['lat'],
-            lon=parameters['lon'],
-            dim=optional['dim'],
-            old_text=old_text)
+    template, new_text, old_text, section = get_new_text(old_text,
+                                                         parameters,
+                                                         optional
+                                                         )
 
     difftable = get_difftable_difflib(old_text, new_text)
 
@@ -197,7 +221,7 @@ def show_map():
     except Exception as e:
         return render_template('error.html', info=e.message)
 
-    new_text, old_text, template, section, difftable = get_new_text(
+    new_text, old_text, template, section, difftable = __get_new_text(
         old_text,
         parameters,
         optional)
@@ -205,6 +229,8 @@ def show_map():
     return render_template('wikimap.html',
                            lat=parameters['lat'],
                            lon=parameters['lon'],
+                           osm_id=[str(o) for o in parameters['osm_id']],
+                           osm_type=[str(t) for t in parameters['osm_type']],
                            title=title,
                            dim=optional['dim'],
                            referrer=optional['ref'],
@@ -229,7 +255,7 @@ def anon_edit():
     except Exception as e:
         return render_template('error.html', info=e.message)
 
-    new_text, old_text, template, section, difftable = get_new_text(
+    new_text, old_text, template, section, difftable = __get_new_text(
         old_text,
         parameters,
         optional)
@@ -322,7 +348,7 @@ def preview():
 
         old_text = revs['*']
 
-        new_text, old_text, template, section, difftable = get_new_text(
+        new_text, old_text, template, section, difftable = __get_new_text(
             old_text,
             parameters,
             optional)
@@ -435,7 +461,7 @@ def test_edit():
                       }
 
         if section != '-1':
-            edit_query['section'] = int(section)
+            edit_query['section'] = section
 
         result = mwoauth.request(edit_query)
         # result = mock_success()
