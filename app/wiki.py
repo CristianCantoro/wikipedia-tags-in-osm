@@ -54,8 +54,8 @@ CONFIG_FILE = os.path.realpath(
 # CONFIG_FILE = os.path.realpath(
 #    os.path.join('..', 'wtosm', 'dev', CONFIG_FILENAME))
 # app.config.update(
-#     DEBUG=True,
-#     PROPAGATE_EXCEPTIONS=True
+# DEBUG=True,
+# PROPAGATE_EXCEPTIONS=True
 # )
 
 config = configparser.ConfigParser()
@@ -405,8 +405,8 @@ def edit():
         if section != '-1':
             edit_query['section'] = section
 
-        # result = mwoauth.request(edit_query)
-        result = mock_success()
+        result = mwoauth.request(edit_query)
+        # result = mock_success()
 
         try:
             assert(result['edit']['result'] == 'Success')
