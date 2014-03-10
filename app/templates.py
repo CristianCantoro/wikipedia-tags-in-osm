@@ -132,9 +132,9 @@ def __find_reference_position(old_text):
     match = None
     for regex in REGEXES:
         match = regex.search(old_text)
-
-    if match:
-        ref_pos = match.start()
+        if match:
+            ref_pos = match.start()
+            break
 
     return ref_pos
 
@@ -487,4 +487,9 @@ if __name__ == '__main__':
     print 'Ara della Regina'
     __test(in_='test/ara_della_regina.txt',
            out_='test/ara_della_regina.html'
+           )
+
+    print 'Palazzo Borromeo (Isola Bella)'
+    __test(in_='test/palazzo_borromeo_isola_bella.txt',
+           out_='test/palazzo_borromeo_isola_bella.html'
            )
