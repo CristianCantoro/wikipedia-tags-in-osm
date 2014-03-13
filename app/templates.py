@@ -39,11 +39,7 @@ REF = re.compile(r'<ref>', re.IGNORECASE)
 
 REFERENCES = re.compile(r'(\{\{|<)\s*references[^}>]*(\}\}|>)', re.IGNORECASE)
 
-REFERENCES_SECTION = """
-== Note ==
-<references />
-
-"""
+REFERENCES_SECTION = "== Note ==\n<references />\n\n"
 
 # section regexes
 NOTEREGEX = re.compile(r"==\s*note\s*==", flags=re.IGNORECASE)
@@ -139,6 +135,14 @@ def __find_reference_position(old_text):
     return ref_pos
 
 
+def __add_newline(text, ref_pos):
+    if len(text) > 0 and ref_pos > 0:
+        if not text[ref_pos-1] == u'\n':
+            text = text[:ref_pos] + '\n' + text[ref_pos:]
+
+    return text
+
+
 def get_new_text_no_template(lat,
                              lon,
                              osm_refs,
@@ -167,9 +171,11 @@ def get_new_text_no_template(lat,
         if not references:
             section = -1
             ref_pos = __find_reference_position(old_text)
+            old_text = __add_newline(old_text, ref_pos)
             new_text += old_text[start_heading:ref_pos] + \
                 REFERENCES_SECTION + \
                 old_text[ref_pos:]
+
         else:
             old_text = incipit
             section = 0
@@ -181,6 +187,7 @@ def get_new_text_no_template(lat,
             new_text = new_text[:ref_pos] + \
                 REFERENCES_SECTION + \
                 new_text[ref_pos:]
+            new_text = __add_newline(new_text, ref_pos)
 
     return new_text, old_text, section
 
@@ -407,6 +414,7 @@ def get_new_text_with_template(lat,
             REFERENCES_SECTION + \
             new_text[ref_pos:]
         section = -1
+        new_text = __add_newline(new_text, ref_pos)
 
     else:
         section = find_section(old_text, start_template, end_template)
@@ -492,4 +500,9 @@ if __name__ == '__main__':
     print 'Palazzo Borromeo (Isola Bella)'
     __test(in_='test/palazzo_borromeo_isola_bella.txt',
            out_='test/palazzo_borromeo_isola_bella.html'
+           )
+
+    print 'Pian di Palma'
+    __test(in_='test/pian_di_palma.txt',
+           out_='test/pian_di_palma.html'
            )
