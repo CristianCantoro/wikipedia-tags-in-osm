@@ -185,8 +185,8 @@ class Helpers:
                                            title=wikipedia_title
                                            )
 
-            osm_id_dump = json.dumps([int(o) for o in  osm_ids])
-            osm_types_dump = json.dumps(osm_types)
+            osm_id_dump = repr(json.dumps([int(o) for o in  osm_ids]))
+            osm_types_dump = repr(json.dumps(osm_types))
 
             data = u'data-lat="{lat}" data-lon="{lon}" '\
                     'data-dim="{dim}" '\
