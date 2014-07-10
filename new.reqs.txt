@@ -1,0 +1,12 @@
+argparse==1.2.1
+distribute==0.6.49
+httplib2==0.8
+itsdangerous==0.23
+lxml==3.2.3
+mwparserfromhell==0.1.1
+oauth2==1.5.211
+requests==2.0.1
+stevedore==0.13
+virtualenv==1.11
+virtualenv-clone==0.2.4
+virtualenvwrapper==4.1.1

@@ -1,0 +1,55 @@
+{{F|siti archeologici d'Italia|ottobre 2009}}
+{{Sito archeologico
+|Nome = Ara della Regina
+|Immagine = Ara della Regina Tarquinia.jpg
+|LarghezzaImmagine = 300px
+|Didascalia = L'ara della Regina
+|Civiltà = [[Etruschi|etrusca]]
+|Utilizzo = 
+|Stile = 
+|Epoca = 
+<!-- Localizzazione -->
+|Stato = ITA
+|Suddivisione1 = {{IT-LAZ}}
+|Suddivisione2 = {{IT-VT}}
+|Suddivisione3 = [[Tarquinia]]
+|Altitudine = 
+<!-- Dimensioni -->
+|Superficie = n.d.
+|Altezza = 
+|Larghezza = 
+|Volume = 
+|Inclinazione = 
+<!-- Scavi -->
+|Data_scoperta = 
+|Date_scavi = 
+|Organizzazione_scavi = 
+|Archeologo = 
+<!-- Amministrazione -->
+|Parte di = 
+|Ente = Soprintendenza per i beni archeologici dell'Etruria meridionale
+|Responsabile = Alfonsina Russo
+|Visitabile = 
+|Sito_web = http://www.cerveteri.beniculturali.it/index.php?it/211/il-santuario-dellara-della-regina-e-i-cavalli-alati
+}}
+
+L''''ara della Regina''' posta sul "''Pian di Cìvita''" è uno dei ritrovamenti archeologici più importanti di [[Tarquinia]]: si tratta di un tempio [[etruschi|etrusco]] che veniva utilizzato in antichità per la celebrazione di riti e preghiere. La divinità alla quale era destinato il culto all'interno del santuario rimane ancora ignota, ma da studi recenti si ipotizza l'identificazione della divinità in quella che oggi viene chiamata [[Diana (divinità)|Diana]]. Oggi è ben visibile il basamento e quello che si ipotizza fosse l'accesso alla cella interna del [[tempio]] il quale è costruito con blocchi di [[nenfro]], una roccia piroclastica tipica della regione. 
+
+==Descrizione==
+Grazie alle opere di [[restauro]] e di scavi svoltesi nel 1938 è ora possibile ammirare in tutto il suo splendore questa magnifica opera edilizia datata intorno al IV secolo a.C. Il basamamento, che purtroppo e l'unico resto rimasto, è in macco, una pietra calcarea diffusa in Etruria. Il più importante ritrovamento avvenuto in questo sito sono senza dubbio i [[Cavalli Alati]]. Un'opera di laboriosa manifattura di arte etrusca, ritrovato durante l'opera di restauro del 1938 dall'archeologo Pietro Romanelli.
+
+Questa lastra di terracotta rappresentante i due equini alati venne ritrovata interamente frammentata. Solo dopo un minuzioso lavoro di restauro ha dato alla luce quello che oggi possiamo osservare. Anticamente due erano le lastre che ornavano il frontone del tempio, una raffigurante i due cavalli alati e l'altra contenente una biga, che sfortunatamente è andata perduta. La tavola di terracotta, databile tra la fine del V e gli inizi del IV secolo a.C., è ora conservata al [[Museo Nazionale di Tarquinia]].
+
+<gallery>
+File:Ara della Regina 2 Tarquinia Italy by S F William.JPG|facciata ovest
+File:Ara della Regina Tarquinia Italy by S F William.JPG|angolo sud-est
+File:Ara della Regina 3 Tarquinia Italy by S F William.JPG|nord-est angolo
+File:Etruscan Horses Tarquinia.jpg|[[Cavalli alati di Tarquinia]]
+</gallery>
+
+{{Portale|Etruschi}}
+
+[[Categoria:Tarquinia]]
+[[Categoria:Templi etruschi]]
+[[Categoria:Arte etrusca]]
+
