@@ -446,7 +446,6 @@ div.app-popup a#close-button {
 
 div.app-popup-container {
     padding: 5px 50px 50px 50px;
-    background: #ff0;
     z-index: 102;
     border-radius: 20px;
     overflow-y:auto;

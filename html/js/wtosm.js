@@ -137,7 +137,7 @@ $(document).ready(function () {
 
 
         $.ajax({
-            url: "../app/map",
+            url: "../../app/map",
             data: data,
             dataType: "html",
             type: 'GET',

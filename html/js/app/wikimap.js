@@ -1,25 +1,16 @@
 // Attribution to OSM contributors
 var common_attr = 'Map data &copy; <a href="http://osm.org/copyright">' +
                   'OpenStreetMap</a> contributors, Imagery &copy; '
-// Cloudmade
-var map_url_cm = 'http://{s}.tile.cloudmade.com/'+
-                 '{key}/{styleId}/256/{z}/{x}/{y}.png',
-    map_attribution_cm = common_attr + 'CloudMade',
-    map_key_cm = '2d72720041c94acf89b2e51c3d1792de';
-
-map_url_cm = map_url_cm.replace("{key}", map_key_cm)
-
-
 
 // OpenCycleMap
 var map_url_oc = 'http://{s}.tile2.opencyclemap.org/' +
                  'transport/{z}/{x}/{y}.png',
     map_attribution_oc = common_attr + 'OpenCycleMap'
 
-// Toolserver
-var map_url_ts = 'http://{s}.www.toolserver.org/' +
-                 'tiles/bw-mapnik/{z}/{x}/{y}.png',
-    map_attribution_ts = common_attr + 'Toolserver'
+// Tool Labs WMF
+var map_url_tl = 'http://{s}.tiles.wmflabs.org/bw-mapnik2/' +
+                 '{z}/{x}/{y}.png',
+    map_attribution_tl = common_attr + 'Toolserver'
 
 // Mapquest
 var map_url_mq = 'http://otile1.mqcdn.com/' +
@@ -31,19 +22,11 @@ var map_url_osm_classic = 'http://{s}.tile.osm.org/' +
                  '{z}/{x}/{y}.png',
     map_attribution_osm_classic = common_attr + 'OpenStreetMap'
 
-var cloudmade_base = L.tileLayer(map_url_cm, {
-        styleId: 997,
-        attribution: map_attribution_cm
-    }),
-    cloudmade_classic = L.tileLayer(map_url_cm, {
-        styleId: 1,
-        attribution: map_attribution_cm
-    }),
-    opencyclemap = L.tileLayer(map_url_oc, {
+var opencyclemap = L.tileLayer(map_url_oc, {
         attribution: map_attribution_oc
     }),
-    toolserver = L.tileLayer(map_url_ts, {
-        attribution: map_attribution_ts
+    toollabs = L.tileLayer(map_url_tl, {
+        attribution: map_attribution_tl
     }),
     mapquest = L.tileLayer(map_url_mq, {
         attribution: map_attribution_mq
@@ -55,7 +38,7 @@ var cloudmade_base = L.tileLayer(map_url_cm, {
 var map = L.map('map_canvas', {
         center: new L.LatLng(lat, lon),
         zoom: 17,
-        layers: [toolserver]
+        layers: [mapquest]
 });
 
 var dec_title = decodeURIComponent(title);
@@ -115,12 +98,10 @@ var data = {
 };
 
 var base_maps = {
+    "MapQuest": mapquest,
     "OpenStreetMap Classic (Mapnik)": osm_classic,
     "OpenCycleMap": opencyclemap,
-    "CloudMade Base": cloudmade_base,
-    "CloudMade Classic": cloudmade_classic,
-    "MapQuest": mapquest,
-    "Toolserver": toolserver
+    "Wikimedia Tool Labs": toollabs
 };
 
 var overlay_maps = {

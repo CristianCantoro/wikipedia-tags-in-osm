@@ -539,14 +539,14 @@ Se un articolo non è mappabile in OSM, ad es. il luogo in cui si è svolto un e
             img = '<img src="../img/%s/%s.png" class="item_img">' % (mode, item.name.lower())
             code += '\n<h2>%s<a id="index"></a>%s</h2>' % (img, item.name.replace("_", " "))
 
-### Subpage ############################################################
-class ArticlesTable(Helpers):
-    def __init__(self, app, item, selectNonMappable):
-        """Return an html table with articles of a ctagory
-        """
-        self.attr = ''
-        self.content = []
-        self.app = app
+        if selectNonMappable:
+            code += '\n<div id="selectNonMappable">'
+            code += '\n  Per contrassegnare alcune categorie ed articoli come "non mappabili": clicca sulle loro celle, copia le stringhe qui sotto ed incollale nel file "./data/wikipedia/non_mappable".<br><br>'
+            code += '\n  Categorie:'
+            code += '\n  <div id="nonMappableCategories">&nbsp;</div><br>'
+            code += '\n  Articoli:'
+            code += '\n  <div id="nonMappableArticles">&nbsp;</div>'
+            code += '\n</div>'
 
         # Legenda
         code += '\n\n<!-- Legenda -->'
