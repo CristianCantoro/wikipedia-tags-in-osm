@@ -47,6 +47,10 @@
     <div id="go_to_home"><a href="../index{{ suffix }}.html">&#8592; {% trans %}All categories{% endtrans %}</a></div>
 <!-- Content -->
 <div id="content">
+  <div id="app-popup-main" class="app-popup">
+    <a href="javascript:void(0)" class="close" id="close-button"></a>
+    <div id="app-popup-main-container" class="app-popup-container">Container</div>
+  </div>'
 {% if mode == "themes" %}
 <h2><a id="index"></a>{{ helpers.wikipedia_link(item) }} ({{ item.progress["allMArticles"]["string"] }})</h2>
 {% else %}
