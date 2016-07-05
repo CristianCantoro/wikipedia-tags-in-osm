@@ -35,30 +35,19 @@ OSM_TYPES = {
 
 ### Helpers ############################################################
 class Helpers:
-    def progress_strings(self, item, mode):
-        """Calculate tagging progress
-        """
-        number = item.progress[mode]["num"]
-        progressString = item.progress[mode]["string"]
-        if number == 0.0:
-            classe = "done0"
-        elif number == 1.0:
-            classe = "done100"
-        elif number <= 0.25:
-            classe = "done025"
-        elif number <= 0.50:
-            classe = "done050"
-        elif number <= 0.75:
-            classe = "done075"
-        else:
-            classe = "done099"
-        return classe, progressString
+    def __init__(self, app):
+        self.app = app
 
     def wikipedia_link(self, item):
-        text = item.name.replace("_", " ")
-        title = "Vedi %s: %s" % (item.typ.lower(), text.replace("\"", "&quot;"))
+        text = item.name.replace("_", " ").replace("\"", "&quot;")
+        if isinstance(item, Article):
+            itemType = self.app._("article")
+        elif isinstance(item, Category):
+            itemType = self.app._("category")
+        title = self.app._("See {0}: {1}").format(itemType, text)
         cssClass = ' class="wikipedia_link"'
-        link = self.url_to_link(item.wikipediaUrl, title, text, None, cssClass)
+        link = self.url_to_link(item.wikipedia_url, title, text, None,
+                                cssClass)
         return link
 
     def osm_ids_string_for_overpass(self, osmIds):
@@ -89,12 +78,12 @@ class Helpers:
         url = "http://localhost:8111/"
         if mode == "download":
             url += "import?url=http://overpass.osm.rambler.ru/cgi/interpreter?data=" + data
-            title = "Scarica in JOSM"
+            title = self.app._("Download the object in JOSM")
         elif mode == "load_and_zoom":
-            left = data[1] - 0.0005
-            right = data[1] + 0.0005
-            top = data[0] + 0.0005
-            bottom = data[0] - 0.0005
+            left = data[1] - 0.0008
+            right = data[1] + 0.0008
+            top = data[0] + 0.0008
+            bottom = data[0] - 0.0008
             url += "load_and_zoom?left=%f&amp;right=%f&amp;top=%f&amp;bottom=%f" % tuple((left, right, top, bottom))
             title = self.app._("Zoom with JOSM nearby the object that must be tagged")
         link = self.url_to_link(url, title, None, img)
@@ -150,7 +139,7 @@ class Helpers:
         img_title = self.app._("Wikipedia page is missing the coordinates' template")
         img_src = "{{root}}img/no_template.png"
         img_tag = '<img src="{src}" title="{title}"'\
-                  ' class="articleLinkImg" />'.format(src=img_src,
+                  ' class="articleLinkImg" />'.format(src=img_src, 
                                                       title=img_title)
         span_tag = '<span class="missing_template_alert" {{data}}>'\
                    '{img}</span>'.format(img=img_tag)
@@ -169,20 +158,25 @@ class Helpers:
 
             ref = u"./subpages/WTOSMSUBPAGENAME.html"
 
-            a_tag = u'<a href="../app/map?'\
+            a_tag = u'<a href="__ROOT__app/map?'\
                      'lat={lat}'\
                      '&lon={lon}'\
                      '&dim={dim}'\
                      '&title={title}'\
                      '&ref={ref}'\
-                     '&id={ident}"'\
-                     ' id={ident}>'\
+                     '&id={ident}'\
+                     '&osm_id={osm_id}'\
+                     '&osm_type={osm_type}'\
+                     '" '\
+                     'id={ident}>'\
                      '{{span}}</a>'.format(lat=lat,
                                            lon=lon,
                                            dim=dim,
                                            ref=ref,
                                            ident=article.ident,
-                                           title=wikipedia_title
+                                           title=wikipedia_title,
+                                           osm_id=','.join(osm_ids),
+                                           osm_type=','.join(osm_types)
                                            )
 
             osm_id_dump = repr(json.dumps([int(o) for o in  osm_ids]))
@@ -205,7 +199,7 @@ class Helpers:
                                                      )
 
             span_tag = span_tag.format(data=data)
-            link = a_tag.format(span=span_tag)
+            link = a_tag.format(span=span_tag).replace('__ROOT__', '{{root}}')
 
         else:
             span_tag = span_tag.format(data='')
@@ -219,8 +213,8 @@ class Helpers:
         url += "&amp;bbox=%s" % self.app.COUNTRYBBOX
         url += "&amp;cat=%s" % urllib.quote_plus(category.name.encode("utf-8"))
         url += "&amp;key=*&amp;value=*&amp;basedeep=10&amp;types=*&amp;request=Submit&amp;iwl=yes"
-        title = "Cerca oggetti ed aggiungi tag (WIWOSM add-tags)"
-        img = "../img/add-tags.png"
+        title = self.app._("Search the objects in OSM by name and tag them automatically (WIWOSM add-tags)")
+        img = "{{root}}img/add-tags.png"
         link = self.url_to_link(url, title, None, img)
         return link
 
@@ -311,7 +305,7 @@ class Helpers:
 
 ### Webpages creator ###################################################
 class Creator():
-    def __init__(self, app):
+    def __init__(self, app, locale_langcode):
         self.app = app
         self.locale_langcode = locale_langcode
         self.env = Environment(extensions=['jinja2.ext.i18n',
@@ -325,63 +319,94 @@ class Creator():
         #can be clicked, to create list of non mappable articles
         #or categories that can be copied into the file ./data/wikipedia/non_mappable
         selectNonMappable = True if app.clickable_cells == "true" else False
-        self.homepages = []
-        #Create homepage
-        modes = ["themes", "regions"]
-        if app.args.show_link_to_wikipedia_coordinates:
-            modes.append("map")
-        for modeNumber, mode in enumerate(modes):
-            self.homepages.append(Homepage(app, (modeNumber, mode)).code)
+        app.tagsPerUser = sorted(self.app.users.items(), key=lambda x: x[1], reverse=True)
 
-        #Create categories pages
+        #Create homepages
+        self.stats_table = self.stats_table()
+        self.homepages = {}
+
+        #themes (index)
+        self.render_index_template("index.html", "themes")
+
+        #regions (index_1)
+        if self.app.regions != []:
+            self.render_index_template("index_1.html", "regions")
+
+        #map (index_2)
+        if self.app.args.show_link_to_wikipedia_coordinates:
+            self.render_index_template("index_2.html", "map")
+
+        #help (index_3)
+        self.render_index_template("index_3.html", "help")
+
+        #categories (subpages)
+        helpers = Helpers(app)
+        print " - render categories subpages"
         for theme in app.themes:
             for category in theme.categories:
-                category.articles_html = ArticlesTable(app, category, selectNonMappable).code
+                #articles
+                category.articlesTable = ArticlesTable(app, category, selectNonMappable)
+                #category
                 for subcategory in category.subcategories:
-                    subcategory.html = CategoryTable(app, subcategory, selectNonMappable).code
-                category.html = Subpage(app, "themes", "", category, selectNonMappable).code
+                    subcategory.categoryTable = CategoryTable(app, subcategory, selectNonMappable)
 
-        #Create regions pages
-        for region in app.regions:
-            region.html = Subpage(app, "regions", "_1", region, selectNonMappable).code
+                categoryTemplate = self.env.get_template('subpage.html')
+                filename = "%s.html" % category.name
+
+                category.html = categoryTemplate.render(app=self.app,
+                                                        selectNonMappable=selectNonMappable,
+                                                        helpers=helpers,
+                                                        mode="themes",
+                                                        root = '../../',
+                                                        path = '/subpages/',
+                                                        filename = filename,
+                                                        item=category)
+                category.html = category.html.replace('{{root}}', '../../')
+                category.html = category.html.replace('{root}', '../../')
+
+        #regions (subpages)
+        if self.app.regions != []:
+            print " - render regions subpages"
+            for region in app.regions:
+                for subcategory in region.subcategories:
+                    subcategory.categoryTable = CategoryTable(app,
+                        subcategory,
+                        selectNonMappable)
+                regionTemplate = self.env.get_template('subpage.html')
+                filename = "%s.html" % region.name
+
+                region.html = regionTemplate.render(app=self.app,
+                                                    selectNonMappable=selectNonMappable,
+                                                    helpers=helpers,
+                                                    mode="regions",
+                                                    root = '../../',
+                                                    path = '/subpages/',
+                                                    filename = filename,
+                                                    item=region)
+
+                region.html = region.html.replace('{{root}}', '../../')
+                region.html = region.html.replace('{root}', '../../')
 
         #Create errors page
-        self.errorsHtml = ErrorsPage(app).code
+        print " - render errors page"
+        errorsTemplate = self.env.get_template('errors.html')
 
-        #Save all HTML files
-        self.save_html_files()
+        self.errorsHtml = errorsTemplate.render(app=self.app,
+                                                root = '../',
+                                                path = '/',
+                                                filename = 'errors.html',
+                                                helpers=helpers)
+        self.errorsHtml = self.errorsHtml.replace('{{root}}', '../')
 
-    def save_html_files(self):
-        """Save webpages as html files
-        """
-        # homepage
-        for i, homepage in enumerate(self.homepages):
-            filename = "index.html"
-            if i > 0:
-                filename = "index_%d.html" % i
-            self.save_file(self.homepages[i], filename)
-        # categories pages
-        for theme in self.app.themes:
-            for category in theme.categories:
-                categoryFile = os.path.join("subpages", "%s.html" % category.name)
-                category.html = category.html.replace('WTOSMSUBPAGENAME', category.name)
-                self.save_file(category.html, categoryFile)
-        # regions pages
-        for region in self.app.regions:
-            regionFile = os.path.join("subpages", "%s.html" % region.name)
-            region.html = region.html.replace('WTOSMSUBPAGENAME', region.name)
-            self.save_file(region.html, regionFile)
-        # errors page
-        self.save_file(self.errorsHtml, "errors.html")
-        if not self.app.args.nofx:
-            call("firefox html/index.html", shell=True)
+        #Create non_mappable page
+        print " - render non_mappable page"
+        nonMappableTemplate = self.env.get_template('non_mappable.html')
 
-    def save_file(self, text, fileName):
-        fileOut = open(os.path.join(self.app.HTMLDIR, fileName), "w")
-        if isinstance(text, unicode):
-            text = text.encode("utf-8")
-        fileOut.write(text)
-        fileOut.close()
+        self.nonMappableHtml = nonMappableTemplate.render(app=self.app,
+                                                          root = '../',
+                                                          path = '/',
+                                                          filename = 'non_mappable.html',
+                                                          helpers=helpers)
 
         #Save all HTML files
         self.save_html_files()
@@ -466,42 +491,6 @@ class Creator():
         # non_mapable page
         self.save_file(self.nonMappableHtml, "non_mappable.html")
 
-    def homepage_tab(self, mode):
-        """Return html code of homepage tabs: themes and regions
-        """
-        #Main index table with icons of themes or regions
-        if mode in ("themes", "regions"):
-            if mode == "themes":
-                items = self.app.themes
-            else:
-                items = self.app.regions
-            code = self.main_index(items, mode)
-            #Indexes with categories in each theme or region
-            for itemIdx, item in enumerate(items):
-                #Title
-                linkTop = '<a href="#top">&#8593;</a>'
-                itemImg = '<img src="./img/%s/%s.png" class="item_img">' % (mode, item.name.lower())
-                itemTitle = '%s%s' % (itemImg, item.name.replace("_", " "))
-                if mode == "regions":
-                    itemTitle = '<a href="./subpages/%s.html" title="Visualizza pagina della regione">%s</a>' % (item.name, itemTitle)
-                code += '\n\n    <h3>%s<a id="%s"></a>%s</h3>' % (linkTop, item.name, itemTitle)
-                #index of categories with progress
-                pageType = "home"
-                if itemIdx == 0:
-                    showProgressHeader = True
-                else:
-                    showProgressHeader = False
-                code += '\n%s' % IndexOfCategories(self.app, item, mode, pageType, showProgressHeader).code
-        elif mode == "map":
-            intro = u'<b>Clicca</b> su un articolo per visitarne la pagina o mapparlo/taggarlo tramite il link per JOSM (coordinate da Wikipedia).<br>\
-Se un articolo non è mappabile in OSM, ad es. il luogo in cui si è svolto un evento storico, segnalalo come tale, affinché venga rimosso (vedi "Informazioni e conteggi").'
-            code = '\n    <div id="map_intro">'
-            code += '\n      <p>%s</p>' % intro
-            code += '\n    </div>'
-            code += '\n    <div id="map"></div>'
-            code += '\n   <script type="text/javascript" src="./js/map.js"></script>'
-            code += '\n   <!-- <div class="overlay">Articoli da taggare: <script type="application/x-javascript">document.write(coords.features.length);</script></div> -->'
-        return code
 
     def save_file(self, text, fileName, subdir=None):
 
@@ -530,37 +519,16 @@ Se un articolo non è mappabile in OSM, ad es. il luogo in cui si è svolto un e
         fileOut.write(text)
         fileOut.close()
 
-        # Title. Main category or region name
-        if mode == "themes":
-            progressClass, progressString = self.progress_strings(item, "allMArticles")
-            code += '\n<h2><a id="index"></a>%s (%s)</h2>' % (self.wikipedia_link(item), progressString)
-        else:
-            #mode == "regions"
-            img = '<img src="../img/%s/%s.png" class="item_img">' % (mode, item.name.lower())
-            code += '\n<h2>%s<a id="index"></a>%s</h2>' % (img, item.name.replace("_", " "))
 
-        if selectNonMappable:
-            code += '\n<div id="selectNonMappable">'
-            code += '\n  Per contrassegnare alcune categorie ed articoli come "non mappabili": clicca sulle loro celle, copia le stringhe qui sotto ed incollale nel file "./data/wikipedia/non_mappable".<br><br>'
-            code += '\n  Categorie:'
-            code += '\n  <div id="nonMappableCategories">&nbsp;</div><br>'
-            code += '\n  Articoli:'
-            code += '\n  <div id="nonMappableArticles">&nbsp;</div>'
-            code += '\n</div>'
+### Subpage ############################################################
+class ArticlesTable(Helpers):
+    def __init__(self, app, item, selectNonMappable):
+        """Return an html table with articles of a ctagory
+        """
+        self.attr = ''
+        self.content = []
+        self.app = app
 
-        # Legenda
-        code += '\n\n<!-- Legenda -->'
-        code += '\n<p><a href="javascript:showHideDiv(\'legenda\');"><img src="../img/info.png" class="infoImg"> Legenda</a></p>'
-        code += '\n<div id="legenda" style="display:none">'
-        code += self.legend_table()
-
-        # Index with articles and subcategories of a category
-        code += '\n\n<!-- Index -->'
-        if mode == "themes" and item.articles != [] and item.titles == []:
-            code += '\n<div class="showHideNonMappable"><a href=\'javascript:showHideNonMappable("%s_index");\' title="Visualizza sottocategorie non mappabili">Mostra non mappabili</a></div>' % item.ident
-        code += '\n%s' % IndexOfCategories(app, item, mode, pageType="sub").code
-
-        # Articles table
         if item.articles != []:
             self.attr  += ' class="data"'
             rows = []
@@ -702,10 +670,30 @@ class CategoryTable(Helpers):
                 nowrap = ""
                 if links != "":
                     nowrap = " NOWRAP"
-                code += "\n    <td%s>%s</td>" % (nowrap, links)
-            code += "\n  </tr>"
-        return code
 
                 #Article tagging status cell
                 cell = {"attr": nowrap, "content": links}
                 self.rows[-1].append(cell)
+
+
+class Redirect():
+    """Class to create the index.html to redirect to the preferred language"""
+    def __init__(self, app, locale_langcode):
+        print " - render redirect page to %s" % locale_langcode
+        htmlFile = "redirect.html"
+        self.app = app
+        self.locale_langcode = locale_langcode
+        self.env = Environment(extensions=['jinja2.ext.i18n',
+                                           'jinja2.ext.autoescape'],
+                               loader=FileSystemLoader("templates"),
+                               trim_blocks=True,
+                               lstrip_blocks=True)
+        self.env.install_gettext_translations(self.app.translations)
+        indexTemplate = self.env.get_template(htmlFile)
+        code = indexTemplate.render(lang=locale_langcode)
+        fileOut = open(os.path.join(self.app.HTMLDIR, 'index.html'), "w")
+
+        if isinstance(code, unicode):
+            code = code.encode("utf-8")
+        fileOut.write(code)
+        fileOut.close()

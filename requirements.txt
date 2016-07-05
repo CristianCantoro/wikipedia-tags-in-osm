@@ -1,21 +1,18 @@
-Flask==0.10.1
-Flask-OAuth==0.12
-Jinja2==2.7.1
-MarkupSafe==0.18
-Werkzeug==0.9.4
-argparse==1.2.1
+Babel==2.3.4
 cssselect==0.9.1
-distribute==0.6.35
+-e git+https://github.com/SpazioDati/Wikipedia-Template-Parser.git@cad9645f45c86f3e3d8a8c4c9606d0bb72bdb5b3#egg=wikipedia_template_parser
+-e git+https://github.com/wikimedia/pywikibot-externals-httplib2.git@7853ef9a69a7ccc72fb916e7ab8d541b781b51f6#egg=httplib2
+Flask==0.10.1
 flask-mwoauth==0.1.31
--e git+https://github.com/wikimedia/pywikibot-externals-httplib2.git#egg=httplib2
+Flask-OAuth==0.12
 itsdangerous==0.23
+Jinja2==2.7.1
+lxml==3.6.0
+MarkupSafe==0.18
 mwparserfromhell==0.1.1
 oauth2==1.5.211
 pyquery==1.2.4
+pysqlite==2.8.2
+pytz==2016.4
 requests==2.0.1
-stevedore==0.9.1
-virtualenv==1.9.1
-virtualenv-clone==0.2.4
-virtualenvwrapper==3.7
--e git+https://github.com/SpazioDati/Wikipedia-Template-Parser.git#egg=wikipedia_template_parser
-wsgiref==0.1.2
+Werkzeug==0.9.4

@@ -4,8 +4,8 @@
 #  Copyright 2013 Simone F. <groppo8@gmail.com>
 #
 #  This file is part of wikipedia-tags-in-osm.
-#  wikipedia-tags-in-osm is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
+#  wikipedia-tags-in-osm is free software: you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
 #  (at your option) any later version.
 
@@ -15,13 +15,14 @@
 #  GNU General Public License for more details.
 
 #  You should have received a copy of the GNU General Public License
-#  along with wikipedia-tags-in-osm.  If not, see <http://www.gnu.org/licenses/>.
+#  along with wikipedia-tags-in-osm.
+#  If not, see <http://www.gnu.org/licenses/>.
 
 """Starting from a list of Wikipedia categories written by the user in
    'config.cfg' file, the script:
    - downloads/updates a national OSM data file
-   - downloads from (from Quick Intersection) Wikipedia data regarding the selected
-     categories (subcategories names and articles titles)
+   - downloads from (from Quick Intersection) Wikipedia data regarding the
+     selected categories (subcategories names and articles titles)
    - creates webpages for showing which articles are already tagged and
      which ones are not.
 """
@@ -51,11 +52,11 @@ import nuts4nuts_infer
 class App:
     def __init__(self):
         #Options
-        text = """Starting from a list of Wikipedia categories written by the user in
-'config.cfg' file, the script:
+        text = """Starting from a list of Wikipedia categories written by the
+user in 'config.cfg' file, the script:
 - downloads/updates a national OSM data file
-- downloads from (from Quick Intersection) Wikipedia data regarding the selected
- categories (subcategories and articles names)
+- downloads from (from Quick Intersection) Wikipedia data regarding the
+  selected categories (subcategories and articles names)
 - creates webpages for showing which articles are already tagged and
  which ones are not.
 """

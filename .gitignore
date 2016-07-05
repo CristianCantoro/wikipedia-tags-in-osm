@@ -10,6 +10,7 @@ data/workaround/*
 data/nuts4nuts/nuts4nuts*
 data/nuts4nuts/articles_to_scan.txt
 data/OSM/*
+data/osm/*
 data/logs/*
 data/stats/*
 html/*

@@ -50,13 +50,18 @@ CONFIG_FILE = os.path.realpath(
     os.path.join('..', 'wtosm', CONFIG_FILENAME))
 
 # development settings
-# CONFIG_FILENAME = 'settings.dev.cfg'
-# CONFIG_FILE = os.path.realpath(
-#    os.path.join('..', 'wtosm', 'dev', CONFIG_FILENAME))
-# app.config.update(
-# DEBUG=True,
-# PROPAGATE_EXCEPTIONS=True
-# )
+WTOSM_DEV = False
+if os.environ['WTOSM_DEV']:
+    WTOSM_DEV = True
+
+    print('DEV MODE')
+    CONFIG_FILENAME = 'settings.dev.cfg'
+    CONFIG_FILE = os.path.realpath(
+        os.path.join('..', 'wtosm', 'dev', CONFIG_FILENAME))
+    app.config.update(
+        DEBUG=True,
+        PROPAGATE_EXCEPTIONS=True
+    )
 
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
@@ -309,7 +314,7 @@ def preview():
         next_url = next_url + '&id={id}'.format(id=optional['id'])
 
     if mwoauth.get_current_user(False) is None:
-        return redirect('../app/login?next={next}'.format(next=next_url))
+        return redirect('../../app/login?next={next}'.format(next=next_url))
     else:
 
         title = parameters['title']
@@ -398,14 +403,14 @@ def edit():
         edit_query = {'action': 'edit',
                       'title': title,
                       'summary': summary,
-                      'text': new_text.encode('utf-8'),
+                      'text': unicode(new_text.decode('utf-8')),
                       'token': edit_token
                       }
 
         if section != '-1':
             edit_query['section'] = section
 
-        result = mwoauth.request(edit_query)
+        result = mwoauth.request(edit_query, force_long=True)
         # result = mock_success()
 
         try:
@@ -463,7 +468,7 @@ def test_edit():
         if section != '-1':
             edit_query['section'] = section
 
-        result = mwoauth.request(edit_query)
+        result = mwoauth.request(edit_query, force_long=True)
         # result = mock_success()
 
         try:
@@ -518,7 +523,10 @@ if __name__ == "__main__":
 
     redirect_app = Flask(__name__)
 
-    @redirect_app.route('/')
+    @redirect_app.route('/<path:path>')
+    def base_html(path):
+        return send_from_directory(os.path.join('..', 'html'), path)
+
     @redirect_app.route('/app')
     def app_index():
         oauth_verifier = request.args.get('oauth_verifier')
@@ -533,6 +541,12 @@ if __name__ == "__main__":
         else:
             return redirect('/app/')
 
+    # @redirect_app.route('/')
+    # def start_page(path):
+    #     import pdb
+    #     pdb.set_trace()
+    #     return redirect('http://localhost:5000/en_US/index.html')
+
     base_app = Flask(__name__)
 
     base_app.config.update(
@@ -541,7 +555,7 @@ if __name__ == "__main__":
     )
 
     base_app.wsgi_app = DispatcherMiddleware(redirect_app, {
-        '/app':     app
+        '/app': app
     })
 
     base_app.run(host='localhost',
