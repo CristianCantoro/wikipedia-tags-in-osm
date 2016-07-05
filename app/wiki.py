@@ -50,11 +50,7 @@ CONFIG_FILE = os.path.realpath(
     os.path.join('..', 'wtosm', CONFIG_FILENAME))
 
 # development settings
-WTOSM_DEV = False
-if os.environ.get('WTOSM_DEV', None):
-    WTOSM_DEV = True
-
-    print('DEV MODE')
+if os.environ.get('WTOSM_DEV', None) or __name__ == "__main__":
     CONFIG_FILENAME = 'settings.dev.cfg'
     CONFIG_FILE = os.path.realpath(
         os.path.join('..', 'wtosm', 'dev', CONFIG_FILENAME))
@@ -504,8 +500,29 @@ def test_nochange():
 
 
 if __name__ == "__main__":
+    import argparse
     from werkzeug.wsgi import DispatcherMiddleware
     from flask import send_from_directory
+
+    description = 'Flask-based application to edit Wikipedia pages to add '\
+                  'coordinates from OSM.'
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument("--host",
+                        help="Host over which the application is run. "
+                             "[default: localhost]",
+                        default="localhost")
+    parser.add_argument("--no-debug",
+                        help="Disable debug",
+                        dest="debug",
+                        action="store_false"
+                        )
+    parser.add_argument("-p", "--port",
+                        help="Local port over which the application is run. "
+                             "[default: 5000]",
+                        type=int,
+                        default=5000)
+
+    args = parser.parse_args()
 
     app.secret_key = "local secret is secret"
 
@@ -559,24 +576,19 @@ if __name__ == "__main__":
         else:
             return redirect('/app/')
 
-    # @redirect_app.route('/')
-    # def start_page(path):
-    #     import pdb
-    #     pdb.set_trace()
-    #     return redirect('http://localhost:5000/en_US/index.html')
-
     base_app = Flask(__name__)
 
-    base_app.config.update(
-        DEBUG=True,
-        PROPAGATE_EXCEPTIONS=True
-    )
+    if args.debug:
+        base_app.config.update(
+            DEBUG=True,
+            PROPAGATE_EXCEPTIONS=True
+        )
 
     base_app.wsgi_app = DispatcherMiddleware(redirect_app, {
         '/app': app
     })
 
-    base_app.run(host='localhost',
-                 port=5000,
-                 debug=True,
+    base_app.run(host=args.host,
+                 port=args.port,
+                 debug=args.debug,
                  )
