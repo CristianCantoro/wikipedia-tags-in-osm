@@ -1,8 +1,8 @@
-#! /usr/bin/python
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#  Copyright 2013 Fondazione Bruno Kessler
-#  Author: <consonni@fbk.eu>
+#  Copyright 2013 Fondazione Bruno Kessler, 2016 Cristian Consonni
+#  Author: Cristian Consonni <consonni@fbk.eu>
 #  This work has been funded by Fondazione Bruno Kessler (Trento, Italy)
 #  within the activities of the Digital Commons Lab
 #
