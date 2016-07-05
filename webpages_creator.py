@@ -141,8 +141,17 @@ class Helpers:
         img_tag = '<img src="{src}" title="{title}"'\
                   ' class="articleLinkImg" />'.format(src=img_src, 
                                                       title=img_title)
-        span_tag = '<span class="missing_template_alert" {{data}}>'\
-                   '{img}</span>'.format(img=img_tag)
+
+        # to use the popup we need the class:
+        #     missing_template_alert otherwise
+        # otherwise, to use the flask application, we use the class:
+        #     missing_template_flask_app
+        span_tag_class = "missing_template_alert"
+        if self.app.args.show_missing_templates_app:
+            span_tag_class = "missing_template_flask_app"
+
+        span_tag = '<span class="{class_}" {{data}}>'\
+                   '{img}</span>'.format(class_=span_tag_class, img=img_tag)
 
         if article.OSMcoords:
             lat = article.OSMcoords[0]

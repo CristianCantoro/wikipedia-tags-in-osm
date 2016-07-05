@@ -79,6 +79,9 @@ user in 'config.cfg' file, the script:
         parser.add_argument("-t", "--show_missing_templates",
                             help="Mark on web pages the articles that miss geo template (Coord)",
                             action="store_true")
+        parser.add_argument("--show_missing_templates_app",
+                            help="Mark on web pages the articles that miss geo template (Coord), using flask application (implies -t)",
+                            action="store_true")
         parser.add_argument("-c", "--show_link_to_wikipedia_coordinates",
                             help="If a non-tagged article have the coordinates on Wikipedia, show on the web pages a link to zoom on its position with JOSM/iD",
                             action="store_true")
@@ -116,6 +119,10 @@ user in 'config.cfg' file, the script:
            or self.args.show_missing_templates\
            or self.args.show_coordinates_from_osm:
             self.args.analyze = True
+
+        # option show_missing_templates_app implies show_missing_templates
+        if self.args.show_missing_templates_app:
+            self.args.show_missing_templates = True
 
         # Default value for locale
         # get system locale
