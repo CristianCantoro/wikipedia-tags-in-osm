@@ -51,7 +51,7 @@ CONFIG_FILE = os.path.realpath(
 
 # development settings
 WTOSM_DEV = False
-if os.environ['WTOSM_DEV']:
+if os.environ.get('WTOSM_DEV', None):
     WTOSM_DEV = True
 
     print('DEV MODE')
@@ -403,15 +403,19 @@ def edit():
         edit_query = {'action': 'edit',
                       'title': title,
                       'summary': summary,
-                      'text': unicode(new_text.decode('utf-8')),
-                      'token': edit_token
+                      'text': new_text.encode('utf-8'),
+                      'token': edit_token,
+                      'format': 'json'
                       }
 
         if section != '-1':
             edit_query['section'] = section
 
-        result = mwoauth.request(edit_query, force_long=True)
+        # result = mwoauth.request(edit_query, force_long=True)
         # result = mock_success()
+        result = mwoauth.mwoauth.post(mwoauth.base_url + '/api.php?',
+                                      data=edit_query
+                                      ).data
 
         try:
             assert(result['edit']['result'] == 'Success')
