@@ -527,16 +527,30 @@ if __name__ == "__main__":
 
     redirect_app = Flask(__name__)
 
-    @redirect_app.route('/<path:path>')
-    def base_html(path):
-        return send_from_directory(os.path.join('..', 'html'), path)
+    @redirect_app.route('/')
+    def hello():
+        oauth_verifier = request.args.get('oauth_verifier')
+        oauth_token = request.args.get('oauth_token')
+        if oauth_verifier and oauth_token:
+            return redirect('/app/oauth-callback'
+                            '?oauth_verifier={oauth_verifier}'
+                            '&oauth_token={oauth_token}'.format(
+                                oauth_verifier=oauth_verifier,
+                                oauth_token=oauth_token)
+                            )
+        else:
+            return redirect('/en_US/index.html')
+
+    @redirect_app.route('/<locale>/<path:path>')
+    def base_html(locale, path):
+        return send_from_directory(os.path.join('..', 'html', locale), path)
 
     @redirect_app.route('/app')
     def app_index():
         oauth_verifier = request.args.get('oauth_verifier')
         oauth_token = request.args.get('oauth_token')
         if oauth_verifier and oauth_token:
-            return redirect('http://wtosmtest.it/app/oauth-callback'
+            return redirect('/app/oauth-callback'
                             '?oauth_verifier={oauth_verifier}'
                             '&oauth_token={oauth_token}'.format(
                                 oauth_verifier=oauth_verifier,
