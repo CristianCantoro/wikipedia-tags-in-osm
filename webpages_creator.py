@@ -165,7 +165,7 @@ class Helpers:
                 osm_types.append(OSM_TYPES[osm_id[0]])
                 osm_ids.append(osm_id[1:])
 
-            ref = u"./subpages/WTOSMSUBPAGENAME.html"
+            ref = u"__ROOT____LANG__/subpages/__WTOSMSUBPAGENAME__.html"
 
             a_tag = u'<a href="__ROOT__app/map?'\
                      'lat={lat}'\
@@ -208,7 +208,9 @@ class Helpers:
                                                      )
 
             span_tag = span_tag.format(data=data)
-            link = a_tag.format(span=span_tag).replace('__ROOT__', '{{root}}')
+            link = a_tag.format(span=span_tag).replace('__ROOT__', '{{root}}')\
+                                              .replace('__LANG__', '{{lang}}')\
+
 
         else:
             span_tag = span_tag.format(data='')
@@ -372,6 +374,9 @@ class Creator():
                                                         item=category)
                 category.html = category.html.replace('{{root}}', '../../')
                 category.html = category.html.replace('{root}', '../../')
+                category.html = category.html.replace('{{lang}}', self.locale_langcode)
+                category.html = category.html.replace('{lang}', self.locale_langcode)
+                category.html = category.html.replace('__WTOSMSUBPAGENAME__', category.name)
 
         #regions (subpages)
         if self.app.regions != []:
@@ -395,6 +400,9 @@ class Creator():
 
                 region.html = region.html.replace('{{root}}', '../../')
                 region.html = region.html.replace('{root}', '../../')
+                region.html = region.html.replace('{{lang}}', self.locale_langcode)
+                region.html = region.html.replace('{lang}', self.locale_langcode)
+                region.html = region.html.replace('__WTOSMSUBPAGENAME__',region.name)
 
         #Create errors page
         print " - render errors page"
