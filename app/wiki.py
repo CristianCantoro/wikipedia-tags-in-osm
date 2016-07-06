@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 #  Copyright 2013 Fondazione Bruno Kessler, 2016 Cristian Consonni
@@ -407,11 +407,11 @@ def edit():
         if section != '-1':
             edit_query['section'] = section
 
-        # result = mwoauth.request(edit_query, force_long=True)
+        result = mwoauth.request(edit_query)
         # result = mock_success()
-        result = mwoauth.mwoauth.post(mwoauth.base_url + '/api.php?',
-                                      data=edit_query
-                                      ).data
+        # result = mwoauth.mwoauth.post(mwoauth.base_url + '/api.php?',
+        #                               data=edit_query
+        #                               ).data
 
         try:
             assert(result['edit']['result'] == 'Success')
