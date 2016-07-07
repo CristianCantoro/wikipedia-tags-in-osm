@@ -234,7 +234,7 @@ def get_parameter(name, lat, lon):
             return str(dms['lon'][el]), 'lon'
     else:
         return "Caso inatteso, non salvare questa pagina e segnalalo "\
-               "segnalalo agli sviluppatori. Grazie.", None
+               "agli sviluppatori. Grazie.", None
 
 
 def __find_sections_intervals(text):

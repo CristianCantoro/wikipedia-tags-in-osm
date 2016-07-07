@@ -468,7 +468,7 @@ def test_edit():
         if section != '-1':
             edit_query['section'] = section
 
-        result = mwoauth.request(edit_query, force_long=True)
+        result = mwoauth.request(edit_query)
         # result = mock_success()
 
         try:

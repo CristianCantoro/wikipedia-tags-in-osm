@@ -117,6 +117,7 @@ user in 'config.cfg' file, the script:
         if self.args.category_info or self.args.category_info\
            or self.args.create_webpages or self.args.print_categories_list\
            or self.args.show_missing_templates\
+           or self.args.show_missing_templates_app\
            or self.args.show_coordinates_from_osm:
             self.args.analyze = True
 

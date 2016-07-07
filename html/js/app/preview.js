@@ -29,8 +29,8 @@ function load_preview() {
                 url: $(this).attr('action'),
                 dataType: "html",
                 success: function (result) {
-                    $('.app-popup').show();
-                    $('.app-popup-container').html(result);
+                    $('#app-popup-main').show();
+                    $('#app-popup-main-container').html(result);
                 },
                 error: function (){
                       alert('Error!');
@@ -39,4 +39,4 @@ function load_preview() {
             return false;
         }); 
     });
-}
+}()
