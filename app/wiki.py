@@ -227,6 +227,8 @@ def show_map():
         parameters,
         optional)
 
+    username = mwoauth.get_current_user(False)
+
     return render_template('wikimap.html',
                            lat=parameters['lat'],
                            lon=parameters['lon'],
@@ -236,6 +238,7 @@ def show_map():
                            dim=optional['dim'],
                            referrer=optional['ref'],
                            id=optional['id'],
+                           username=username
                            )
 
 

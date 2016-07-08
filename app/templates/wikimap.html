@@ -10,7 +10,7 @@
 <body>
   <div id="body-wrapper">
     <div id="app-popup-map" class="app-popup">
-      <a href="javascript:void(0)" class="close" id="close-button"></a>
+      <a href="javascript:void(0)" class="close" id="close-button">x</a>
       <div id="app-popup-map-container" class="app-popup-container">Container</div>
     </div>
 
@@ -50,7 +50,13 @@
       <div id="box-left" class="box">
           <a class="wiki-edit" id="wiki-edit-user" href="/app/preview?title={{title|unquote}}&lat={{lat}}&lon={{lon}}&osm_id={{','.join(osm_id)}}&osm_type={{','.join(osm_type)}}&dim={{dim}}{% if referrer %}&ref={{referrer}}{% endif %}{% if id %}&id={{id}}{% endif %}">
           <span class="wiki_user_edit"><img src="/app/img/icon_add_green.png" title="Aggiungi le coordinate su Wikipedia (anteprima)" class="addWikipediaIcon" alt="Aggiungi"/></span></a> aggiungi queste coordinate su Wikipedia usando il tuo nome utente.
+          {% if username %}
+            Sei loggato con lo username: <a href="http://it.wikipedia.org/wiki/Utente:{{username}}">{{username}}</a> (<span style="font-size:small;"><a id="wiki-logout" href="/app/logout">Non sei tu?</a></span>), clicca per proseguire.
+          {% else %}
+            Non hai effettuato il login su Wikipedia, clicca per effettuare il login.
+          {% endif %}
       </div>
+
       <div id="box-right" class="box">
           <a class="wiki-edit" id="wiki-edit-anon" href="/app/anon-edit?title={{title|unquote}}&lat={{lat}}&lon={{lon}}&osm_id={{','.join(osm_id)}}&osm_type={{','.join(osm_type)}}&dim={{dim}}{% if referrer %}&ref={{referrer}}{% endif %}{% if id %}&id={{id}}{% endif %}">
           <span class="wiki_anon_edit"><img src="/app/img/icon_add_orange.png" title="Aggiungi le coordinate su Wikipedia (anteprima)" class="addWikipediaIcon" alt="Aggiungi"/></span></a> aggiungi queste coordinate su Wikipedia anonimamente.

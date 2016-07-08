@@ -9,9 +9,9 @@ $( document ).ready( function() {
         map_attribution_oc = common_attr + 'OpenCycleMap',
 
         // Tool Labs WMF
-        map_url_tl = 'http://{s}.tiles.wmflabs.org/bw-mapnik2/' +
+        map_url_wl = 'http://{s}.tiles.wmflabs.org/osm/' +
                      '{z}/{x}/{y}.png',
-        map_attribution_tl = common_attr + 'Toolserver',
+        map_attribution_wl = common_attr + 'Wikimedia Labs',
 
         // Mapquest
         map_url_mq = 'http://otile1.mqcdn.com/' +
@@ -27,8 +27,8 @@ $( document ).ready( function() {
     var opencyclemap = L.tileLayer(map_url_oc, {
             attribution: map_attribution_oc
         }),
-        toollabs = L.tileLayer(map_url_tl, {
-            attribution: map_attribution_tl
+        wmflabs = L.tileLayer(map_url_wl, {
+            attribution: map_attribution_wl
         }),
         mapquest = L.tileLayer(map_url_mq, {
             attribution: map_attribution_mq
@@ -40,7 +40,7 @@ $( document ).ready( function() {
     var map = L.map('map_canvas', {
             center: new L.LatLng(lat, lon),
             zoom: 17,
-            layers: [mapquest]
+            layers: [osm_classic]
         });
 
     var dec_title = decodeURIComponent(title);
@@ -100,10 +100,10 @@ $( document ).ready( function() {
     };
 
     var base_maps = {
-        "MapQuest": mapquest,
         "OpenStreetMap Classic (Mapnik)": osm_classic,
+        "Wikimedia Labs": wmflabs,
+        "MapQuest": mapquest,
         "OpenCycleMap": opencyclemap,
-        "Wikimedia Tool Labs": toollabs
     };
 
     var overlay_maps = {
@@ -162,11 +162,12 @@ $( document ).ready( function() {
 
 $(function () {
 
+    var dfd = $.Deferred();
+
     function login() {
-        var r = $.Deferred();
         var popup_baseurl =  '/app/login?';
         
-        var params = {'next': '/wtosm/app/login/success'}
+        var params = {'next': '/app/login/success'}
         var popup_params = $.param(params)
 
         var popup_title = "Login";
@@ -179,13 +180,11 @@ $(function () {
 
         var pollTimer = window.setInterval(function() {
             try {
-                console.log(popup_window.document.URL) 
+                dfd.resolve();
                 if ( popup_window.location.pathname === 
-                        '/wtosm/app/login/success') {
+                        '/app/login/success') {
                     window.clearInterval(pollTimer);
                     popup_window.close();
-                    r.resolve()
-                    return r;
                 }
             }
             catch(e) {
@@ -193,7 +192,7 @@ $(function () {
                     console.log('Waiting for the user to log in');
                 }
             }
-        }, 1500);
+        }, 3500);
     }
 
     $('#app-popup-map').hide();
@@ -242,7 +241,9 @@ $(function () {
         callPreview();
 
         if ( needs_login ) {
-            login().done(callPreview);
+            console.log("needs_login")
+            dfd.done(callPreview);
+            login();
         }
         return false;
 

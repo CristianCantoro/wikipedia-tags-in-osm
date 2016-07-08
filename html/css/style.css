@@ -429,15 +429,9 @@ div.app-popup {
 }
 
 div.app-popup a#close-button {
-    content:"";
-    width:20px;
-    height:20px;
-    position:absolute;
-    right:10px;
-    top:10px;
-    border-radius:10px;
     z-index: 101;
-    background: #f00;
+    color: red;
+    text-decoration: none;
 }
 
 div.app-popup-container {
@@ -461,10 +455,15 @@ div.container {
 table.diff {
   width:100%;
   word-wrap:break-word;
+  font-size: 90%;
 }
 
 table.diff td {
  white-space: normal;
+}
+
+table.diff span.diff_add {
+ background-color: #79FF4D;
 }
 
 textarea {
