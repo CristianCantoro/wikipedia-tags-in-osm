@@ -217,16 +217,6 @@ def show_map():
 
     title = parameters['title']
 
-    try:
-        old_text = wtp.get_wikitext_from_api(title, "it")
-    except Exception as e:
-        return render_template('error.html', info=e.message)
-
-    new_text, old_text, template, section, difftable = __get_new_text(
-        old_text,
-        parameters,
-        optional)
-
     username = mwoauth.get_current_user(False)
 
     return render_template('wikimap.html',

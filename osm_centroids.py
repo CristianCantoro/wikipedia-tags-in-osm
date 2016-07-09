@@ -373,7 +373,7 @@ def main():
         #print args
 
         if args.libspatialitePath is None:
-            with open("config") as fp:
+            with open("config.cfg") as fp:
                 configparser = ConfigParser.RawConfigParser()
                 configparser.readfp(fp)
                 args.libspatialitePath = configparser.get("general",

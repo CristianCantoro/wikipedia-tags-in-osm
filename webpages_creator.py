@@ -182,7 +182,7 @@ class Helpers:
                                            lon=lon,
                                            dim=dim,
                                            ref=ref,
-                                           ident=article.ident,
+                                           ident=article.ident + "_mt",
                                            title=wikipedia_title,
                                            osm_id=','.join(osm_ids),
                                            osm_type=','.join(osm_types)
@@ -202,7 +202,7 @@ class Helpers:
                                                      dim=dim,
                                                      title=wikipedia_title,
                                                      ref=ref,
-                                                     ident=article.ident,
+                                                     ident=article.ident + "_mt",
                                                      osm_id=osm_id_dump,
                                                      osm_type=osm_types_dump
                                                      )
