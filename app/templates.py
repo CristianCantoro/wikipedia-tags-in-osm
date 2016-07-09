@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 #  Copyright 2013 Fondazione Bruno Kessler
-#  Author: <consonni@fbk.eu>
+#  Author: Cristian Consonni <kikkocristian@gmail.com>
 #  This work has been funded by Fondazione Bruno Kessler (Trento, Italy)
 #  within the activities of the Digital Commons Lab
 #

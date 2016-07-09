@@ -10,8 +10,8 @@ function toggle_info() {
     });
 }
 
-function load_preview() {
-    $(function() {
+$(function() {
+    function load_preview() {
         "use strict";
 
         $("#wikipedia-edit-info").hide();
@@ -38,5 +38,5 @@ function load_preview() {
             });
             return false;
         }); 
-    });
-}()
+    };
+});
