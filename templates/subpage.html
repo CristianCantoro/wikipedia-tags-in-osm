@@ -33,6 +33,10 @@
       </script>
       {% endif%}
     {{ macro.showHideDiv() }}
+    {% if app.args.show_missing_templates_app %}
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+      <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    {% endif %}
     {% if app.args.show_missing_templates %}
       <script src="{{root}}js/wtosm.js" type="text/javascript"></script>
     {% endif %}
