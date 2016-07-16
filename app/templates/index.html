@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
+{% block scripts %}
+  <script type="text/javascript" src="{{root}}js/jquery-3.0.0.min.js"></script>
+  <script type="text/javascript" src="{{root}}js/app/index.js"></script>
+{% endblock %}
+
 {% block title %}Wikipedia-tags-in-OSM app test{% endblock %}
 
 {% block header %}Wikipedia-tags-in-OSM app beta test{% endblock %}
 
 
 {% block content %}
-<script type="text/javascript" src="/js/app/index.js"></script>
 
 <p>Questa è una installazione di test per l'inserimento, attraverso Wikipedia-tags-in-OSM delle coordinate da OpenStreetMap su Wikipedia.</p>
 
@@ -104,7 +108,7 @@ Wikipedia-tags-in-OSMN è un progetto di Simone "Groppo" F. <a href="mailto:grop
 Hanno contribuito:
 <ul>
 <li>Luca "lucalelu" Delucchi</li>
-<li>Cristian "CristianCantoro" Consonni: <a href="mailto:consonni (at) fbk (punto) eu">consonni (at) fbk (punto) eu</a></li>
+<li>Cristian "CristianCantoro" Consonni: <a href="mailto:kikkocristian (at) gmail (punto) com">kikkocristian (at) gmail (punto) com</a></li>
 </ul>
 
 Il progetto ha fatto uso di diversi software e librerie esterne esistenti, consultate il <a href="https://github.com/simone-f/wikipedia-tags-in-osm/blob/master/README.md">README</a> per una lista dettagliata dei credits. 

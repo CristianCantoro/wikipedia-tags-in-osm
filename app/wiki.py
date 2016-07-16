@@ -109,7 +109,10 @@ app.jinja_env.globals['csrf_token'] = generate_csrf_token
 @app.route("/")
 def index():
     username = mwoauth.get_current_user(False)
-    return render_template('index.html', username=username)
+    return render_template('index.html',
+                           root='/',
+                           username=username
+                           )
 
 
 @app.route("/login/success")
