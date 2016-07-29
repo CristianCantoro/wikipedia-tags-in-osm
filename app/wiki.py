@@ -111,7 +111,9 @@ app.jinja_env.globals['csrf_token'] = generate_csrf_token
 @app.route("/")
 def index():
     username = mwoauth_mw.get_current_user(False)
-    return render_template('index.html', username=username)
+    return render_template('index.html',
+                           root='/',
+                           username=username)
 
 # code from flask-mwoauth
 @app.route("/login")
