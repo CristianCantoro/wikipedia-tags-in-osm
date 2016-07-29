@@ -30,6 +30,8 @@ from flask import render_template
 from flask import request
 from flask import session
 from flask import abort
+from flask import url_for
+from flask import flash
 from flask_mwoauth import MWOAuth
 from urlparse import urlparse
 import binascii
@@ -67,13 +69,13 @@ config.read(CONFIG_FILE)
 consumer_key = config.get('keys', 'consumer_key')
 consumer_secret = config.get('keys', 'consumer_secret')
 
-mwoauth = MWOAuth(base_url='https://it.wikipedia.org/w',
-                  clean_url='https://it.wikipedia.org/wiki',
-                  consumer_key=consumer_key,
-                  consumer_secret=consumer_secret
-                  )
+mwoauth_mw = MWOAuth(base_url='https://it.wikipedia.org/w',
+                     clean_url='https://it.wikipedia.org/wiki',
+                     consumer_key=consumer_key,
+                     consumer_secret=consumer_secret
+                     )
 
-app.register_blueprint(mwoauth.bp)
+# app.register_blueprint(mwoauth_mw.bp)
 
 app.jinja_env.filters['unquote'] = urllib.unquote
 
@@ -108,19 +110,64 @@ app.jinja_env.globals['csrf_token'] = generate_csrf_token
 
 @app.route("/")
 def index():
-    username = mwoauth.get_current_user(False)
-    return render_template('index.html',
-                           root='/',
-                           username=username
-                           )
+    username = mwoauth_mw.get_current_user(False)
+    return render_template('index.html', username=username)
 
+# code from flask-mwoauth
+@app.route("/login")
+def login():
+
+    uri_params = {'oauth_consumer_key': mwoauth_mw.mwoauth.consumer_key}
+    # import pdb
+    # pdb.set_trace()
+    redirector = mwoauth_mw.mwoauth.authorize(**uri_params)
+
+    if 'next' in request.args:
+        oauth_token = session[mwoauth_mw.mwoauth.name + '_oauthtok'][0]
+        session[oauth_token + '_target'] = request.args['next']
+
+    return redirector
 
 @app.route("/login/success")
 def login_success():
-    username = mwoauth.get_current_user(False)
+    username = mwoauth_mw.get_current_user(False)
     return render_template('loginsuccess.html',
                            username=username
                            )
+
+
+@app.route('/logout')
+def logout():
+    username = session['username']
+    session['mwo_token'] = None
+    session['username'] = None
+    if 'next' in request.args:
+        return redirect(request.args['next'])
+    return render_template('logout.html',
+                           username=username
+                           )
+
+# code from flask-mwoauth
+@app.route("/oauth-callback")
+def oauth_authorized():
+    resp = mwoauth_mw.mwoauth.authorized_response()
+    next_url_key = request.args['oauth_token'] + '_target'
+    default_url = url_for(mwoauth_mw.default_return_to)
+
+    next_url = session.pop(next_url_key, default_url)
+
+    if resp is None:
+        flash(u'You denied the request to sign in.')
+        return redirect(next_url)
+    session['mwo_token'] = (
+        resp['oauth_token'],
+        resp['oauth_token_secret']
+    )
+
+    username = mwoauth_mw.get_current_user(False)
+    flash('You were signed in, %s!' % username)
+
+    return redirect(next_url)
 
 
 def validate_parameters(args):
@@ -220,7 +267,7 @@ def show_map():
 
     title = parameters['title']
 
-    username = mwoauth.get_current_user(False)
+    username = mwoauth_mw.get_current_user(False)
 
     return render_template('wikimap.html',
                            lat=parameters['lat'],
@@ -272,7 +319,7 @@ def anon_edit():
 
 
 def get_domain(url):
-    parsed_uri = urlparse(mwoauth.base_url)
+    parsed_uri = urlparse(mwoauth_mw.base_url)
     domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
     return domain
 
@@ -305,13 +352,13 @@ def preview():
     if optional['id']:
         next_url = next_url + '&id={id}'.format(id=optional['id'])
 
-    if mwoauth.get_current_user(False) is None:
+    if mwoauth_mw.get_current_user(False) is None:
         return redirect('../../app/login?next={next}'.format(next=next_url))
     else:
 
         title = parameters['title']
 
-        token_req = mwoauth.request({'action': 'query',
+        token_req = mwoauth_mw.request({'action': 'query',
                                      'titles': title.replace('_', ' '),
                                      'prop': 'info|revisions',
                                      'rvprop': 'timestamp|user'
@@ -334,7 +381,7 @@ def preview():
 
         if pageid == '-1':
             if pages[pageid].get('missing', None) is not None:
-                domain = get_domain(mwoauth.base_url)
+                domain = get_domain(mwoauth_mw.base_url)
                 return render_template('missing.html',
                                        title=title,
                                        site=domain)
@@ -381,7 +428,7 @@ def edit():
     if not csrf_token or csrf_token != request.form.get('_csrf_token'):
         abort(403)
 
-    if mwoauth.get_current_user(False) is None:
+    if mwoauth_mw.get_current_user(False) is None:
         return 'Something went wrong, you are not logged in'
     else:
         edit_token = request.form['edit_token']
@@ -403,9 +450,9 @@ def edit():
         if section != '-1':
             edit_query['section'] = section
 
-        result = mwoauth.request(edit_query)
+        result = mwoauth_mw.request(edit_query)
         # result = mock_success()
-        # result = mwoauth.mwoauth.post(mwoauth.base_url + '/api.php?',
+        # result = mwoauth_mw.mwoauth.post(mwoauth_mw.base_url + '/api.php?',
         #                               data=edit_query
         #                               ).data
 
@@ -445,7 +492,7 @@ def test_edit():
     if not csrf_token or csrf_token != request.form.get('_csrf_token'):
         abort(403)
 
-    if mwoauth.get_current_user(False) is None:
+    if mwoauth_mw.get_current_user(False) is None:
         return 'Something went wrong, you are not logged in'
     else:
         edit_token = request.form['edit_token']
@@ -464,7 +511,7 @@ def test_edit():
         if section != '-1':
             edit_query['section'] = section
 
-        result = mwoauth.request(edit_query)
+        result = mwoauth_mw.request(edit_query)
         # result = mock_success()
 
         try:
