@@ -120,9 +120,11 @@ def index():
 def login():
 
     uri_params = {'oauth_consumer_key': mwoauth_mw.mwoauth.consumer_key}
-    # import pdb
-    # pdb.set_trace()
-    redirector = mwoauth_mw.mwoauth.authorize(**uri_params)
+
+    try:
+        redirector = mwoauth_mw.mwoauth.authorize(**uri_params)
+    except:
+        return render_template('loginerror.html')
 
     if 'next' in request.args:
         oauth_token = session[mwoauth_mw.mwoauth.name + '_oauthtok'][0]
