@@ -116,8 +116,8 @@ app.jinja_env.globals['csrf_token'] = generate_csrf_token
 def index():
     username = mwoauth_mw.get_current_user(False)
     return render_template('index.html',
-                           app_mount_point=APP_MOUNT_POINT,
-                           root=WEB_ROOT,
+                           app_mount_point=app_mount_point,
+                           root=web_root,
                            username=username)
 
 # code from flask-mwoauth
