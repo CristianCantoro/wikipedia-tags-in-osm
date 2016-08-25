@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
-{% block scripts %}
-  <script type="text/javascript" src="{{root}}js/jquery-3.0.0.min.js"></script>
-  <script type="text/javascript" src="{{root}}js/app/index.js"></script>
-{% endblock %}
 
 {% block title %}Wikipedia-tags-in-OSM app test{% endblock %}
 
 {% block header %}Wikipedia-tags-in-OSM app beta test{% endblock %}
-
 
 {% block content %}
 
@@ -39,11 +34,11 @@
 
 <h3 id="login-logout">Login/Logout</h3>
 <div id="box-login" class="box-log">
-  <a href="../app/login">Login</a>
+  <a href="{{app_mount_point}}login">Login</a>
 </div>
 
 <div id="box-logout" class="box-log">
-  <a href="../app/logout">Logout</a>
+  <a href="{{app_mount_point}}logout">Logout</a>
 </div>
 
 
@@ -118,4 +113,9 @@ Il lavoro di Cristian Consonni è svolto all'interno delle attività del <a href
 
 Il codice, <a href="http://python.org">Python</a>, è rilasciato con licenza <a href="http://gplv3.fsf.org/">GPLv3</a>
 
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript" src="{{root}}js/jquery-3.0.0.min.js"></script>
+  <script type="text/javascript" src="{{root}}js/app/index.js"></script>
 {% endblock %}

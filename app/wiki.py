@@ -60,6 +60,8 @@ if os.environ.get('WTOSM_DEV', None) or __name__ == "__main__":
         DEBUG=True,
         PROPAGATE_EXCEPTIONS=True
     )
+    APP_MOUNT_POINT="/app/"
+    WEB_ROOT="/"
 
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
@@ -112,7 +114,8 @@ app.jinja_env.globals['csrf_token'] = generate_csrf_token
 def index():
     username = mwoauth_mw.get_current_user(False)
     return render_template('index.html',
-                           root='/',
+                           app_mount_point=APP_MOUNT_POINT,
+                           root=WEB_ROOT,
                            username=username)
 
 # code from flask-mwoauth
