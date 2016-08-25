@@ -66,10 +66,12 @@ if os.environ.get('WTOSM_DEV', None) or __name__ == "__main__":
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
 
-# print CONFIG_FILE
-
+# configurationn settings
 consumer_key = config.get('keys', 'consumer_key')
 consumer_secret = config.get('keys', 'consumer_secret')
+
+app_mount_point = config.get('app', 'app_mount_point')
+web_root = config.get('app', 'web_root')
 
 mwoauth_mw = MWOAuth(base_url='https://it.wikipedia.org/w',
                      clean_url='https://it.wikipedia.org/wiki',
