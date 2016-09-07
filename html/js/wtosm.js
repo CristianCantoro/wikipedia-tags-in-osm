@@ -58,10 +58,6 @@ function coords_deg2dms_cp (lat, lon) {
 }
 
 $(document).ready(function () {
-
-    var web_root = $( '#context-data' ).attr("web-root");
-    var app_mount_point = $( '#context-data' ).attr("app-mount-point");
-
     $(".missing_template_alert").click(function (event) {
             event.preventDefault();
 
@@ -105,7 +101,6 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var web_root = $( '#context-data' ).attr("web-root");
     var app_mount_point = $( '#context-data' ).attr("app-mount-point");
 
     $('#app-popup-main').hide();

@@ -368,10 +368,12 @@ class Creator():
                                                         selectNonMappable=selectNonMappable,
                                                         helpers=helpers,
                                                         mode="themes",
-                                                        root = '../../',
-                                                        path = '/subpages/',
+                                                        root='../../',
+                                                        path='/subpages/',
                                                         filename = filename,
-                                                        item=category)
+                                                        item=category,
+                                                        app_mount_point='../../app/'
+                                                        )
                 category.html = category.html.replace('{{root}}', '../../')
                 category.html = category.html.replace('{root}', '../../')
                 category.html = category.html.replace('{{lang}}', self.locale_langcode)
@@ -396,7 +398,8 @@ class Creator():
                                                     root = '../../',
                                                     path = '/subpages/',
                                                     filename = filename,
-                                                    item=region)
+                                                    item=region,
+                                                    app_mount_point='../../app/')
 
                 region.html = region.html.replace('{{root}}', '../../')
                 region.html = region.html.replace('{root}', '../../')
