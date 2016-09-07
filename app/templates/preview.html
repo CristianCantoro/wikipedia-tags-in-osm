@@ -3,6 +3,7 @@
 
 {% block body %}
 <body onload=load_preview()>
+  <div id="context-data" web-root="{{root}}" app-mount-point="{{app_mount_point}}"></div>
   <div id="app-popup-preview" class="app-popup">
     <a href="javascript:void(0)" class="close" id="close-button">x</a>
     <div id="app-popup-preview-container" class="app-popup-container">Container</div>

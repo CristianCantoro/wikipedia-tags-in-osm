@@ -14,6 +14,9 @@ $(function() {
     function load_preview() {
         "use strict";
 
+        var web_root = $( '#context-data' ).attr("web-root");
+        var app_mount_point = $( '#context-data' ).attr("app-mount-point");
+
         $("#wikipedia-edit-info").hide();
 
         $('.app-popup a.close').click(function () {

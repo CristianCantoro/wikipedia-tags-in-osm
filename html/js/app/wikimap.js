@@ -1,4 +1,7 @@
 $( document ).ready( function() {
+    var web_root = $( '#context-data' ).attr("web-root");
+    var app_mount_point = $( '#context-data' ).attr("app-mount-point");
+
     // Attribution to OSM contributors
     var common_attr = 'Map data &copy; <a href="http://osm.org/copyright">' +
                       'OpenStreetMap</a> contributors, Imagery &copy; ',
@@ -46,7 +49,7 @@ $( document ).ready( function() {
     var dec_title = decodeURIComponent(title);
 
     var blueIcon = new L.icon({
-            iconUrl: 'img/marker-icon-blue.png',
+            iconUrl: app_mount_point + '/img/marker-icon-blue.png',
             iconSize:     [25, 41],
             shadowSize:   [50, 64],
             iconAnchor:   [12, 41],
@@ -72,7 +75,7 @@ $( document ).ready( function() {
             .update();
 
     var redIcon = new L.icon({
-        iconUrl: 'img/marker-icon-green.png',
+        iconUrl: app_mount_point + 'img/marker-icon-green.png',
         iconSize:     [25, 41],
         shadowSize:   [50, 64],
         iconAnchor:   [12, 41],
@@ -162,12 +165,15 @@ $( document ).ready( function() {
 
 $(function () {
 
+    var web_root = $( '#context-data' ).attr("web-root");
+    var app_mount_point = $( '#context-data' ).attr("app-mount-point");
+
     var dfd = $.Deferred();
 
     function login() {
-        var popup_baseurl =  'login?';
+        var popup_baseurl =  app_mount_point + 'login?';
         
-        var params = {'next': 'login/success'}
+        var params = {'next': app_mount_point + 'login/success'}
         var popup_params = $.param(params)
 
         var popup_title = "Login";
@@ -182,7 +188,7 @@ $(function () {
             try {
                 dfd.resolve();
                 if ( popup_window.location.pathname === 
-                        'login/success') {
+                        app_mount_point + 'login/success') {
                     window.clearInterval(pollTimer);
                     popup_window.close();
                 }
@@ -270,7 +276,7 @@ $(function () {
 
         var callAnonEdit = function ajaxCall() {
             $.ajax({
-                url: "anon-edit",
+                url: app_mount_point + "anon-edit",
                 data: data,
                 dataType: "html",
                 type: 'GET',

@@ -343,8 +343,7 @@ def preview():
     if error:
         return render_template('missingparameters.html',
                                parameters=parameters,
-                               optional=optional
-                               )
+                               optional=optional)
 
     next_url = 'preview?'\
                'lat={lat}'\
@@ -365,7 +364,7 @@ def preview():
         next_url = next_url + '&id={id}'.format(id=optional['id'])
 
     if mwoauth_mw.get_current_user(False) is None:
-        return redirect('../../app/login?next={next}'.format(next=next_url))
+        return redirect(app_mount_point + 'app/login?next={next}'.format(next=next_url))
     else:
 
         title = parameters['title']
