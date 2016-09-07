@@ -58,6 +58,10 @@ function coords_deg2dms_cp (lat, lon) {
 }
 
 $(document).ready(function () {
+
+    var web_root = $( '#context-data' ).attr("web-root");
+    var app_mount_point = $( '#context-data' ).attr("app-mount-point");
+
     $(".missing_template_alert").click(function (event) {
             event.preventDefault();
 
@@ -101,6 +105,9 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    var web_root = $( '#context-data' ).attr("web-root");
+    var app_mount_point = $( '#context-data' ).attr("app-mount-point");
+
     $('#app-popup-main').hide();
 
     $(".missing_template_flask_app").click(function (event) {
@@ -137,7 +144,7 @@ $(document).ready(function () {
 
 
         $.ajax({
-            url: "../../app/map",
+            url: app_mount_point + "map",
             data: data,
             dataType: "html",
             type: 'GET',

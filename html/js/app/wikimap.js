@@ -229,7 +229,7 @@ $(function () {
 
         var callPreview = function ajaxCall() {
             $.ajax({
-                url: "preview",
+                url: app_mount_point + "preview",
                 data: data,
                 dataType: "html",
                 type: 'GET',
