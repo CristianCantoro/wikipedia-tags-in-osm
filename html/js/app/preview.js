@@ -1,5 +1,5 @@
 function test_edit() {
-    $('form#saveform').get(0).setAttribute('action', '../../app/test/edit');
+    $('form#saveform').get(0).setAttribute('action', 'test/edit');
 }
 
 function toggle_info() {

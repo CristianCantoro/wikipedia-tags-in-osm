@@ -72,7 +72,7 @@ $( document ).ready( function() {
             .update();
 
     var redIcon = new L.icon({
-        iconUrl: '/img/marker-icon-green.png',
+        iconUrl: 'img/marker-icon-green.png',
         iconSize:     [25, 41],
         shadowSize:   [50, 64],
         iconAnchor:   [12, 41],
