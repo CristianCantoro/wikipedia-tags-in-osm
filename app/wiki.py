@@ -354,8 +354,7 @@ def preview():
     next_url = next_url.format(lat=parameters['lat'],
                                lon=parameters['lon'],
                                title=parameters['title'],
-                               dim=optional['dim']
-                               )
+                               dim=optional['dim'])
 
     if optional['ref']:
         next_url = next_url + '&ref={ref}'.format(ref=optional['ref'])
@@ -419,7 +418,9 @@ def preview():
                                title=title,
                                section=section,
                                template=template,
-                               edit_token=token
+                               edit_token=token,
+                               app_mount_point=app_mount_point,
+                               root=web_root
                                )
 
 
