@@ -168,6 +168,7 @@ def oauth_authorized():
     if resp is None:
         flash(u'You denied the request to sign in.')
         return redirect(next_url)
+
     session['mwo_token'] = (
         resp['oauth_token'],
         resp['oauth_token_secret']
@@ -287,7 +288,8 @@ def show_map():
                            dim=optional['dim'],
                            referrer=optional['ref'],
                            id=optional['id'],
-                           username=username
+                           username=username,
+                           root=web_root
                            )
 
 
