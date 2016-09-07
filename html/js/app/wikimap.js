@@ -46,7 +46,7 @@ $( document ).ready( function() {
     var dec_title = decodeURIComponent(title);
 
     var blueIcon = new L.icon({
-            iconUrl: '/app/img/marker-icon-blue.png',
+            iconUrl: 'img/marker-icon-blue.png',
             iconSize:     [25, 41],
             shadowSize:   [50, 64],
             iconAnchor:   [12, 41],
@@ -72,7 +72,7 @@ $( document ).ready( function() {
             .update();
 
     var redIcon = new L.icon({
-        iconUrl: '/app/img/marker-icon-green.png',
+        iconUrl: '/img/marker-icon-green.png',
         iconSize:     [25, 41],
         shadowSize:   [50, 64],
         iconAnchor:   [12, 41],
@@ -154,7 +154,7 @@ $( document ).ready( function() {
         lat = drag_lat;
         lon = drag_lng;
 
-        $("a.wiki-edit").attr("href", "/app/preview?"+$.param(data));
+        $("a.wiki-edit").attr("href", "preview?"+$.param(data));
 
     });
 });
@@ -165,9 +165,9 @@ $(function () {
     var dfd = $.Deferred();
 
     function login() {
-        var popup_baseurl =  '/app/login?';
+        var popup_baseurl =  'login?';
         
-        var params = {'next': '/app/login/success'}
+        var params = {'next': 'login/success'}
         var popup_params = $.param(params)
 
         var popup_title = "Login";
@@ -182,7 +182,7 @@ $(function () {
             try {
                 dfd.resolve();
                 if ( popup_window.location.pathname === 
-                        '/app/login/success') {
+                        'login/success') {
                     window.clearInterval(pollTimer);
                     popup_window.close();
                 }
@@ -223,7 +223,7 @@ $(function () {
 
         var callPreview = function ajaxCall() {
             $.ajax({
-                url: "/app/preview",
+                url: "preview",
                 data: data,
                 dataType: "html",
                 type: 'GET',
@@ -270,7 +270,7 @@ $(function () {
 
         var callAnonEdit = function ajaxCall() {
             $.ajax({
-                url: "/app/anon-edit",
+                url: "anon-edit",
                 data: data,
                 dataType: "html",
                 type: 'GET',

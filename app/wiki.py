@@ -289,6 +289,7 @@ def show_map():
                            referrer=optional['ref'],
                            id=optional['id'],
                            username=username,
+                           app_mount_point=app_mount_point,
                            root=web_root
                            )
 
