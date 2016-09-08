@@ -484,7 +484,7 @@ def edit():
                                        id=id_
                                        )
 
-        except Exception as e:
+        except Exception as err:
             try:
                 info = result['error']['info']
             except:
@@ -493,8 +493,10 @@ def edit():
             if info:
                 return render_template('error.html', info=info)
             else:
+                import traceback
                 return render_template('error.html',
-                                       info="Exception: {}".format(e.message))
+                                       info="Exception: {}".format(err.message) + \
+                                            " {}".format(traceback.print_tb(err.__traceback__)))
 
 
 @app.route("/test/edit", methods=['POST'])
