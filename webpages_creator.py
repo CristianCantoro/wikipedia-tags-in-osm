@@ -213,7 +213,14 @@ class Helpers:
 
 
         else:
-            span_tag = span_tag.format(data='')
+            img_title = self.app._("Wikipedia page is missing the coordinates' template")
+            img_src = "{{root}}img/no_template_blue.png"
+            img_tag = '<img src="{src}" title="{title}"'\
+                      ' class="articleLinkImg" />'.format(src=img_src, 
+                                                          title=img_title)
+            span_tag_class = "missing_template_alert"
+            span_tag = '<span class="{class_}" {{data}}>'\
+                       '{img}</span>'.format(class_=span_tag_class, img=img_tag)
             link = span_tag
 
         return link
